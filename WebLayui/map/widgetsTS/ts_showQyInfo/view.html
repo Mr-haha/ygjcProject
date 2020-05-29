@@ -1,0 +1,66 @@
+﻿<!-- 2017-12-4 15:35:22 | 修改 木遥（QQ：346819890） -->
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no" />
+    <title></title>
+
+    <script type="text/javascript" src="../../lib/include-lib.js?time=20180320" libpath="../../lib/"
+            include="jquery,font-awesome,bootstrap,layer,haoutil"></script>
+    <link href="../../css/widget-win.css" rel="stylesheet" />
+</head>
+<body>
+
+    <div style="height:100%;width:100%;overflow-y:auto;">
+        <div style="width:100%;text-align:center;"><h3 id="info_name"></h3></div>
+
+        <h4>简介</h4>
+        <p id="info_jianjie" class="lead"></p>
+
+        <h4>经济</h4>
+        <p id="info_jinji" class="lead"></p>
+
+
+        <h4>水利</h4>
+        <p id="info_shuili" class="lead"></p>
+         
+    </div>
+
+
+    <script>
+        var thisWidget;
+
+
+        var arrInfoData = [];
+
+        //当前页面业务
+        function initWidgetView(_thisWidget) {
+            thisWidget = _thisWidget;
+
+            $.getJSON("data/info.json", function (data) {
+                arrInfoData = data;
+            });
+             
+        }
+
+        //地图上鼠标在区域上时，触发
+        function showTip(attr) {
+            $("#info_name").html(attr.name);
+            for (var i = 0; i < arrInfoData.length; i++) {
+                var item = arrInfoData[i];
+                if (item.id == attr.id) {
+                    $("#info_jianjie").html(item.jianjie || '略');
+                    $("#info_jinji").html(item.jinji || '略');
+                    $("#info_shuili").html(item.shuili || '略');
+                }
+            }
+        }
+
+
+
+
+
+    </script>
+</body>
+</html>

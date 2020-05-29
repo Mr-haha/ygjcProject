@@ -1,0 +1,211 @@
+﻿<!-- 2017-12-4 15:37:10 | 修改 木遥（QQ：346819890） -->
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no" />
+    <title></title>
+
+
+    <script type="text/javascript" src="../../lib/include-lib.js?time=20180320" libpath="../../lib/"
+            include="jquery,jquery.minicolors,font-awesome,bootstrap,layer,haoutil"></script>
+
+    <link href="../../css/widget-win.css" rel="stylesheet" />
+    <link href="css/plot.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="mp_box">
+        <div class="mp_head">
+            <ul>
+                <!--class="active"-->
+                <li id="btn_plot_openfile"><i class="fa fa-folder-open-o" title="打开文件"></i></li>
+                <li id="btn_plot_openfile2"><i class="fa fa-folder-open" title="叠加文件"></i></li>
+                <li id="btn_plot_savefile"><i class="fa fa-save" title="保存文件"></i></li>
+                <li class="ml10">|</li>
+                <li id="btn_plot_delall"><i class="fa fa-trash" title="清空标绘"></i></li>
+                <li id="btn_plot_isedit"><i class="fa fa-unlock" title="是否可编辑"></i></li>
+                <!--<li id="btn_plot_config"><i class="fa fa-gear " title="设置"></i></li>-->
+            </ul>
+            <input id="input_plot_file" type="file" accept=".json" style="display:none;" />
+        </div>
+        <div class="clear"></div>
+        <div class="mp_tab_card">
+            <ul class="mp_tab_con">
+                <li class="cur">
+                    <select id="sel_plot_list" class="mp_select m10" data-value="1">
+                        <!--
+                        <option value="1">常用标号</option>
+                        <option value="2">点注记</option>
+                        <option value="3">线面标号</option>
+                        <option value="4">其他</option>-->
+                    </select>
+                    <div class="mp_mark">
+                        <ul id="plotlist">
+                            <!--<li class="markon"><i class="fa fa-map-marker"></i></li>
+                            <li><i class="fa fa-map-marker"></i></li>
+                            <li><i class="fa fa-map-marker"></i></li>
+                            <li><i class="fa fa-map-marker"></i></li>
+                            <li> <i> <img src="../../img/marker/men1.png" style="max-width: 50px;" /></i></li>-->
+                        </ul>
+                    </div>
+                </li>
+
+                <li>
+                    <div class="mp_tree">
+                        <div>
+                            <div class="open"><i class="tree_icon">-</i>坐标信息</div>
+                            <div id="view_latlngs" class="local">
+                                <!--<div>
+                                    <div class="open"><i class="tree_icon">-</i>第1点</div>
+                                    <div class="mp_attr">
+                                        <table>
+                                            <tr>
+                                                <td class="nametd">纬度：</td>
+                                                <td><input type="text" class="mp_input"></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="nametd">经度：</td>
+                                                <td><input type="text" class="mp_input"></td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="open"><i class="tree_icon">-</i>第2点</div>
+                                    <div class="mp_attr">
+                                        <table>
+                                            <tr>
+                                                <td class="nametd">纬度：</td>
+                                                <td><input type="text" class="mp_input"></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="nametd">经度：</td>
+                                                <td><input type="text" class="mp_input"></td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>-->
+
+                            </div>
+                        </div>
+
+
+                    </div>
+                </li>
+
+                <li>
+                    <div class="mp_tree">
+                        <div>
+                            <div class="open"><i class="tree_icon">-</i>样式信息</div>
+                            <div class="mp_attr">
+                                <table id="talbe_style">
+                                    <!--<tr>
+                                        <td class="nametd">类型：</td>
+                                        <td>折线</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="nametd">是否边框</td>
+                                        <td>
+                                            <input name="plot_attr_stroke" type="radio" value="1" checked="checked">是  &nbsp;&nbsp; <input name="plot_attr_stroke" type="radio" value="2">否
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="nametd">线颜色</td>
+                                        <td>
+                                            <input id="plot_attr_color" type="text" class="mp_input" value="#3388ff">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="nametd">线型</td>
+                                        <td>
+                                            <select id="plot_attr_linetype" class="mp_select" data-value="0">
+                                                <option value="0">请选择</option>
+                                                <option value="1">实线</option>
+                                                <option value="2">虚线</option>
+                                                <option value="3">虚点线</option>
+                                                <option value="4">点划线</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="nametd">线宽</td>
+                                        <td><input type="number" class="mp_input"></td>
+                                    </tr>-->
+                                </table>
+                            </div>
+                        </div>
+
+                        <!--<div class="bdt">
+                            <div class="open"><i class="tree_icon">-</i>坐标信息</div>
+                            <div class="local">
+                                <div>
+                                    <div class="open"><i class="tree_icon">-</i>第1点</div>
+                                    <div class="mp_attr">
+                                        <table>
+                                            <tr>
+                                                <td class="nametd">纬度：</td>
+                                                <td><input type="number" class="mp_input"></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="nametd">经度：</td>
+                                                <td><input type="number" class="mp_input"></td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="open"><i class="tree_icon">-</i>第2点</div>
+                                    <div class="mp_attr">
+                                        <table>
+                                            <tr>
+                                                <td class="nametd">纬度：</td>
+                                                <td><input type="number" class="mp_input"></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="nametd">经度：</td>
+                                                <td><input type="number" class="mp_input"></td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>-->
+
+
+                        <div class="bdt">
+                            <div class="open"><i class="tree_icon">-</i>附属信息</div>
+                            <div class="mp_attr">
+                                <table id="talbe_attr">
+                                    <!--<tr>
+                                        <td class="nametd">名称</td>
+                                        <td><input type="text" class="mp_input"></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="nametd">备注</td>
+                                        <td><input type="text" class="mp_input"></td>
+                                    </tr>-->
+                                </table>
+                            </div>
+                        </div>
+
+
+
+
+                    </div>
+                </li>
+
+            </ul>
+            <ul class="mp_tab_tit">
+                <li id="tab_plot" class="cur">标号</li>
+                <li id="tab_latlng" class="disabled">坐标</li>
+                <li id="tab_attr" class="disabled">属性</li>
+            </ul>
+        </div>
+    </div>
+
+
+    <script src="js/vew.common.js"></script>
+    <script src="js/vew.work.js"></script>
+</body>
+</html>

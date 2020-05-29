@@ -1,0 +1,169 @@
+﻿<!-- 2017-12-4 15:35:21 | 修改 木遥（QQ：346819890） -->
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no" />
+    <title></title>
+
+    <script type="text/javascript" src="../../lib/include-lib.js?time=20180320" libpath="../../lib/"
+            include="jquery,font-awesome,bootstrap,layer,haoutil"></script>
+
+    <link href="../../css/widget-win.css" rel="stylesheet" />
+    <link href="style.css" rel="stylesheet" />
+     
+
+</head>
+<body>
+    <form id="queryView" class="form-horizontal" style="padding:5px;">
+        <div class="form-group">
+            <label for="feature_TYPE" class="col-xs-3 col-sm-3 control-label">中心点</label>
+            <div class="col-xs-9  col-sm-9">
+                <input type="text" id="txtLocation" class="form-control" value="" disabled="disabled">
+
+                <a class="btn btn-default btn-sm" href="javascript:startSelectMpt();">
+                    <i class="fa fa-map-marker"></i> 图上选点
+                </a>
+            </div>
+
+        </div>
+        <div class="form-group">
+            <label for="feature_TYPE" class="col-xs-3 col-sm-3 control-label">半径</label>
+            <div class="col-xs-9  col-sm-9">
+                <input type="number" min="0" max="9999" step="0.1" value="3" id="txtRadius" class="form-control">
+                公里
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="feature_Name" class="col-xs-3 col-sm-3 control-label">类别</label>
+            <div class="col-xs-9 col-sm-9">
+                <input type="text" id="txtType" class="form-control" value="">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="feature_Infos" class="col-xs-3 col-sm-3 control-label">关键字</label>
+            <div class="col-xs-9 col-sm-9">
+                <input type="text" id="txtText" class="form-control" value="">
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-xs-offset-3  col-sm-offset-3 col-xs-9  col-sm-9">
+                <input id="btnQuery" type="button" class="btn btn-primary" value="查询" onclick="queryPOI()">
+                <input id="btnShowResult" type="button" class="btn btn-primary" value="显示结果" onclick="showResultView()">
+            </div>
+        </div>
+    </form>
+
+
+    <div id="querybar_resultlist_view" style="display:none;overflow-y: auto;height: 100%;">
+    </div>
+
+    <script>
+        var thisWidget;
+
+
+        //当前页面业务
+        function initWidgetView(_thisWidget) {
+            thisWidget = _thisWidget;
+            $("#btnShowResult").hide();
+            $("#txtRadius").bind("input propertychange", function () {
+                var radius = $("#txtRadius").val();
+                if (isNaN(radius)) radius = 1;
+                thisWidget.updateRadius(radius * 1000);
+            });
+        }
+
+        function startSelectMpt() {
+            var radius = $("#txtRadius").val();
+            if (isNaN(radius)) radius = 1;
+
+            thisWidget.startSelectMpt(radius * 1000);
+        }
+
+        function selectMptEnd(location) {
+            $("#txtLocation").val(location);
+        }
+
+
+        function queryPOI() {
+            var location = $("#txtLocation").val();
+            var radius = $("#txtRadius").val();
+            var type = $("#txtType").val();
+            var text = $("#txtText").val();
+
+            if (location.length == 0) {
+                layer.msg('请在图上选择坐标');
+                return;
+            }
+            if (isNaN(radius) || radius < 0) {
+                layer.msg('半径输入有误');
+                return;
+            }
+            if (text.length == 0) {
+                layer.msg('请输入关键字');
+                return;
+            }
+
+
+
+            thisWidget.strartQueryPOI({
+                location: location,
+                radius: radius * 1000,
+                type: type,
+                text: text
+            });
+        }
+
+        function showQueryView() {
+            $("#querybar_resultlist_view").hide();
+            $("#queryView").show();
+        }
+
+        function showResultView() {
+            $("#queryView").hide();
+            $("#querybar_resultlist_view").show();
+        }
+
+
+        function showPOIResult(param) {
+            var inhtml = '<div ><input type="button" class="btn btn-primary" value="返回" onclick="showQueryView()"></div>';
+            if (param.counts == 0) {
+                inhtml += '<div class="querybar-page"><div class="querybar-fl">没有找到相关结果</div></div>';
+            }
+            else {
+                //分页信息
+                var _fyhtml;
+                if (param.allpage > 1)
+                    _fyhtml = '<div class="querybar-ye querybar-fr">' + param.thispage + '/' + param.allpage + '页  <a href="javascript:thisWidget.showFirstPage()">首页</a> <a href="javascript:thisWidget.showPretPage()">&lt;</a>  <a href="javascript:thisWidget.showNextPage()">&gt;</a> </div>';
+                else
+                    _fyhtml = '';
+
+                //底部信息
+                inhtml += '<div class="querybar-page "><div class="querybar-fl">找到<strong>' + param.counts + '</strong>条结果</div>' + _fyhtml + '</div><br/><br/>';
+
+
+                for (var index = 0; index < param.arrdata.length; index++) {
+                    var item = param.arrdata[index];
+                    var startIdx = (param.thispage - 1) * param.pageSize;
+                    item.index = startIdx + (index + 1);
+
+                    var _id = index;
+                    var _mc = item.name;
+
+                    inhtml += '<div class="querybar-site" onclick="thisWidget.showDetail(\'' + _id + '\')"> <div class="querybar-sitejj"> <h3>'
+                        + item.index + '、' + _mc + '</h3> <p>' + (item.address || '') + '</p> </div> </div>';
+                };
+
+            }
+            $("#querybar_resultlist_view").html(inhtml);
+            $("#queryView").hide();
+            $("#querybar_resultlist_view").show();
+            $("#btnShowResult").show();
+
+        }
+
+    </script>
+</body>
+</html>

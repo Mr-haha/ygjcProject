@@ -1,0 +1,119 @@
+﻿<!-- 2017-12-4 15:35:21 | 修改 木遥（QQ：346819890） -->
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no" />
+    <title></title>
+
+
+    <script type="text/javascript" src="../../lib/include-lib.js?time=20180320" libpath="../../lib/"
+            include="jquery,font-awesome,bootstrap,bootstrap-table,layer,haoutil"></script> 
+    <link href="../../css/widget-win.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="input-group" style="width:80%;    float: left;">
+        <span class="input-group-addon" id="basic-addon1">企业</span>
+        <input type="text" id="txtNumber" class="form-control" value="" placeholder="输入名称筛选" aria-describedby="basic-addon1" />
+    </div>
+    <div class="input-group" style="float:left;">
+        <input id="btnQuery" type="button" class="btn btn-primary" value="确定" />
+    </div>
+
+    <table id="table"></table>
+
+    <script>
+        var thisWidget;
+        var $table;
+ 
+        function getHeight() {
+            return $(window).height();
+        }
+
+        $(window).resize(function () {
+            $table.bootstrapTable('refreshOptions', {
+                height: getHeight()
+            });
+        });
+
+        //当前页面业务
+        function initWidgetView(_thisWidget) {
+            thisWidget = _thisWidget;
+            $table = $('#table');
+
+            $table.bootstrapTable({
+                height: getHeight(),
+                singleSelect: false, //单选
+                pagination: true,
+                checkboxHeader: false,
+                columns:
+                [
+                    {
+                        field: 'visible',
+                        title: '显示',
+                        align: 'center',
+                        checkbox: true,
+                        width: 50
+                    },
+                     {
+                         field: 'index',
+                         title: '序号',
+                         width: 50,
+                     },
+                    {
+                        field: 'OFFICE',
+                        title: '名称',
+                        sortable: true
+                    }, {
+                        field: 'FUNCTION',
+                        title: '功能',
+                        sortable: true
+                    }
+
+                ],
+                onClickRow: function (rowData, $element, field) {
+                    thisWidget.centerAt(rowData.ID);
+                },
+                onCheck: function (row) {
+                    thisWidget.updateMarkerVisible([row], true);
+                },
+                onUncheck: function (row) {
+                    thisWidget.updateMarkerVisible([row], false);
+                },
+                onCheckAll: function (rows) {
+                    thisWidget.updateMarkerVisible(rows, true);
+                },
+                onUncheckAll: function (rows) {
+                    thisWidget.updateMarkerVisible(rows, false);
+                }
+
+            });
+
+
+            $("#btnQuery").click(function () {
+                var queryVal = $.trim($("#txtNumber").val());
+                thisWidget.queryData(queryVal);
+            });
+  
+        }
+
+        var objData = {};
+        function showData(val) {
+            objData = val;
+
+            var rows = [];
+            var index = 1;
+            for (var i in objData) {
+                var attr = objData[i];
+                attr.index = (index++);
+                rows.push(attr);
+            }
+            $table.bootstrapTable("load", rows);
+        }
+
+
+
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,122 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <title>二维码生成器</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style type="text/css">
+        .reCode {
+            margin: 20px auto;
+            width: 100%;
+            width: 200px;
+            min-height: 200px;
+        }
+        .imageList {
+            overflow-x: auto;
+            overflow-y: hidden;
+            height: 180px;
+            white-space: nowrap;
+            img{        
+            width: auto;
+            height: 100%;
+            margin-right: 10px;
+        }
+        }
+    </style>
+</head>
+<body>
+    <div class="form-horizontal">
+        <div class="form-group">
+            <label for="urlText" class="col-xs-3 control-label">二维码链接地址：</label>
+            <div class="col-xs-9">
+                <input type="text" id="urlText" name="" class="form-control" value="http://" placeholder="例如：http://www.baidu.com">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="RECodeWidth" class="col-xs-3 control-label">二维码宽：</label>
+            <div class="col-xs-9">
+                <input type="text" class="form-control" id="RECodeWidth" placeholder="例如：200">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="RECodeHeight" class="col-xs-3 control-label">二维码高：</label>
+            <div class="col-xs-9">
+                <input type="text" class="form-control" id="RECodeHeight" placeholder="例如：200">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="RECodeBlack" class="col-xs-3 control-label">二维码颜色：</label>
+            <div class="col-xs-9">
+                <input type="text" class="form-control" id="RECodeBlack">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="RECodeWite" class="col-xs-3 control-label">二维码背景颜色：</label>
+            <div class="col-xs-9">
+                <input type="text" class="form-control" id="RECodeWite">
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-xs-offset-3 col-xs-9">
+                <button type="submit" id="createBtn" class="btn btn-default">生成二维码</button>
+            </div>
+        </div>
+    </div>
+    <div id="qrcode" class="reCode"></div>
+    <div class="imageList">
+        <img src="../images/logo.png" />
+        <img src="../images/logo.png" />
+        <img src="../images/logo.png" />
+        <img src="../images/logo.png" />
+        <img src="../images/logo.png" />
+        <img src="../images/logo.png" />
+        <img src="../images/logo.png" />
+        <img src="../images/logo.png" />
+        <img src="../images/logo.png" />
+        <img src="../images/logo.png" />
+        <img src="../images/logo.png" />
+        <img src="../images/logo.png" />
+        <img src="../images/logo.png" />
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
+    <script src="http://static.runoob.com/assets/qrcode/qrcode.min.js"></script>
+
+    <script type="text/javascript">
+        $("#createBtn").click(function () {
+            var url = $("#urlText").val();
+            var width = $("#RECodeWidth").val() || null;
+            var height = $("#RECodeHeight").val() || null;
+            var black = $("#RECodeBlack").val() || null;
+            var white = $("#RECodeWite").val() || null;
+            if (url.indexOf("http://") > -1 || url.indexOf("https://") > -1) {
+                createRECode(url, width, height, black, white);
+            } else {
+                alert("请注意链接格式。")
+            }
+        });
+
+        function createRECode(url, width, height, blackColor, whiteColor) {
+            width = width || 200;
+            height = height || 200;
+            blackColor = blackColor || "black";
+            whiteColor = whiteColor || "white";
+            console.log(url, width, height, blackColor, whiteColor);
+            $("#qrcode").empty();
+            var qrcode = new QRCode(document.getElementById("qrcode"), {
+                width: width, //生成的二维码的宽度
+                height: height, //生成的二维码的高度
+                colorDark: blackColor, // 生成的二维码的深色部分
+                colorLight: whiteColor, //生成二维码的浅色部分
+            });
+            qrcode.makeCode(url);
+        }
+    </script>
+</body>

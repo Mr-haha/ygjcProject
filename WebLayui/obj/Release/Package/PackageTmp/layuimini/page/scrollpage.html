@@ -1,0 +1,250 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title></title>
+    <style>
+        ul, li {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .match .slide {
+            margin: 40px 0;
+        }
+
+        .match .turn-left, .match .turn-right {
+            display: inline-block;
+            vertical-align: middle;
+            width: 80px;
+            height: 400px;
+            cursor: pointer;
+            margin: 0 20px;
+        }
+
+            .match .turn-left:hover {
+                background: linear-gradient(to left,rgba(96,110,122,0.8),rgba(96,110,122,0));
+            }
+
+            .match .turn-right:hover {
+                background: linear-gradient(to right,rgba(96,110,122,0.8),rgba(96,110,122,0));
+            }
+
+            .match .turn-left .arrow-left, .match .turn-right .arrow-right {
+                position: relative;
+            }
+
+                .match .turn-left .arrow-left:before {
+                    content: '';
+                    display: inline-block;
+                    width: 50px;
+                    height: 10px;
+                    transform: skewY(-45deg);
+                    background-color: #eee;
+                    position: absolute;
+                    top: 150px;
+                    left: 15px;
+                }
+
+                .match .turn-left .arrow-left:after {
+                    content: '';
+                    display: inline-block;
+                    width: 50px;
+                    height: 10px;
+                    transform: skewY(45deg);
+                    background-color: #eee;
+                    position: absolute;
+                    top: 200px;
+                    left: 15px;
+                }
+
+                .match .turn-right .arrow-right:before {
+                    content: '';
+                    display: inline-block;
+                    width: 50px;
+                    height: 10px;
+                    transform: skewY(45deg);
+                    background-color: #eee;
+                    position: absolute;
+                    top: 150px;
+                    left: 15px;
+                }
+
+                .match .turn-right .arrow-right:after {
+                    content: '';
+                    display: inline-block;
+                    width: 50px;
+                    height: 10px;
+                    transform: skewY(-45deg);
+                    background-color: #eee;
+                    position: absolute;
+                    top: 200px;
+                    left: 15px;
+                }
+
+        .match .match-list {
+            width: 1100px;
+            height: 405px;
+            padding: 20px 0;
+            vertical-align: middle;
+            display: inline-block;
+            white-space: nowrap;
+            overflow-x: hidden;
+            overflow-y: hidden;
+        }
+
+        .match .match-item {
+            width: 270px;
+            height: 405px;
+            display: inline-block;
+            margin: 0 10px 10px;
+            box-shadow: 0 1px 6px 2px rgba(1,1,1,0.6);
+            border-radius: 2px;
+            border: 2px solid rgba(1,1,1,0.6);
+            transition: all 0.5s;
+            position: relative;
+            cursor: pointer;
+        }
+
+            .match .match-item:hover {
+                transform: scale(1.05);
+                box-shadow: 0 1px 8px 4px rgba(1,1,1,0.8);
+                border: 2px solid rgba(1,1,1,0.8);
+            }
+
+        .match .match-item-active {
+            width: 270px;
+            height: 405px;
+            transform: scale(1.05);
+            display: inline-block;
+            margin: 0 10px 10px;
+            box-shadow: 0 1px 10px 4px rgba(1,1,1,0.8);
+            border-radius: 2px;
+            border: 2px solid #68d0ff;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .match .info {
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 250px;
+            height: 0;
+            overflow: hidden;
+            padding: 0 10px;
+            z-index: 200;
+            transition: all 0.5s;
+            background-color: rgba(0,0,0,0.6);
+        }
+
+        .match .match-item-active .info {
+            width: 250px;
+            height: 120px;
+        }
+
+        .match .match-item:hover > .info {
+            height: 120px;
+        }
+
+        .match .info p {
+            font-size: 16px;
+            font-family: SourceHanSansCN-Medium, sans-serif;
+            color: #f0f0f0;
+            margin: 5px 0;
+            padding: 0;
+            line-height: 30px;
+            height: 30px;
+            text-shadow: 1px 1px rgba(1,1,1,0.6);
+        }
+
+        .match .info .color-blue {
+            color: #00a1fe;
+            font-size: 18px;
+        }
+
+        .match .info .color-yellow {
+            color: #e07e3e;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <div class="match container">
+        <div class="content">
+            <div class="slide">
+                <div class="turn-left">
+                    <span class="arrow-left"></span>
+                </div>
+                <ul class="match-list">
+                    <li class="match-item">
+                        <img src="1.png" alt="" width="100%" />
+                        <div class="info">
+                            <p>球场：<span class="color-blue">成都观岭</span></p>
+                            <p>一杆进洞奖金：<span class="color-yellow">2000元</span></p>
+                            <p>2017.05.01~2017.05.31</p>
+                        </div>
+                    </li>
+                    <li class="match-item">
+                        <img src="1.png" alt="" width="100%" />
+                        <div class="info">
+                            <p>球场：<span class="color-blue">成都观岭</span></p>
+                            <p>一杆进洞奖金：<span class="color-yellow">2000元</span></p>
+                            <p>2017.05.01~2017.05.31</p>
+                        </div>
+                    </li>
+                    <li class="match-item">
+                        <img src="2.png" alt="" width="100%" />
+                    </li>
+                    <li class="match-item">
+                        <img src="2.png" alt="" width="100%" />
+                    </li>
+                    <li class="match-item">
+                        <img src="3.png" alt="" width="100%" />
+                    </li>
+                    <li class="match-item">
+                        <img src="3.png" alt="" width="100%" />
+                    </li>
+                    <li class="match-item">
+                        <img src="1.png" alt="" width="100%" />
+                    </li>
+                    <li class="match-item">
+                        <img src="1.png" alt="" width="100%" />
+                    </li>
+                </ul>
+                <div class="turn-right">
+                    <span class="arrow-right"></span>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+    <script src="../lib/jquery-3.4.1/jquery-3.4.1.min.js"></script>
+<script type="text/javascript">
+    $(".match-item").click(function(){
+        $(".match-item-active").prop('class','match-item');
+        $(this).prop('class','match-item-active');
+    });
+
+    $(".turn-right").click(function(){
+        var list = $(".match-list");
+        if(list.scrollWidth - list.scrollLeft() < 1177){
+            list.animate({scrollLeft: list.scrollWidth},1000);
+        }else{
+            list.animate({scrollLeft:list.scrollLeft()+1177},1000);
+        }
+    });
+
+    $(".turn-left").click(function(){
+        var list = $(".match-list");
+        if(list.scrollLeft() < 1177){
+            list.animate({scrollLeft:0},1000);
+        }else{
+            list.animate({scrollLeft:list.scrollLeft()-1177},1000);
+        }
+    });
+</script>
+</body>
+
+</html>

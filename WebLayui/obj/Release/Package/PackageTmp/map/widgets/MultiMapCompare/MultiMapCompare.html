@@ -1,0 +1,152 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0,minimum-scale=1.0,maximum-scale=1.0" />
+    <meta name="apple-touch-fullscreen" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="x5-fullscreen" content="true">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />
+    <title>二维地图</title>
+
+    <script type="text/javascript" src="../../lib/include-lib.js?time=20180320" libpath="../../lib/"
+            include="jquery,turf,font-awesome,bootstrap,bootstrap-table,leaflet-mars,esri-leaflet,esium-mars,layer,echarts-forleaflet,echarts,haoutil"></script>
+    <link href="../../css/widget-win.css" rel="stylesheet" />
+    <style id="layuimini-bg-color">
+    </style>
+    <style>
+        body {
+            margin: 0px;
+        }
+        h4 {
+            font-size: 18px;
+            font-family: "Microsoft YaHei","Simsun",Arial;
+            font-weight: normal;
+            line-height: 1;
+            padding: 0;
+            margin: 0;
+        }
+        #ImgContainer {
+            height: 250px;
+        }
+    </style>
+</head>
+<body>
+    <div id="div1" style="overflow-x: scroll;">
+        <div id="ImgContainer" style="position: relative">
+
+
+        </div>
+    </div>
+    <script src="../../../layuimini/lib/layui-v2.5.4/layui.all.js"></script>
+    <script type="text/javascript">
+        var thisWidget;
+        var multimaps = [];
+        var winCreateIsOK = false;
+        var TBLX;
+        var myIcon = L.icon(
+            {
+                iconUrl:'../../img/marker/men2.png'
+            });
+
+        function initWidgetView(_thisWidget) {
+            
+            thisWidget = _thisWidget;
+            debugger
+            var a = GetRequest();  //读取网页上传递参数
+            TBLX = a['TBLX'];
+            addmaps();
+        }
+
+        function addmaps() {
+            var that = thisWidget;
+            var ppath = "";
+            if (TBLX == "other") {
+                ppath = "timemap.json";
+            } else {
+                ppath = "timegolf.json";
+                layer.closeAll();
+            }
+            
+            $.getJSON(ppath, function (data) {
+                var mapservers = data.TimeMaps;
+
+                var width = $(document).width() * 5 / 6;
+                var h = width / mapservers.length;
+                if (h < 250) h = 250;              
+                var kstdiv = "";
+                var ksttitlediv = "";
+                for (var k = 0; k < mapservers.length; k++) {
+                    kstdiv = kstdiv + '<div id="mapEx' + k + '" style="height:250px;width:250px;display:inline-block;border:1px solid White;"></div>';
+                    ksttitlediv = ksttitlediv + '<div style="display:inline-block;padding-left:10px;padding-right:10px;position:absolute;z-index:999;color:white;font-weight:bold;font-size:16px;background-color:#333;left:' + (h * (k + 1) - 180) + 'px;top:215px;">' + mapservers[k]["time"] + '</div>';
+                }
+                $("#ImgContainer").css("width", mapservers.length * 250 + "px");
+                $("#ImgContainer").html(kstdiv + ksttitlediv);
+
+                //生成地图对象
+                for (var k = 0; k < mapservers.length; k++) {
+                    var crs = null;
+                    if (mapservers[k]["crs"] == "4326") {
+                        crs = L.CRS.EPSG4326;
+                    }
+                    else if (mapservers[k]["crs"] == "4490") {
+                        crs = L.CRS.EPSG4326;
+                    }
+                    var mapEx = L.map("mapEx" + k, {
+                        zoom: 7,
+                        crs: crs,
+                        center: [31.3853, 120.9775],
+                        zoomControl: false,
+                        attributionControl: false,
+                        minZoom: 7, maxZoom: 15
+                    });
+                    L.tileLayer(mapservers[k]["server"] + "/tile/{z}/{y}/{x}").addTo(mapEx);
+
+                    debugger
+                    var defaultlyr = L.layerGroup();
+                    var geoLayer = L.layerGroup();
+                    mapEx.addLayer(defaultlyr);
+                    mapEx.addLayer(geoLayer);
+                    mapEx["defaultlyr"] = defaultlyr;
+                    mapEx["geoLayer"] = geoLayer;
+
+                    multimaps.push(mapEx);
+                }
+                /////拖拽和缩放地图，调用._map_extentChangeHandler函数//////
+                that.map.on("drag", thisWidget._map_extentChangeHandler, thisWidget);
+                that.map.on("zoomend", thisWidget._map_extentChangeHandler, thisWidget);
+
+                /////鼠标在地图上移动，调用_map_extentMoveHandler函数//////
+                that.map.on("mousemove", thisWidget._map_extentMoveHandler, thisWidget);
+                winCreateIsOK = true;
+                thisWidget.activate();
+            });
+        }
+        function GetRequest() {
+            var url = thisWidget.config.uri;
+            var theRequest = new Object();
+            if (url.indexOf("?") != -1) {
+                var str = thisWidget.config.uri.split("?")[1]; //获取url中"?"符后的字串，使用了两次
+                strs = str.split("&");
+                for (var i = 0; i < strs.length; i++) {
+                    var vrs = strs[i].split("=");
+                    if (vrs.length == 2) {
+                        theRequest[vrs[0]] = decodeURI(vrs[1]);
+                    }
+                    else if (vrs.length > 2) {
+                        var zsc = vrs[1];
+                        for (var p = 2; p < vrs.length; p++) {
+                            zsc = zsc + "=" + vrs[p];
+                        }
+                        theRequest[vrs[0]] = decodeURI(zsc);
+                    }
+                }
+            }
+            return theRequest;
+        }
+          </script>
+</body>
+
+</html>

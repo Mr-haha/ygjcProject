@@ -1,0 +1,179 @@
+﻿<!-- 2017-12-4 14:10:33 | 修改 木遥（QQ：346819890） -->
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no" />
+    <title></title>
+
+    <script type="text/javascript" src="../../lib/include-lib.js?time=20180320" libpath="../../lib/"
+            include="jquery,font-awesome,bootstrap,bootstrap-table,layer,haoutil"></script>
+
+    <link href="../../css/widget-win.css" rel="stylesheet" />
+    <link href="view.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="mp_head">
+        <ul>
+            <li id="btn_marker_Add"><i class="fa fa-edit" title="添加注记"></i></li>
+            <li class="ml10">|</li>
+            <li id="btn_plot_openfile"><i class="fa fa-folder-open-o" title="打开文件"></i></li>
+            <li id="btn_plot_openfile2"><i class="fa fa-folder-open" title="叠加文件"></i></li>
+            <li id="btn_plot_savefile"><i class="fa fa-save" title="保存文件"></i></li>
+            <li class="ml10">|</li>
+            <li id="btn_plot_delall"><i class="fa fa-trash" title="清空标绘"></i></li>
+            <li id="btn_plot_isedit"><i class="fa fa-unlock" title="是否可编辑"></i></li>
+        </ul>
+        <input id="input_plot_file" type="file" accept=".json" style="display:none;" />
+    </div>
+
+    <table id="table"></table>
+
+
+    <script>
+        var thisWidget;
+        var $table;
+
+        function getHeight() {
+            return $(window).height() - 40;
+        }
+
+
+        //当前页面业务
+        function initWidgetView(_thisWidget) {
+            thisWidget = _thisWidget;
+
+            plotFile.initEvent();
+
+            $("#btn_marker_Add").bind('click', function () {
+                thisWidget.drawPoint();
+            });
+
+            //清除所有标号
+            $("#btn_plot_delall").click(function () {
+                thisWidget.deleteAll();
+                refMarkerList();
+            });
+
+            //是否可以编辑
+            var isedit = true;
+            $("#btn_plot_isedit").click(function () {
+                isedit = !isedit;
+
+                if (isedit) {
+                    $(this).removeClass("active");
+                    $(this).children().removeClass("fa-lock").addClass("fa-unlock");
+                }
+                else {
+                    $(this).addClass("active");
+                    $(this).children().removeClass("fa-unlock").addClass("fa-lock");
+                }
+                thisWidget.hasEdit(isedit);
+            });
+
+            $table = $('#table');
+            $table.bootstrapTable({
+                height: getHeight(),
+                singleSelect: true, //单选
+                pagination: false,
+                pageSize: 6,
+                iconsPrefix: 'fa',
+                columns: [
+                        {
+                            field: 'name',
+                            title: '名称',
+                            sortable: true,
+                            editable: false,
+                            align: 'left'
+                        }, {
+                            field: 'operate',
+                            title: '操作',
+                            align: 'center',
+                            width: 50,
+                            events: {
+                                'click .remove': function (e, value, row, index) {
+                                    thisWidget.deleteEditFeature(row.id);
+                                }
+                            },
+                            formatter: function (value, row, index) {
+                                return [
+                                    '<a class="remove" href="javascript:void(0)" title="删除">',
+                                    '<i class="fa fa-trash"></i>',
+                                    '</a>'
+                                ].join('');
+                            }
+                        }
+                ],
+                onClickRow: function (rowData, $element, field) {
+                    thisWidget.centerAt(rowData.id);
+                }
+            });
+            refMarkerList();
+        }
+
+
+        function refMarkerList() {
+            var arr = thisWidget.getMarkerDataList();
+            $table.bootstrapTable("load", arr);
+        }
+
+
+        //文件处理
+        var plotFile = {
+            initEvent: function () {
+                var $this = this;
+
+                var isClearForOpenFile;
+                $("#btn_plot_openfile").click(function () {
+                    isClearForOpenFile = true;
+                    $("#input_plot_file").click();
+                });
+
+                $("#btn_plot_openfile2").click(function () {
+                    isClearForOpenFile = false;
+                    $("#input_plot_file").click();
+                });
+                $("#btn_plot_savefile").click(function () {
+                    var data = thisWidget.getJsonData();
+                    if (data == null || data == "") {
+                        haoutil.msg("当前未标记任何数据！");
+                    } else {
+                        haoutil.file.downloadFile("我的标记.json", data);
+                    }
+                });
+
+                $("#input_plot_file").change(function (e) {
+                    var file = this.files[0];
+
+                    var fileName = file.name;
+                    var fileType = (fileName.substring(fileName.lastIndexOf(".") + 1, fileName.length)).toLowerCase();
+                    if (fileType != "json") {
+                        haoutil.msg('文件类型不合法,请选择json格式标注文件！');
+                        $this.clearPlotFile();
+                        return;
+                    }
+
+
+                    if (window.FileReader) {
+                        var reader = new FileReader();
+                        reader.readAsText(file, 'UTF-8');
+                        reader.onloadend = function (e) {
+                            var strjson = this.result;
+                            thisWidget.jsonToLayer(strjson, isClearForOpenFile);
+                            $this.clearPlotFile();
+                        };
+                    }
+                });
+            },
+            clearPlotFile: function () {
+                if (!window.addEventListener) {
+                    document.getElementById('input_plot_file').outerHTML += '';  //IE
+                } else {
+                    document.getElementById('input_plot_file').value = "";   //FF
+                }
+            }
+        };
+
+    </script>
+</body>
+</html>

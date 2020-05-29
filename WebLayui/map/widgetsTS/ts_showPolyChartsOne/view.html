@@ -1,0 +1,173 @@
+﻿<!-- 2017-12-4 15:35:22 | 修改 木遥（QQ：346819890） -->
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no" />
+    <title></title>
+
+    <script type="text/javascript" src="../../lib/include-lib.js?time=20180320" libpath="../../lib/"
+            include="jquery,font-awesome,bootstrap,layer,haoutil,echarts"></script>  
+    <link href="../../css/widget-win.css" rel="stylesheet" />
+
+</head>
+<body>
+
+    <div id="echartsView" style="width:100%;"></div>
+
+
+    <script>
+        var thisWidget;
+ 
+        function getHeight() {
+            var height = $(window).height() - 0;
+            $("#echartsView").height(height);
+            if (myChart) myChart.resize();
+        }
+         
+
+        var arrData;
+        var featureCollection;
+
+        //当前页面业务
+        function initWidgetView(_thisWidget) {
+            thisWidget = _thisWidget;
+
+            getHeight();
+            $(window).resize(getHeight);
+
+
+            // 基于准备好的dom，初始化echarts实例
+            myChart = echarts.init(document.getElementById('echartsView'));
+            myChart.on('mouseover', function (params) {
+                thisWidget.showPolyTip(params.name);
+            });
+
+            myChart.on('mouseout', function (params) {
+                thisWidget.hidePolyTip(params.name);
+            });
+
+        }
+
+         
+        var myChart;
+        function updateData(selectData, echarsName, echarsValue) {
+            var title = selectData.title + "(" + selectData.unit + ")";
+
+            // 指定图表的配置项和数据
+            var option = {
+                title: {
+                    text: selectData.title,
+                    subtext: selectData.unit,
+                    left: 'center',
+                    top: 5
+                },
+                //toolbox: {
+                //    show: true,
+                //    feature: {
+                //        mark: { show: true },
+                //        dataView: { show: true, readOnly: false },
+                //        magicType: { show: true, type: ['line', 'bar'] },
+                //        saveAsImage: { show: true }
+                //    }
+                //},
+                //legend: {
+                //    data: [title],
+                //    bottom: 1
+                //},
+                tooltip: {
+                    trigger: 'axis',
+                    axisPointer: {            // 坐标轴指示器，坐标轴触发有效
+                        type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                    }
+                },
+                calculable: true,
+                xAxis: [
+                    {
+                        data: echarsName,
+                        axisLine: {
+                            lineStyle: {
+                                color: '#999'
+                            }
+                        }
+                    }
+                ],
+                yAxis: {
+                    splitLine: { show: false },
+                    axisLine: {
+                        lineStyle: {
+                            color: '#999'
+                        }
+                    }
+                },
+                dataZoom: [
+                   {
+                       type: 'slider',
+                       show: true,
+                       start: 0,
+                       end: 100
+                   },
+                  //{
+                  //    type: 'inside',
+                  //    start: 0,
+                  //    end: 100
+                  //}
+                ],
+                series: [
+                    {
+                        name: title,
+                        type: 'bar',
+                        data: echarsValue,
+                        itemStyle: {
+                            normal: {
+                                color: function (params) {
+                                    var clr = thisWidget.getColor(params.data);
+                                    return clr;
+                                },
+                                label: {
+                                    show: false,
+                                    position: 'top',
+                                    formatter: '{b}\n{c}'
+                                }
+                            }
+                        }
+                    }
+                ]
+            };
+
+            // 使用刚指定的配置项和数据显示图表。
+            myChart.setOption(option, true);
+        }
+
+
+
+        function showTip(name) {
+            myChart.dispatchAction({
+                type: 'showTip',
+                name: name
+            });
+
+            // 高亮当前图形
+            myChart.dispatchAction({
+                type: 'highlight',
+                seriesIndex: 0,
+                name: name
+            });
+        }
+        function hideTip(name) {
+            myChart.dispatchAction({
+                type: 'hideTip'
+            });
+
+            // 取消之前高亮的图形
+            myChart.dispatchAction({
+                type: 'downplay',
+                seriesIndex: 0,
+                name: name
+            });
+        }
+
+
+    </script>
+</body>
+</html>

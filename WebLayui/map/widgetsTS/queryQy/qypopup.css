@@ -1,0 +1,76 @@
+/* 2017-12-4 15:31:24 | 修改 木遥（QQ：346819890） */
+
+.qy_marker {
+    width: 64px;
+    height: 64px;
+    margin-top: -60px;
+    margin-left: -28px;
+}
+
+
+.qypopup_marker {
+}
+
+.qypopup {
+    font-family: "微软雅黑";
+    background-image: url('img/popup.png');
+    background-repeat: no-repeat;
+    width: 500px;
+    height: 325px;
+    padding-top: 10px;
+    padding-left: 6px;
+    line-height: 17px;
+}
+
+.qypopup-content {
+    margin-top: 26px;
+    margin-left: 26px;
+    width: 434px;
+    height: 220px;
+    /*border: 1px solid red;*/
+}
+
+.qypopup-title {
+    width: 100%;
+    font-size: 17px;
+    font-weight: bold;
+    color: #111111;
+    padding-bottom: 12px;
+}
+
+.qypopup-subtext {
+    width: 100%;
+    font-size: 14px;
+    color: #666666;
+    padding-bottom: 10px;
+}
+
+.qypopup-img {
+    float: left;
+    padding-top: 7px;
+    padding-right: 14px;
+}
+
+.qypopup-rightinfo {
+    display: table;
+    font-size: 14px;
+    color: #111111;
+    height: 160px;
+}
+.qypopup-rightinfo div {
+    margin-bottom: 10px;
+}
+ 
+.qypopup-rightinfo_middle {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+
+.qypopup-close {
+    position: absolute;
+    left: 640px;
+    top: 5px;
+    width: 45px;
+    height: 45px;
+}

@@ -1,0 +1,186 @@
+﻿<!-- 2017-12-4 15:35:25 | 修改 木遥（QQ：346819890） -->
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no" />
+    <title></title>
+
+    <script type="text/javascript" src="../../lib/include-lib.js?time=20180320" libpath="../../lib/"
+            include="jquery,font-awesome,bootstrap,bootstrap-table,layer,haoutil"></script>
+    <link href="../../css/widget-win.css" rel="stylesheet" />
+
+</head>
+<body>
+    <div class="row">
+        <div class="col-xs-4">
+            <h5> 选择图层：</h5>
+        </div>
+        <div class="col-xs-8 dropdown dropdown-hover">
+            <button id="btnSelect" class="btn" type="button" data-toggle="dropdown">
+                选择编辑的图层
+            </button>
+            <ul id="featurelayerList" class="dropdown-menu pull-left">
+                <!--<li><a href="###">操作</a></li>
+                <li><a href="###">另一个操作</a></li>
+                <li><a href="###">更多操作</a></li>-->
+            </ul>
+        </div>
+    </div>
+
+    <div id="toolbar"> 
+        <button id="btnAdd" class="btn btn-primary" type="button">新增</button> 
+        <span id="lblMsg">注：表格仅显示当前视域内数据</span>
+    </div>
+
+    <table id="table"></table>
+     
+
+    <script>
+        var thisWidget;
+        var $table;
+ 
+        var arrLayers = [];
+        var thisLayer;
+
+        //当前页面业务
+        function initWidgetView(_thisWidget) {
+            thisWidget = _thisWidget;
+            $("#toolbar").hide();
+
+            $table = $('#table');
+
+            $.getJSON("config.json", function (data) {
+                arrLayers = data.layers;
+
+                var inhtml = "";
+                for (var i = 0; i < arrLayers.length; i++) {
+                    var item = arrLayers[i];
+                    inhtml += ' <li><a href="javascript:changeSelectLayer(' + i + ')">' + item.name + '</a></li>';
+                }
+                $("#featurelayerList").html(inhtml);
+            });
+
+            $("#btnAdd").click(addFeature);
+ 
+        }
+        function getHeight() {
+            return $(window).height() - 80;
+        }
+
+
+        function changeSelectLayer(id) {
+            thisLayer = arrLayers[id];
+
+            $("#btnSelect").html('已选:' + thisLayer.name + '<span class="caret"></span>');
+            $("#toolbar").show();
+            thisWidget.showLayer(thisLayer);
+        }
+
+
+        function refData(objLayers) {
+            var rows = [];
+            for (var i in objLayers) {
+                var attr = objLayers[i].feature.properties;
+                rows.push(attr);
+            }
+            $table.bootstrapTable("load", rows); 
+        }
+
+        function showAllFrature(arr) {
+            var columns = [];
+
+            var hasCfgTable = (thisLayer.columnsShow && thisLayer.columnsShow.table);
+
+            for (var i = 0; i < thisLayer.columns.length; i++) {
+                var tshifield = thisLayer.columns[i];
+
+                if (hasCfgTable && thisLayer.columnsShow.table.indexOf(tshifield.field) == -1) {
+                    //存在配置时，只显示配置的字段
+                    continue;
+                }
+                 
+                columns.push({
+                    field: tshifield.field,
+                    title: tshifield.name,
+                    sortable: true,
+                    editable: false,
+                    align: 'left'
+                });
+            }
+            columns.push({
+                field: 'operate',
+                title: '操作',
+                align: 'center',
+                width: 50,
+                events: {
+                    'click .remove': function (e, value, row, index) {
+                        thisWidget.deleteFeatures([row.OBJECTID]);
+                    }
+                },
+                formatter: function (value, row, index) {
+                    return [
+                        '<a class="remove" href="javascript:void(0)" title="删除">',
+                        '<i class="fa fa-trash"></i>',
+                        '</a>'
+                    ].join('');
+                }
+            });
+
+            var rows = [];
+            for (var i = 0; i < arr.length; i++) {
+                var attr = arr[i].feature.properties;
+                rows.push(attr);
+            }
+
+            $table.bootstrapTable("destroy");
+            $table.bootstrapTable({
+                height: getHeight(),
+                singleSelect: true, //单选
+                pagination: true,
+                columns: columns,
+                data: rows,
+                onClickRow: function (rowData, $element, field) {
+                    thisWidget.centerAt(rowData.OBJECTID);
+                }
+            });
+        }
+
+        var isAdding;
+        function addFeature() {
+            isAdding = !isAdding;
+            if (isAdding) {
+                switch (thisLayer.geometrytype) {
+                    case "point":
+                    case "marker":
+                        thisWidget.startAdd('marker', thisLayer.symbol);
+                        break;
+                    case "polyline":
+                        thisWidget.startAdd('polyline', thisLayer.symbol);
+                        break;
+                    case "polygon":
+                        thisWidget.startAdd('polygon', thisLayer.symbol);
+                        break;
+                }
+                $("#btnAdd").html('取消新增');
+            } else {
+                startEnd();
+            }  
+        } 
+        function startEnd() {
+            isAdding = false;
+            thisWidget.cacheAdd();
+            $("#btnAdd").html('新增');
+            showMsg();
+        }
+
+
+        function showMsg(info) {
+            $("#lblMsg").html(info||""); 
+        }
+ 
+
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,78 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>leaflet地图测试</title>
+
+    <link rel="stylesheet" href="http://cdn.bootcss.com/leaflet/1.2.0/leaflet.css">    <!-- 提供leaflet的样式 -->
+    <script src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>     <!-- 提供leaflet的代码 -->
+    <script src="https://unpkg.com/esri-leaflet@2.1.4/dist/esri-leaflet.js"></script>     <!-- 让leaflet加载地图更加简单 -->
+    <link rel="stylesheet" href="../lib/layui-v2.5.4/css/layui.css" media="all">
+    <script src="../lib/layui-v2.5.4/layui.js" charset="utf-8"></script>
+</head>
+<body>
+    <div id="map" style="height:500px;"></div>
+    <script>
+        
+        //iframe窗
+
+
+        
+
+        var map = L.map('map').setView([37.002553, 106.890747], 3)
+        L.esri.tiledMapLayer({
+            url: 'http://cache1.arcgisonline.cn/arcgis/rest/services/ChinaOnlineStreetPurplishBlue/MapServer'
+        }).addTo(map)
+        var marker = L.marker([38.761954, 117.775429]).addTo(map)
+        var circle = L.circle([38.761954, 117.575429], {
+            color: 'red',
+            fillColor: '#f03',
+            fillOpacity: 0.5,
+            radius: 500
+        }).addTo(map)
+        var polygon = L.polygon([
+          [38.561954, 117.675429],
+          [38.561954, 117.475429],
+          [38.361954, 117.375429]
+        ]).addTo(map)
+
+        var popup = L.popup()
+        map.on('click', function (e) {
+            popup
+              .setLatLng(e.latlng)
+              .setContent("你点击了 " + e.latlng.toString())
+              .openOn(map)
+        })
+
+
+
+        layui.use('layer', function () {
+            var layer = layui.layer;
+
+            layer.open({
+                type: 2,
+                title: false,
+                closeBtn: 0, //不显示关闭按钮
+                shade: false,
+                area: ['300px', '100%'],
+                offset: 'lt', //右下角弹出
+                time: 20000, //2秒后自动关闭
+                anim: 2,
+                content: 'icon.html',
+                //content: ['icon.html', 'no'], //iframe的url，no代表不显示滚动条
+                end: function () { //此处用于演示
+                    layer.open({
+                        type: 2,
+                        title: '很多时候，我们想最大化看，比如像这个页面。',
+                        shadeClose: true,
+                        shade: false,
+                        maxmin: true, //开启最大化最小化按钮
+                        area: ['493px', '300px'],
+                        content: 'layer.html'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

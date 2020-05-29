@@ -1,0 +1,31 @@
+/* 2017-12-4 15:31:19 | 修改 木遥（QQ：346819890） */
+
+.querybar-fl{ float:left;}
+.querybar-fr{ float:right;}
+.querybar-clear{ clear:both;}
+.querybar-clear5{ clear:both; height:5px;}
+.querybar-clear10{ clear:both; height:10px;}
+ 
+
+.querybar-site{ padding:10px 8px; border-top:solid 1px #eaeaea; overflow:hidden;}
+.querybar-site :hover{ background-color:#ebebeb;}
+.querybar-sitejj{ width:220px; float:left;} 
+.querybar-sitejj h3{ margin:0; padding:0; font-size:14px; padding-bottom:6px; color:#666;font-weight: bold;}
+.querybar-sitejj p{ margin:0; padding:0; font-size:12px; line-height:20px; color:#999;}
+.querybar-star{ color:#ff675a; font-size:12px; line-height:20px;}
+
+.querybar-page{ font-size:12px;}
+.querybar-ye a{ text-decoration:none; padding:4px 6px; color:#999; border:solid 1px #ccc; margin-right:4px;}
+.querybar-ye a:hover{ color:#666; border-color:#666;}
+
+ 
+
+
+
+
+
+
+
+
+
+

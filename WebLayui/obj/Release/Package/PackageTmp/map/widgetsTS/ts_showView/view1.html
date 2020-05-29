@@ -1,0 +1,216 @@
+﻿<!-- 2017-12-4 15:35:23 | 修改 木遥（QQ：346819890） -->
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no" />
+    <title></title>
+
+    <script type="text/javascript" src="../../lib/include-lib.js?time=20180320" libpath="../../lib/"
+            include="jquery,font-awesome,bootstrap,layer,haoutil,echarts"></script>  
+    <link href="../../css/widget-win.css" rel="stylesheet" />
+</head>
+<body> 
+ 
+    <div id="echartsView" style="width:100%;height:100%;"></div>
+
+
+    <script>
+        var thisWidget; 
+ 
+
+        //当前页面业务
+        function initWidgetView(_thisWidget) {
+            thisWidget = _thisWidget;
+            // 基于准备好的dom，初始化echarts实例
+            var myChart = echarts.init(document.getElementById('echartsView'));
+            // 指定图表的配置项和数据 
+            var option = getOption();
+         
+            // 使用刚指定的配置项和数据显示图表。
+            myChart.setOption(option); 
+        }
+
+        
+        function getOption() {
+            option = {
+                backgroundColor: '#394056',
+                //title: {
+                //    text: '请求数',
+                //    textStyle: {
+                //        fontWeight: 'normal',
+                //        fontSize: 16,
+                //        color: '#F1F1F3'
+                //    },
+                //    left: '6%'
+                //},
+                tooltip: {
+                    trigger: 'axis',
+                    axisPointer: {
+                        lineStyle: {
+                            color: '#57617B'
+                        }
+                    }
+                },
+                legend: {
+                    icon: 'rect',
+                    itemWidth: 14,
+                    itemHeight: 5,
+                    itemGap: 13,
+                    data: ['老挝流域', '越南流域', '柬埔寨流域'],
+                    right: '4%',
+                    textStyle: {
+                        fontSize: 12,
+                        color: '#F1F1F3'
+                    }
+                },
+                grid: {
+                    left: '3%',
+                    right: '4%',
+                    bottom: '3%',
+                    containLabel: true
+                },
+                xAxis: [{
+                    type: 'category',
+                    boundaryGap: false,
+                    axisLine: {
+                        lineStyle: {
+                            color: '#57617B'
+                        }
+                    },
+                    data: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月']
+                }],
+                yAxis: [{
+                    type: 'value',
+                    name: '单位（%）',
+                    axisTick: {
+                        show: false
+                    },
+                    axisLine: {
+                        lineStyle: {
+                            color: '#57617B'
+                        }
+                    },
+                    axisLabel: {
+                        margin: 10,
+                        textStyle: {
+                            fontSize: 14
+                        }
+                    },
+                    splitLine: {
+                        lineStyle: {
+                            color: '#57617B'
+                        }
+                    }
+                }],
+                series: [{
+                    name: '老挝流域',
+                    type: 'line',
+                    smooth: true,
+                    symbol: 'circle',
+                    symbolSize: 5,
+                    showSymbol: false,
+                    lineStyle: {
+                        normal: {
+                            width: 1
+                        }
+                    },
+                    areaStyle: {
+                        normal: {
+                            color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                                offset: 0,
+                                color: 'rgba(137, 189, 27, 0.3)'
+                            }, {
+                                offset: 0.8,
+                                color: 'rgba(137, 189, 27, 0)'
+                            }], false),
+                            shadowColor: 'rgba(0, 0, 0, 0.1)',
+                            shadowBlur: 10
+                        }
+                    },
+                    itemStyle: {
+                        normal: {
+                            color: 'rgb(137,189,27)',
+                            borderColor: 'rgba(137,189,2,0.27)',
+                            borderWidth: 12
+
+                        }
+                    },
+                    data: [220, 182, 191, 134, 150, 120, 110, 125, 145, 122, 165, 122]
+                }, {
+                    name: '越南流域',
+                    type: 'line',
+                    smooth: true,
+                    symbol: 'circle',
+                    symbolSize: 5,
+                    showSymbol: false,
+                    lineStyle: {
+                        normal: {
+                            width: 1
+                        }
+                    },
+                    areaStyle: {
+                        normal: {
+                            color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                                offset: 0,
+                                color: 'rgba(0, 136, 212, 0.3)'
+                            }, {
+                                offset: 0.8,
+                                color: 'rgba(0, 136, 212, 0)'
+                            }], false),
+                            shadowColor: 'rgba(0, 0, 0, 0.1)',
+                            shadowBlur: 10
+                        }
+                    },
+                    itemStyle: {
+                        normal: {
+                            color: 'rgb(0,136,212)',
+                            borderColor: 'rgba(0,136,212,0.2)',
+                            borderWidth: 12
+
+                        }
+                    },
+                    data: [120, 110, 125, 145, 122, 165, 122, 220, 182, 191, 134, 150]
+                }, {
+                    name: '柬埔寨流域',
+                    type: 'line',
+                    smooth: true,
+                    symbol: 'circle',
+                    symbolSize: 5,
+                    showSymbol: false,
+                    lineStyle: {
+                        normal: {
+                            width: 1
+                        }
+                    },
+                    areaStyle: {
+                        normal: {
+                            color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                                offset: 0,
+                                color: 'rgba(219, 50, 51, 0.3)'
+                            }, {
+                                offset: 0.8,
+                                color: 'rgba(219, 50, 51, 0)'
+                            }], false),
+                            shadowColor: 'rgba(0, 0, 0, 0.1)',
+                            shadowBlur: 10
+                        }
+                    },
+                    itemStyle: {
+                        normal: {
+
+                            color: 'rgb(219,50,51)',
+                            borderColor: 'rgba(219,50,51,0.2)',
+                            borderWidth: 12
+                        }
+                    },
+                    data: [220, 182, 125, 145, 122, 191, 134, 150, 120, 110, 165, 122]
+                }, ]
+            };
+            return option;
+        }
+
+
+    </script>
+</body>
+</html>

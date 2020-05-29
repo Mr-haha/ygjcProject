@@ -1,0 +1,95 @@
+﻿<!-- 2017-12-4 14:10:33 | 修改 木遥（QQ：346819890） -->
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no" />
+    <title></title>
+     
+    <script type="text/javascript" src="../../lib/include-lib.js?time=20180320" libpath="../../lib/"
+            include="jquery,font-awesome,bootstrap,layer,haoutil"></script>
+
+    <link href="../../css/widget-win.css" rel="stylesheet" /> 
+    <link href="view.css" rel="stylesheet" />
+
+</head>
+<body>
+
+    <div class="toolsbar-mappic">
+        <ul id="basemaps">
+            <!--<li class="hover">
+                <a>
+                    <div><img src="images/mappimen1.png" /></div>
+                    <div>矢量地图</div>
+                </a>
+            </li>
+
+            <li>
+                <a>
+                    <div><img src="images/mappic2.png" /></div>
+                    <div>影像地图</div>
+                </a>
+            </li>-->
+        </ul>
+    </div>
+
+
+    <script>
+        var thisWidget;
+
+        //配置信息
+        var basemapsCfg;
+        var lastLayer;
+
+        //当前页面业务
+        function initWidgetView(_thisWidget) {
+            thisWidget = _thisWidget;
+            basemapsCfg = thisWidget.getBasemaps();
+
+            var inhtml = '';
+            for (var i = 0; i < basemapsCfg.length; i++) {
+                var item = basemapsCfg[i];
+
+                if (item.name == null || item.name == '' || item._layer == null)
+                    continue;
+
+                var vhtml = "";
+                if (thisWidget.getLayerVisible(item._layer)) {
+                    vhtml = 'class="hover"';
+                    lastLayer = item._layer;
+                }
+
+                var imgsrc = item.icon || 'bingmap.png';
+
+                inhtml += '<li ' + vhtml + ' onclick="changeBaseMaps(this,' + i + ')"><div><img src="../../img/basemaps/' + imgsrc + '" /></div><div>' + item.name + '</div></li>';
+
+            }  
+            $("#basemaps").html(inhtml);
+
+        }
+
+        function changeBaseMaps(ele, id) {
+
+            $("#basemaps").children().each(function () {
+                $(this).removeClass('hover');
+            });
+            if (lastLayer != null) {
+                thisWidget.updateLayerVisible(lastLayer, false);
+
+            }
+
+            $(ele).addClass('hover');
+
+            var item = basemapsCfg[id];
+            thisWidget.updateLayerVisible(item._layer, true);
+            lastLayer = item._layer;
+
+            thisWidget.disableBase();
+        }
+
+
+
+
+    </script>
+</body>
+</html>

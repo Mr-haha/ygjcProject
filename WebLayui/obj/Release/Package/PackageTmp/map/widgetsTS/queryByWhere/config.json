@@ -1,0 +1,81 @@
+{
+    "where": {
+        "text": [
+            { "field": "like", "name": "模糊匹配" },
+            { "field": "=", "name": "等于" }
+        ],
+        "number": [
+            { "field": "=", "name": "=" },
+            { "field": "<>", "name": "<>" },
+            { "field": ">", "name": ">" },
+            { "field": ">=", "name": ">=" },
+            { "field": "<", "name": "<" },
+            { "field": "<=", "name": "<=" }
+        ]
+    },
+    "layers": [
+        { "name": "POI信息点", "id": 1 },
+        {
+            "name": "POI",
+            "pid": 1,
+            "url": "http://182.92.176.178:6080/arcgis/rest/services/YHDB/BaseData/MapServer/0",
+            "columns": [
+                { "field": "NAME", "name": "名称" },
+                { "field": "SHORTNAME", "name": "简称" },
+                { "field": "STYLENAME", "name": "类型"},
+                { "field": "ADDRESS", "name": "地址" }
+            ]
+        },
+         
+        { "name": "规划信息", "id": 2 },
+        {
+            "name": "现状道路",
+            "pid": 2,
+            "url": "http://182.92.176.178:6080/arcgis/rest/services/YHDB/YHKG/MapServer/0",
+            "columns": [
+                { "field": "NAME", "name": "名称" },
+                { "field": "TYPE", "name": "类型" },
+                { "field": "LENGTH", "name": "长度", "type": "number" },
+                { "field": "LEVEL_", "name": "级别", "type": "number" }
+            ]
+        },
+        {
+            "name": "规划用地",
+            "pid": 2,
+            "url": "http://182.92.176.178:6080/arcgis/rest/services/YHDB/YHKG/MapServer/2",
+            "columns": [
+                { "field": "FS_DKBH", "name": "地块编号" },
+                { "field": "FS_YDDM", "name": "用地代码" },
+                { "field": "FS_YDXZ", "name": "用地性质" },
+                { "field": "FS_HHBL", "name": "混合比例" },
+                { "field": "FD_YDMJ", "name": "用地面积", "type": "number" },
+                { "field": "FD_RJL", "name": "容积率", "type": "number" },
+                { "field": "FD_JZMD", "name": "建筑密度", "type": "number" },
+                { "field": "FD_JZXG", "name": "建筑限高", "type": "number" },
+                { "field": "FD_LDL", "name": "绿地率", "type": "number" },
+                { "field": "FN_JDCW", "name": "机动车位", "type": "number" },
+                { "field": "FN_FJDCW", "name": "非机动车位", "type": "number" },
+                { "field": "FD_JZMJ", "name": "建筑面积", "type": "number" },
+                { "field": "FS_KKFX", "name": "开口方向" },
+                { "field": "FS_PTSS", "name": "配套设施" },
+                { "field": "FS_KZXQ", "name": "控制需求" },
+                { "field": "FN_ZHS", "name": "总户数", "type": "number" },
+                { "field": "FN_RKZS", "name": "总人口数", "type": "number" },
+                { "field": "FS_BZ", "name": "备注" }
+            ],
+            "columnsShow": {
+                "where": [ "FS_DKBH", "FS_YDDM", "FS_YDXZ", "FD_YDMJ" ],
+                "table": [ "FS_DKBH", "FS_YDDM", "FS_YDXZ", "FD_YDMJ", "FS_KZXQ" ]
+            }
+        }
+
+
+
+
+
+
+
+
+
+    ]
+}

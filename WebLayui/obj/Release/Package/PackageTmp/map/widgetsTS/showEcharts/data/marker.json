@@ -1,0 +1,8 @@
+[
+    { "PortName": "南通港", "TotalLength": 233991, "DeepUsedLength": 51077, "DeepUnUsedLength": 131008, "UnDeepUsedLength": 28579, "UnDeepUnUsedLength": 23327, "X": 120.83720389900009, "Y": 32.00030006500003, "id": 8 },
+    { "PortName": "南京港", "TotalLength": 91025, "DeepUsedLength": 36909, "DeepUnUsedLength": 12551, "UnDeepUsedLength": 28251, "UnDeepUnUsedLength": 13313, "X": 118.73599633300012, "Y": 32.08923823900005, "id": 9 },
+    { "PortName": "镇江港", "TotalLength": 147431, "DeepUsedLength": 35499, "DeepUnUsedLength": 52026, "UnDeepUsedLength": 18359, "UnDeepUnUsedLength": 41547, "X": 119.61540071200011, "Y": 32.18204232800008, "id": 10 },
+    { "PortName": "扬州港", "TotalLength": 49649, "DeepUsedLength": 30245, "DeepUnUsedLength": 9140, "UnDeepUsedLength": 8164, "UnDeepUnUsedLength": 2101, "X": 119.3991518150001, "Y": 32.271322643000076, "id": 36 },
+    { "PortName": "常州港", "TotalLength": 9849, "DeepUsedLength": 3484, "DeepUnUsedLength": 836, "UnDeepUsedLength": 4115, "UnDeepUnUsedLength": 1415, "X": 119.98426756200001, "Y": 31.971521771000027, "id": 37 },
+    { "PortName": "江阴港", "TotalLength": 23570, "DeepUsedLength": 22365, "DeepUnUsedLength": 1205, "UnDeepUsedLength": 0, "UnDeepUnUsedLength": 0, "X": 120.32921593100002, "Y": 31.927882063000027, "id": 38 }
+]

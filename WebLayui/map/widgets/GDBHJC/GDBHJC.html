@@ -1,0 +1,173 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>layui</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <!--<link href="../../../layuimini/css/layuimini.css" rel="stylesheet" />
+    <link href="../../../layuimini/css/public.css" rel="stylesheet" />-->
+    <script type="text/javascript" src="../../lib/include-lib.js?time=20180320" libpath="../../lib/"
+            include="jquery,turf,font-awesome,bootstrap,bootstrap-table,leaflet-mars,esri-leaflet,esium-mars,layer,echarts-forleaflet,echarts,haoutil"></script>
+    <link href="../../css/widget-win.css" rel="stylesheet" />
+</head>
+<body>
+
+    <div id="DivFirst">
+        <span id="tableTitle" style="font-size:15px;font-weight:bold;display:block;padding:10px"></span>
+        <div style="overflow: scroll; height: 300px;">
+            <table id="currentTableId"></table>
+        </div>
+        <div style="overflow: scroll; height: 260px;">
+            <div id="TJbyzhen" style="height: 250px;width:600px">
+
+            </div>
+        </div>
+    </div>
+    <div id="div1" style="display:none">
+        <!--<a class="btn btn-danger" id="ImgCompare" onclick="window.parent.showHistory()" style="float:right">历史影像</a>-->
+        <div id="tableDiv" style="width: 280px; font-size:16px;"></div>
+    </div>
+
+    <script src="../../../layuimini/lib/layui-v2.5.4/layui.all.js"></script>
+    <script>
+        var thisWidget;
+        var BarOption;
+        var table;
+        var myChart;
+        var GDLXlist = ['夏港街道', '江阴高新技术产业开发区', '新桥镇', '澄江街道', '申港街道', '南闸街道', '华士镇', '周庄镇', '利港街道', '云亭街道'
+        , '顾山镇', '徐霞客镇', '月城镇', '青阳镇', '璜土镇', '长泾镇', '祝塘镇'];
+
+        function initWidgetView(_thisWidget) {
+            thisWidget = _thisWidget;
+
+            table = $("#currentTableId");
+            initBarOption();   //初始化统计图的option
+            myChart = echarts.init(document.getElementById('TJbyzhen'));
+            BarOption.xAxis[0].data = GDLXlist;
+            renderTable();
+            doquery();
+        }
+        function doquery() {
+            var html = '江阴市2017-2018年度耕地地面沉降监测';
+            $("#tableTitle").html(html);
+            BarOption.series[0].data.push(14.2);
+            BarOption.series[0].data.push(12.8);
+            BarOption.series[0].data.push(11.1);
+            BarOption.series[0].data.push(10.9);
+            BarOption.series[0].data.push(10);
+            BarOption.series[0].data.push(8.8);
+            BarOption.series[0].data.push(8.1);
+            BarOption.series[0].data.push(7.5);
+            BarOption.series[0].data.push(7.5);
+            BarOption.series[0].data.push(5.9);
+            BarOption.series[0].data.push(5.7);
+            BarOption.series[0].data.push(5.1);
+            BarOption.series[0].data.push(4.8);
+            BarOption.series[0].data.push(4.4);
+            BarOption.series[0].data.push(3.7);
+            BarOption.series[0].data.push(2.1);
+            BarOption.series[0].data.push(1.7);
+            myChart.setOption(BarOption);
+
+            table.bootstrapTable('append', { "index": 1, "GDLX": "夏港街道", "MJ": -14.2 });
+            table.bootstrapTable('append', { "index": 2, "GDLX": "江阴高新技术产业开发区", "MJ": -12.8 });
+            table.bootstrapTable('append', { "index": 3, "GDLX": "新桥镇", "MJ": -11.1 });
+            table.bootstrapTable('append', { "index": 4, "GDLX": "澄江街道", "MJ": -10.9 });
+            table.bootstrapTable('append', { "index": 5, "GDLX": "申港街道", "MJ": -10 });
+            table.bootstrapTable('append', { "index": 6, "GDLX": "南闸街道", "MJ": -8.8 });
+            table.bootstrapTable('append', { "index": 7, "GDLX": "华士镇", "MJ": -8.1 });
+            table.bootstrapTable('append', { "index": 8, "GDLX": "周庄镇", "MJ": -7.5 });
+            table.bootstrapTable('append', { "index": 9, "GDLX": "利港街道", "MJ": -7.5 });
+            table.bootstrapTable('append', { "index": 10, "GDLX": "云亭街道", "MJ": -5.9 });
+            table.bootstrapTable('append', { "index": 11, "GDLX": "顾山镇", "MJ": -5.7 });
+            table.bootstrapTable('append', { "index": 12, "GDLX": "徐霞客镇", "MJ": -5.1 });
+            table.bootstrapTable('append', { "index": 13, "GDLX": "月城镇", "MJ": -4.8 });
+            table.bootstrapTable('append', { "index": 14, "GDLX": "青阳镇", "MJ": -4.4 });
+            table.bootstrapTable('append', { "index": 15, "GDLX": "璜土镇", "MJ": -3.7 });
+            table.bootstrapTable('append', { "index": 16, "GDLX": "长泾镇", "MJ": -2.1 });
+            table.bootstrapTable('append', { "index": 17, "GDLX": "祝塘镇", "MJ": -1.7 });
+        }
+      
+        function renderTable() {
+            $("#currentTableId").bootstrapTable({
+                //rowStyle: function (row, index) {
+                //    var style = "";
+                //    if (row.MJ >50) {
+                //        style = 'danger';
+                //    }
+                //    return { classes: style };
+                //},
+                singleSelect: false, //单选
+                pagination: true,
+                checkboxHeader: false,
+                showLoading: true,
+                striped: true,
+                pageList: [10, 25, 50],
+                columns:
+                [
+                    {
+                        field: 'index',
+                        title: '序号',
+                        width: 50,
+                        sortable: true
+                    },
+                    {
+                        field: 'GDLX',
+                        title: '街道/镇',
+                        sortable: true
+                    }, {
+                        field: 'MJ',
+                        title: '平均沉降量（mm/y）',
+                        sortable: true
+                    }
+                ],
+                onClickRow: function (rowData) {
+                    thisWidget.queryMapByWhere(thisWidget.QuhuaURL, "ZMC='" + rowData.QYMC + "'", true, "");
+                    doQuerybyZhenName(rowData.QYMC);
+                }
+            });
+            // $('#currentTableId').bootstrapTable('hideColumn', 'OBJECTID');
+        }
+
+        function initBarOption() {
+            BarOption = {
+                color: ['#339808'],
+                tooltip: {
+                    trigger: 'axis',
+                    axisPointer: {
+                        type: 'shadow'
+                    }
+                },
+                grid: {
+                    left: '3%',
+                    right: '4%',
+                    bottom: '3%',
+                    containLabel: true
+                },
+                xAxis: [
+                    {
+                        type: 'category',
+                        axisTick: { alignWithLabel: true },
+                        data: []
+                    }
+                ],
+                yAxis: [
+                    {
+                        type: 'value'
+                    }
+                ],
+                series: [
+                    {
+                        name: '沉降量',
+                        type: 'bar',
+                        barWidth: '60%',
+                        data: []
+                    }
+                ]
+            };
+        }
+    </script>
+</body>
+</html>

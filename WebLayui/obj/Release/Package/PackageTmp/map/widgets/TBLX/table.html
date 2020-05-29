@@ -1,0 +1,448 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>layui</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <!--<link href="../../../layuimini/css/layuimini.css" rel="stylesheet" />
+    <link href="../../../layuimini/css/public.css" rel="stylesheet" />-->
+    <script type="text/javascript" src="../../lib/include-lib.js?time=20180320" libpath="../../lib/"
+            include="jquery,turf,font-awesome,bootstrap,bootstrap-table,leaflet-mars,esri-leaflet,esium-mars,layer,echarts-forleaflet,echarts,haoutil"></script>
+    <link href="../../css/widget-win.css" rel="stylesheet" />
+</head>
+<body>
+    
+    <div id="DivFirst">
+        <span id="tableTitle" style="font-size:15px;font-weight:bold;display:block;padding:10px"></span>
+        <div style="overflow: scroll; height: 300px;">
+            <table id="currentTableId"></table>
+        </div>
+        <div style="overflow: scroll; height: 260px;">
+            <div id="TJbyzhen" style="height: 250px;width:600px">
+
+            </div>
+            <div id="TJbyAll" style="height: 250px;">
+
+            </div>
+        </div>
+    </div>
+
+    <div id="DivSecond" style="display:none">
+        <a class="btn btn-sm btn-green" id="backward" href="javascript:;" onclick="backwww()" style="float:right"><i class="fa fa-reply"></i>返回</a>
+        <span id="tableTitle2" style="font-size:15px;font-weight:bold;display:block;padding:10px"></span>
+            <table id="currentTableId2"></table>
+        
+    </div>
+
+    <div id="div1" style="display:none">
+        <!--<a class="btn btn-danger" id="ImgCompare" onclick="window.parent.showHistory()" style="float:right">历史影像</a>-->
+        <div id="tableDiv" style="width: 280px; font-size:16px;"></div>
+    </div>
+
+    <script src="../../../layuimini/lib/layui-v2.5.4/layui.all.js"></script>
+    <script>
+        var thisWidget;
+        var BarOption;
+        var PieOption;
+        var TotalMJs=0;
+        var TotalCount = 0;
+        var div1Obj;
+        var tableObj;
+        var table;
+        var table2;
+        var TBLXindex;
+        var LXname;
+        var JCPC;
+        var jcpcwhere;
+
+        var KunShanList = ['玉山镇', '巴城镇', '周市镇', '陆家镇', '张浦镇', '周庄镇', '锦溪镇', '千灯镇', '淀山湖镇'];
+        var TBLXList = [{ '1': '其他在建工地' }, { '2': '拆迁平整' }, { '3': '在建工地' }, { '4': '待建工地' }, { '5': '已批在建工地' }, { '6': '待拆除' }, { '7': '道路' }, { '8': '围海造地' }, { '9': '临时用地' }, { '10': '高尔夫球场' }, { '11': '光伏用地' }, { '12': '钢铁企业' }, { '13': '非建设用地' }, { '14': '空地或植被' }, { '15': '坑塘' }, { '16': '其他用地' }];
+
+        function initWidgetView(_thisWidget) {
+            thisWidget = _thisWidget;
+            var ddf = window.parent;
+            var kdfkfk = window;
+            div1Obj = $("#div1");
+            tableObj = $("#tableDiv");
+            debugger
+            var a = GetRequest();  //读取网页上传递参数
+            LXname = a['LXname'];
+            TBLXindex = a['index'];
+            JCPC = a['JCPC'];
+            if (JCPC == "") {
+                jcpcwhere = " and 1=1";
+            } else { jcpcwhere = " and JCPC='" + JCPC+"'"; }
+            
+            table = $("#currentTableId");
+            table2 = $("#currentTableId2");
+            if (LXname === 'all') {
+                document.getElementById('TJbyzhen').style.display = "none";
+                initPieOption();   //初始化统计图的option
+                renderTableAll();
+                var myChart = echarts.init(document.getElementById('TJbyAll'));
+                doqueryAllSelect(0, TBLXList, myChart);
+            } else {
+                document.getElementById('TJbyAll').style.display = "none";
+                initBarOption();   //初始化统计图的option
+                renderTable();
+                renderFeatureTable();
+                var myChart = echarts.init(document.getElementById('TJbyzhen'));
+                BarOption.xAxis[0].data = KunShanList;
+                doquery(0, KunShanList, myChart);
+            }
+        }     
+        function doquery(i, KunShanList,myChart) {
+            if (i < KunShanList.length) {
+                var ZhenName = KunShanList[i];
+                var lquery = L.esri.query({ url: thisWidget.JCTBTurl });
+                lquery.where(" ZMC='" + ZhenName + "' and TBLX='" + TBLXindex + "'" + jcpcwhere);  //按镇统计，生成表格和柱状图
+                lquery.run(function (error, results, response) {
+                    if (error) {
+                        return;
+                    } else {
+                        debugger
+                        var TBcount = results.features.length;                       
+                        var MJs = 0;
+                        for (var j = 0; j < TBcount; j++) {
+                            var mj = results.features[j].properties['JCMJ'];
+                            MJs += mj;
+                        }
+                        TotalMJs += (MJs / 666.6666);
+                        TotalCount += TBcount;
+                        BarOption.series[0].data.push((MJs / 666.6666).toFixed(3));
+                        var row = { "index": i + 1, "QYMC": ZhenName, "MJ": (MJs / 666.6666).toFixed(3), "count": TBcount, "OBJECTID": '' };
+                        table.bootstrapTable('append', row);
+                        i = i + 1;
+                        doquery(i, KunShanList,myChart);  //调用自身
+                    }
+                });
+            } else {
+                var html = '昆山市【' + LXname + '】用地共' + '<a href="javascript:;" onclick="doqueryByTBLX()">' + TotalCount + '</a>处，总面积' + TotalMJs.toFixed(3) + '亩。';
+                $("#tableTitle").html(html);
+
+                thisWidget.doqueryAll(TBLXindex, LXname, div1Obj, tableObj);   //不按镇统计，当前图斑类型的所有图斑显示到地图
+                myChart.setOption(BarOption);
+                myChart.on('click', function (params) {
+                    thisWidget.queryMapByWhere(thisWidget.QuhuaURL, "ZMC='" + params.name + "'", true, "");
+                    doQuerybyZhenName(params.name);
+                });
+
+            }
+        }
+        function doqueryByTBLX()
+        {
+            var lquery = L.esri.query({ url: thisWidget.JCTBTurl });
+            lquery.where(" TBLX='" + TBLXindex + "'" + jcpcwhere);  //按镇统计，生成表格和柱状图
+            lquery.run(function (error, results, response) {
+                if (error) {
+                    return;
+                } else {
+                    debugger
+                    var TBcount = results.features.length;
+                    var MJs = 0;
+
+                    table2.bootstrapTable('destroy'); //先销毁，再在后面添加数据。不然表格数据会重复累加。
+                    renderFeatureTable();
+                    for (var j = 0; j < TBcount; j++) {
+                        var mj = results.features[j].properties['JCMJ'];
+                        MJs += mj;
+                        var row = { "index": j + 1, "TBLX": LXname, "MJ": mj.toFixed(3), "QSX": results.features[j].properties['QSX'], "HSX": results.features[j].properties['HSX'], "OBJECTID": results.features[j].properties['OBJECTID'] };
+                        table2.bootstrapTable('append', row);
+                    }
+                    $("#tableTitle2").html("昆山市【" + LXname + "】用地共" + TBcount + "处，总面积" + (MJs / 666.6666).toFixed(3) + "亩。");
+                    document.getElementById("DivFirst").style.display = "none";
+                    document.getElementById("DivSecond").style.display = "";
+                }
+            });
+        }
+
+        function doQuerybyZhenName(Zhenname)
+        {
+            var lquery = L.esri.query({ url: thisWidget.JCTBTurl });
+            lquery.where(" ZMC='" + Zhenname + "' and TBLX='" + TBLXindex + "'" + jcpcwhere);  //按镇统计，生成表格和柱状图
+            lquery.run(function (error, results, response) {
+                if (error) {
+                    return;
+                } else {
+                    debugger
+
+                    table2.bootstrapTable('destroy'); //先销毁，再在后面添加数据。不然表格数据会重复累加。
+                    renderFeatureTable();
+                    var TBcount = results.features.length;
+                    var MJs = 0;
+                    for (var j = 0; j < TBcount; j++) {
+                        var mj = results.features[j].properties['JCMJ'];
+                        MJs += mj;
+                        var row = { "index": j + 1, "TBLX": LXname, "MJ": (mj / 666.6666).toFixed(3), "QSX": results.features[j].properties['QSX'], "HSX": results.features[j].properties['HSX'], "OBJECTID": results.features[j].properties['OBJECTID'] };
+                        table2.bootstrapTable('append', row);
+
+                    }
+                    $("#tableTitle2").html(Zhenname + "【" + LXname + "】用地共" + TBcount + "处，总面积" + (MJs / 666.6666).toFixed(3) + "亩。");
+                    document.getElementById("DivFirst").style.display = "none";
+                    document.getElementById("DivSecond").style.display = "";
+                }
+            });
+        }
+
+        function doqueryAllSelect(i, TBLXList,myChart) {
+            if (i < TBLXList.length) {
+                var index = i + 1;
+                var TBLXname = TBLXList[i][index];
+                var lquery = L.esri.query({ url: thisWidget.JCTBTurl });
+                lquery.where("TBLX='" + index + "'" + jcpcwhere);
+                lquery.run(function (error, results, response) {
+                    if (error) {
+                        return;
+                    } else {
+                        debugger
+                        var TBcount = results.features.length;
+                        var MJs = 0;
+                        for (var j = 0; j < TBcount; j++) {
+                            var mj = results.features[j].properties['JCMJ'];
+                            MJs += mj;
+                        }
+                        var hh = { value: (MJs / 666.6666).toFixed(3), index: index, name: TBLXname };
+                        PieOption.series[0].data.push(hh);
+                        PieOption.series[0].name = "用地面积统计";
+
+                        var row = { "TBLXbh": i + 1, "TBLXname": TBLXname, "MJ": (MJs / 666.6666).toFixed(3) };
+                        table.bootstrapTable('append', row);
+                        i = i + 1;
+                        doqueryAllSelect(i, TBLXList,myChart);  //调用自身
+                    }
+                });
+            } else {
+                thisWidget.doqueryAll('', 'all',div1Obj, tableObj);
+                myChart.setOption(PieOption);
+                myChart.on('click', function (params) {
+                    debugger
+                    thisWidget.doqueryAll(params.data.index, params.name, div1Obj, tableObj);
+                });
+            }
+        }
+
+        function backwww() {
+            document.getElementById("DivFirst").style.display = "";
+            document.getElementById("DivSecond").style.display = "none";
+        }
+
+        function renderTable() {
+            $("#currentTableId").bootstrapTable({
+                rowStyle: function (row, index) {
+                    var style = "";
+                    if (row.MJ != null) {
+                        style = 'danger';
+                    }
+                    return { classes: style };
+                },
+                singleSelect: false, //单选
+                pagination: true,
+                checkboxHeader: false,
+                showLoading: true,
+                striped: true,
+                pageList: [10, 25, 50],
+                columns:
+                [
+                    {
+                        field: 'index',
+                        title: '序号',
+                        width: 50,
+                        sortable: true
+                    },
+                    {
+                        field: 'QYMC',
+                        title: '区域名称',
+                        sortable: true
+                    }, {
+                        field: 'MJ',
+                        title: '面积(亩)',
+                        sortable: true
+                    }, {
+                        field: 'count',
+                        title: '数量(处)',
+                        sortable: true
+                    }
+                ],
+                onClickRow: function (rowData) {
+                    thisWidget.queryMapByWhere(thisWidget.QuhuaURL, "ZMC='" + rowData.QYMC + "'", true, "");
+                    doQuerybyZhenName(rowData.QYMC);
+                }
+            });
+            $('#currentTableId').bootstrapTable('hideColumn', 'OBJECTID');
+        }
+
+        function renderFeatureTable() {
+            $("#currentTableId2").bootstrapTable({
+                rowStyle: function (row, index) {
+                    var style = "";
+                    if (row.MJ >= 666.6666) {
+                        style = 'danger';
+                    }
+                    return { classes: style };
+                },
+                singleSelect: false, //单选
+                pagination: true,
+                checkboxHeader: false,
+                showLoading: true,
+                striped: true,
+                pageList: [10, 25, 50],
+                columns:
+                [
+                    {
+                        field: 'index',
+                        title: '序号',
+                        width: 50,
+                        sortable: true
+                    },
+                    {
+                        field: 'TBLX',
+                        title: '图斑类型',
+                    }, {
+                        field: 'MJ',
+                        title: '面积(亩)',
+                        sortable: true
+                    }, {
+                        field: 'QSX',
+                        title: '前时相'
+                    }, {
+                        field: 'HSX',
+                        title: '后时相'
+                    }, {
+                        field: 'OBJECTID',
+                        title: 'objid'
+                    }
+                ],
+                onClickRow: function (rowData) {
+                    thisWidget.queryMapByWhere(thisWidget.JCTBTurl, "ObjectID='" + rowData.OBJECTID + "'", true, "");
+                }
+            });
+            $('#currentTableId2').bootstrapTable('hideColumn', 'OBJECTID');
+        }
+
+        function renderTableAll() {
+            $("#currentTableId").bootstrapTable({
+                rowStyle: function (row, index) {
+                    var style = "";
+                    if (row.SignInTime == '' || row.SignOutTime == '') {
+                        style = { css: { 'color': 'red' } };
+                    }
+                    return style;
+                },
+                singleSelect: false, //单选
+                pagination: true,
+                checkboxHeader: false,
+                showLoading: true,
+                striped: true,
+                columns:
+                [{
+                    field: 'TBLXbh',
+                    title: '编号',
+                    sortable: true
+                },
+                    {
+                        field: 'TBLXname',
+                        title: '用地类型',
+                        sortable: true
+                    }, {
+                        field: 'MJ',
+                        title: '面积(亩)',
+                        sortable: true
+                    }
+                ],
+                onClickRow: function (rowData) {
+                    thisWidget.doqueryAll(rowData.TBLXbh, rowData.TBLXname, div1Obj, tableObj);
+                }
+            });
+            $('#currentTableId').bootstrapTable('hideColumn', 'TBLXbh');
+        }
+
+        function initBarOption() {
+            BarOption = {
+                color: ['#339808'],
+                tooltip: {
+                    trigger: 'axis',
+                    axisPointer: {
+                        type: 'shadow'
+                    }
+                },
+                grid: {
+                    left: '3%',
+                    right: '4%',
+                    bottom: '3%',
+                    containLabel: true
+                },
+                xAxis: [
+                    {
+                        type: 'category',
+                        axisTick: { alignWithLabel: true },
+                        data: []
+                    }
+                ],
+                yAxis: [
+                    {
+                        type: 'value'
+                    }
+                ],
+                series: [
+                    {
+                        name: '面积',
+                        type: 'bar',
+                        barWidth: '60%',
+                        data: []
+                    }
+                ]
+            };
+           }
+
+        function initPieOption() {
+            PieOption = {
+                tooltip: {
+                    trigger: 'item',
+                    formatter: "{a} <br/>{b} : {c} ({d}%)"
+                },
+                series: [
+                    {
+                        name: '',
+                        type: 'pie',
+                        radius: '50%',
+                        center: ['50%', '60%'],
+                        data: [
+                        ],
+                        itemStyle: {
+                            emphasis: {
+                                shadowBlur: 10,
+                                shadowOffsetX: 0,
+                                shadowColor: 'rgba(0, 0, 0, 0.5)'
+                            }
+                        }
+                    }
+                ]
+            };
+        }
+        function GetRequest() {
+            var url = thisWidget.config.uri;
+            var theRequest = new Object();
+            if (url.indexOf("?") != -1) {
+                var str = thisWidget.config.uri.split("?")[1]; //获取url中"?"符后的字串，使用了两次
+                strs = str.split("&");
+                for (var i = 0; i < strs.length; i++) {
+                    var vrs = strs[i].split("=");
+                    if (vrs.length == 2) {
+                        theRequest[vrs[0]] = decodeURI(vrs[1]);
+                    }
+                    else if (vrs.length > 2) {
+                        var zsc = vrs[1];
+                        for (var p = 2; p < vrs.length; p++) {
+                            zsc = zsc + "=" + vrs[p];
+                        }
+                        theRequest[vrs[0]] = decodeURI(zsc);
+                    }
+                }
+            }
+            return theRequest;
+        }
+    </script>
+</body>
+</html>

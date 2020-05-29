@@ -1,0 +1,58 @@
+{
+  "TimeMaps": [
+    {
+      "time": "2017年11月",
+      "server": "http://10.32.49.10:6080/arcgis/rest/services/TCS201711/MapServer",
+      "type": "arcgis_tile",
+      "crs": "4490"
+    },
+    {
+      "time": "2018年03月",
+      "server": "http://10.32.49.10:6080/arcgis/rest/services/TCS201803/MapServer",
+      "type": "arcgis_tile",
+      "crs": "4490"
+    },
+    {
+      "time": "2018年06月",
+      "server": "http://10.32.49.10:6080/arcgis/rest/services/TCS2018001/MapServer",
+      "type": "arcgis_tile",
+      "crs": "4490"
+    },
+    {
+      "time": "2019年03月",
+      "server": "http://10.32.49.10:6080/arcgis/rest/services/TCS201903/MapServer",
+      "type": "arcgis_tile",
+      "crs": "4490"
+    },
+    {
+      "time": "2019年05月",
+      "server": "http://10.32.49.10:6080/arcgis/rest/services/TCS201905/MapServer",
+      "type": "arcgis_tile",
+      "crs": "4490"
+    },
+    {
+      "time": "2019年06月",
+      "server": "http://10.32.49.10:6080/arcgis/rest/services/TCS201906/MapServer",
+      "type": "arcgis_tile",
+      "crs": "4490"
+    },
+    {
+      "time": "2019年07月",
+      "server": "http://10.32.49.10:6080/arcgis/rest/services/TCS201907/MapServer",
+      "type": "arcgis_tile",
+      "crs": "4490"
+    },
+    {
+      "time": "2019年11月",
+      "server": "http://10.32.49.10:6080/arcgis/rest/services/TCS201911/MapServer",
+      "type": "arcgis_tile",
+      "crs": "4490"
+    },
+    {
+      "time": "2020年04月",
+      "server": "http://10.32.49.10:6080/arcgis/rest/services/TCS202004/MapServer",
+      "type": "arcgis_tile",
+      "crs": "4490"
+    }
+  ]
+}

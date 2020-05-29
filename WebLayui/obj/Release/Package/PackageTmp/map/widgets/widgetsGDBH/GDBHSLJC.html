@@ -1,0 +1,147 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>layui</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <!--<link href="../../../layuimini/css/layuimini.css" rel="stylesheet" />
+    <link href="../../../layuimini/css/public.css" rel="stylesheet" />-->
+    <script type="text/javascript" src="../../lib/include-lib.js?time=20180320" libpath="../../lib/"
+            include="jquery,turf,font-awesome,bootstrap,bootstrap-table,leaflet-mars,esri-leaflet,esium-mars,layer,echarts-forleaflet,echarts,haoutil"></script>
+    <link href="../../css/widget-win.css" rel="stylesheet" />
+</head>
+<body>
+
+    <div id="DivFirst">
+        <span id="tableTitle" style="font-size:15px;font-weight:bold;display:block;padding:10px"></span>
+        <div style="overflow: scroll; height: 300px;">
+            <table id="currentTableId"></table>
+        </div>
+        <div style="overflow: scroll; height: 260px;">
+            <div id="TJbyzhen" style="height: 250px;width:480px">
+
+            </div>
+        </div>
+    </div>
+    <div id="div1" style="display:none">
+        <!--<a class="btn btn-danger" id="ImgCompare" onclick="window.parent.showHistory()" style="float:right">历史影像</a>-->
+        <div id="tableDiv" style="width: 280px; font-size:16px;"></div>
+    </div>
+
+    <script src="../../../layuimini/lib/layui-v2.5.4/layui.all.js"></script>
+    <script>
+        var thisWidget;
+        var BarOption;
+        var table;
+        var myChart;
+        var GDLXlist = ['耕地占用', '耕地破坏', '耕地减少', '耕地增加'];
+
+        function initWidgetView(_thisWidget) {
+            thisWidget = _thisWidget;
+
+            table = $("#currentTableId");
+            initBarOption();   //初始化统计图的option
+            myChart = echarts.init(document.getElementById('TJbyzhen'));
+            BarOption.xAxis[0].data = GDLXlist;
+            renderTable();
+            doquery();
+        }
+        function doquery() {
+            var html = ' 苏州市太仓市2019年第2季度耕地监测总面积3209.984亩。';
+            $("#tableTitle").html(html);
+            BarOption.series[0].data.push(644.997);
+            BarOption.series[0].data.push(1949.99);
+            BarOption.series[0].data.push(60.00);
+            BarOption.series[0].data.push(554.997);
+            myChart.setOption(BarOption);
+
+            table.bootstrapTable('append', { "index": 1, "GDLX": "耕地占用", "MJ": 644.997 });
+            table.bootstrapTable('append', { "index": 2, "GDLX": "耕地破坏", "MJ": 1949.99 });
+            table.bootstrapTable('append', { "index": 3, "GDLX": "耕地减少", "MJ":60.00 });
+            table.bootstrapTable('append', { "index": 4, "GDLX": "耕地增加", "MJ": 554.997 });
+
+        }
+
+        function renderTable() {
+            $("#currentTableId").bootstrapTable({
+                //rowStyle: function (row, index) {
+                //    var style = "";
+                //    if (row.MJ >50) {
+                //        style = 'danger';
+                //    }
+                //    return { classes: style };
+                //},
+                singleSelect: false, //单选
+                pagination: true,
+                checkboxHeader: false,
+                showLoading: true,
+                striped: true,
+                pageList: [10, 25, 50],
+                columns:
+                [
+                    {
+                        field: 'index',
+                        title: '序号',
+                        width: 50,
+                        sortable: true
+                    },
+                    {
+                        field: 'GDLX',
+                        title: '类型',
+                        sortable: true
+                    }, {
+                        field: 'MJ',
+                        title: '面积（亩）',
+                        sortable: true
+                    }
+                ],
+                onClickRow: function (rowData) {
+                    thisWidget.queryMapByWhere(thisWidget.QuhuaURL, "ZMC='" + rowData.QYMC + "'", true, "");
+                    doQuerybyZhenName(rowData.QYMC);
+                }
+            });
+            // $('#currentTableId').bootstrapTable('hideColumn', 'OBJECTID');
+        }
+
+        function initBarOption() {
+            BarOption = {
+                color: ['#339808'],
+                tooltip: {
+                    trigger: 'axis',
+                    axisPointer: {
+                        type: 'shadow'
+                    }
+                },
+                grid: {
+                    left: '3%',
+                    right: '4%',
+                    bottom: '3%',
+                    containLabel: true
+                },
+                xAxis: [
+                    {
+                        type: 'category',
+                        axisTick: { alignWithLabel: true },
+                        data: []
+                    }
+                ],
+                yAxis: [
+                    {
+                        type: 'value'
+                    }
+                ],
+                series: [
+                    {
+                        name: '面积',
+                        type: 'bar',
+                        barWidth: '60%',
+                        data: []
+                    }
+                ]
+            };
+        }
+    </script>
+</body>
+</html>

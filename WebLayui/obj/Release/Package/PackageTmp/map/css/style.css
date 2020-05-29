@@ -1,0 +1,37 @@
+/* 2017-9-27 08:47:33 | 修改 木遥（QQ：346819890） */
+
+* {padding: 0; margin: 0; font-family: "微软雅黑";} 
+html, body {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    border: none;
+    overflow: hidden;
+    font-family: "微软雅黑","Microsoft YaHei",Arial,Helvetica,sans-serif,"宋体" !important;
+    font-size: 13px; 
+    background-color:transparent!important; 
+}
+a { text-decoration: none;} 
+ul, li {list-style: none;}
+
+
+
+#centerDiv {
+    height: 100%;
+    /*width: 100%;*/
+    margin: 0;
+    padding: 0;
+    border: none;
+    overflow: hidden; 
+} 
+.map-control-bar {
+    position: absolute; 
+    width: 36px;
+    height: 36px;
+    padding: 5px;
+    background-color: rgba(0, 0, 0, 0.3);
+    z-index: 9999;
+}
+/*弹出层皮肤*/
+.layui-layer-title{background-color: #1E9FFF!important;color: #fff!important;}

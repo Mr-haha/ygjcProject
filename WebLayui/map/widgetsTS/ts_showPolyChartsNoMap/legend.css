@@ -1,0 +1,39 @@
+/* 2017-12-4 15:31:53 | 修改 木遥（QQ：346819890） */
+.leaflet-text-marker-white {
+    color: #ffffff;
+    text-shadow: #000000 1px 0 0,#000000 0 1px 0,#000000 -1px 0 0,#000000 0 -1px 0;
+}
+
+.leaflet-mapbj {
+    background-image: url(./img/mapbj.jpg);
+    background-size: 100% 100%;
+}
+
+.legend-container {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    z-index: 5000;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #bbb;
+    background: rgba(238, 240, 237, 0.9);
+}
+
+.legend-title {
+    text-align: center;
+}
+
+.legend-item {
+    line-height: 28px;
+    margin: 3px 0;
+}
+
+.legend-color {
+    padding: 2px 20px;
+    opacity: 0.6;
+}
+
+.legend-des {
+    margin-left: 5px;
+}

@@ -1,0 +1,42 @@
+﻿<!-- 2017-12-4 14:10:33 | 修改 木遥（QQ：346819890） -->
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no" />
+    <title></title>
+
+    <script type="text/javascript" src="../../lib/include-lib.js?time=20180320" libpath="../../lib/"
+            include="jquery,font-awesome,bootstrap,layer,haoutil"></script>
+
+    <link href="../../css/widget-win.css" rel="stylesheet" /> 
+</head>
+<body>
+    <div class="container"> 
+        <div class="input-group">
+            <span class="input-group-addon" id="basic-addon2">网址链接</span>
+            <input id="txtUrl" type="text" class="form-control" value="" aria-describedby="basic-addon2"  
+                   onclick=" $(this).select();"/>
+        </div> 
+        <span>您可以通过以上链接与朋友分享当前地图位置，选取输入框中的网址链接然后按“Ctrl+C”进行复制</span>
+    </div>
+
+
+     
+    <script>
+        var thisWidget;
+
+        //当前页面业务
+        function initWidgetView(_thisWidget) {
+            thisWidget = _thisWidget;
+
+            var url = thisWidget.getUrl();
+            $("#txtUrl").val(url);
+
+            $("#txtUrl").focus();
+            $("#txtUrl").select();
+        }
+ 
+    </script>
+</body>
+</html>

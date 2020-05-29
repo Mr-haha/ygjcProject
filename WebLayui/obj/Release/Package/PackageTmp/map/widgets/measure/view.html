@@ -1,0 +1,113 @@
+﻿<!-- 2017-12-4 14:10:33 | 修改 木遥（QQ：346819890） -->
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no" />
+    <title></title>
+
+    <script type="text/javascript" src="../../lib/include-lib.js?time=20180320" libpath="../../lib/"
+            include="jquery,font-awesome,bootstrap,layer,haoutil"></script> 
+    <link href="../../css/widget-win.css" rel="stylesheet" />
+</head>
+<body style="padding:5px;text-align:center;">
+    <div class="btn-group" role="group">
+        <button id="btn_measure_length" type="button" class="btn btn-primary  btn-sm">
+            <span class="fa fa-line-chart" aria-hidden="true"></span> 长度
+        </button>
+        <button id="btn_measure_area" type="button" class="btn btn-primary  btn-sm">
+            <span class="fa fa-area-chart" aria-hidden="true"></span> 面积
+        </button>
+
+        <button id="btn_measure_clear" type="button" class="btn btn-danger  btn-sm">
+            <span class="fa fa-trash" aria-hidden="true"></span> 清除
+        </button>
+    </div>
+
+
+    <div style="margin-top:5px;">
+        <span style="font-size: 16px;padding-right:10px">单位</span>
+        <select id="measure_length_danwei" class="form-control" style="width:140px">
+            <option value="auto">自动</option>
+            <option value="m">米</option>
+            <option value="km">公里</option>
+            <option value="mile">海里</option>
+            <option value="zhang">丈</option>
+        </select>
+        <select id="measure_area_danwei" class="form-control" style="width:140px;display:none;">
+            <option value="auto">自动</option>
+            <option value="m">平方米</option>
+            <option value="km">平方公里</option>
+            <option value="mu">亩</option>
+            <option value="ha">公顷</option>
+        </select>
+    </div>
+
+    <div style="margin-top:5px;">
+        <span id="lbl_measure_result" style="color: #0081c2;font-size: 16px;">0米</span>
+    </div>
+
+
+
+
+
+
+    <script>
+        var thisWidget;
+
+        //当前页面业务
+        function initWidgetView(_thisWidget) {
+            thisWidget = _thisWidget;
+
+            $('#btn_measure_length').bind('click', function () {
+                $('#measure_area_danwei').hide();
+                $('#measure_length_danwei').show();
+
+                showResult('');
+                thisWidget.drawPolyline();
+            });
+
+            $('#btn_measure_area').bind('click', function () {
+                $('#measure_length_danwei').hide();
+                $('#measure_area_danwei').show();
+
+                showResult('');
+                thisWidget.drawPolygon();
+            });
+
+
+            $('#btn_measure_clear').bind('click', function () {
+                $('#measure_area_danwei').hide();
+                $('#measure_length_danwei').show();
+
+                showResult('');
+                thisWidget.clearDraw();
+            });
+
+
+            $("#measure_length_danwei").change(function (e) {
+                thisWidget.updateResultLengthByDw(true);
+            });
+            $("#measure_area_danwei").change(function (e) {
+                thisWidget.updateResultAreaByDw(true);
+            });
+        }
+
+        function getLengtchDanWei() {
+            return $("#measure_length_danwei").val();
+        }
+        function getAreaDanWei() {
+            return $("#measure_area_danwei").val();
+        }
+
+
+        //从父页面调用
+        function showResult(val) {
+            $("#lbl_measure_result").html(val);
+        }
+
+
+    </script>
+</body>
+</html>
+

@@ -1,0 +1,152 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>基本资料</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="../lib/layui-v2.5.4/css/layui.css" media="all">
+    <link rel="stylesheet" href="../css/public.css" media="all">
+    <style>
+        .layui-form-item .layui-input-company {
+            width: auto;
+            padding-right: 10px;
+            line-height: 38px;
+        }
+    </style>
+    <style type="text/css">
+        body, html {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            margin: 0;
+            font-family: "微软雅黑";
+        }
+        #allmap {
+            width: 100%;
+            height: 300px;
+            overflow: hidden;
+            margin: 0;
+            font-family: "微软雅黑";
+        }
+    </style>
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=3.0&ak=mqS7BSVmjuGks3HW4pQAI6kuv0GXK5Gb"></script>
+</head>
+<body>
+    <div class="layuimini-container">
+        <div class="layuimini-main">
+            <div id="allmap"></div>
+            <div class="layui-card">
+                <div class="layui-card-body" style="padding-top: 40px;">
+                    <form class="layui-form" style="margin: 0 auto;max-width: 460px;padding-top:10px;">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">ID:</label>
+                            <div class="layui-input-block">
+                                <input type="text" placeholder="请填写入款人游戏ID" class="layui-input" lay-verify="number" required />
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">调查人员:</label>
+                            <div class="layui-input-block">
+                                <input type="number" placeholder="请填写入款金额" value="" class="layui-input" lay-verify="number" required>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">时间:</label>
+                            <div class="layui-input-block">
+                                <select lay-verify="required">
+                                    <option value="1" selected>保险箱</option>
+                                    <option value="2">现金</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">调查状态:</label>
+                            <div class="layui-input-block">
+                                <select lay-verify="required">
+                                    <option value="1" selected>人工入款</option>
+                                    <option value="2">修正</option>
+                                    <option value="3">活动</option>
+                                    <option value="4">佣金</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-input-block">
+                                <button class="layui-btn" lay-submit lay-filter="formStep">
+                                    &emsp;提交&emsp;
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            </div>
+        </div>
+            <script src="../lib/layui-v2.5.4/layui.js" charset="utf-8"></script>
+            <script>
+                layui.use(['form'], function () {
+                    var form = layui.form
+                        , layer = layui.layer;
+
+                    //监听提交
+                    form.on('submit(saveBtn)', function (data) {
+                        layer.alert(JSON.stringify(data.field), {
+                            title: '最终的提交信息'
+                        })
+                        return false;
+                    });
+
+                });
+            </script>
+            <script type="text/javascript">
+                // GL版命名空间为BMapGL
+                var map = new BMap.Map("allmap");  
+                var point = new BMap.Point(116.709684,39.89778);
+                map.centerAndZoom(point, 16);  
+                map.enableScrollWheelZoom(); 
+ 
+                var myIcon = new BMap.Icon("myicon.png",new BMap.Size(30,30),{
+                    anchor: new BMap.Size(10,10)    
+                });
+ 
+                var marker=new BMap.Marker(point,{icon: myIcon});  
+                map.addOverlay(marker);  
+ 
+                var geolocation = new BMap.Geolocation();
+                geolocation.getCurrentPosition(function(r){
+                    if(this.getStatus() == BMAP_STATUS_SUCCESS){
+                        var mk = new BMap.Marker(r.point);
+                        map.addOverlay(mk);
+                        //map.panTo(r.point);//地图中心点移到当前位置
+                        var latCurrent = r.point.lat;
+                        var lngCurrent = r.point.lng;
+                        //alert('我的位置：'+ latCurrent + ',' + lngCurrent);
+ 
+                        location.href="http://api.map.baidu.com/direction?origin="+latCurrent+","+lngCurrent+"&destination=39.89778,116.709684&mode=driving&region=北京&output=html";
+ 
+                    }
+                    else {
+                        alert('failed'+this.getStatus());
+                    }        
+                },{enableHighAccuracy: true})
+ 
+ 
+                map.addOverlay(marker);  
+                var licontent="<b>健龙森羽毛球馆</b><br>";  
+                licontent+="<span><strong>地址：</strong>北京市通州区滨河中路108号</span><br>";  
+                licontent+="<span><strong>电话：</strong>(010)81556565 / 6969</span><br><button>2323</button>";          
+                var opts = { 
+                    width : 200,
+                    height: 80,
+                };         
+                var  infoWindow = new BMap.InfoWindow(licontent, opts);  
+                //marker.openInfoWindow(infoWindow);  
+                marker.addEventListener('click',function(){
+                    marker.openInfoWindow(infoWindow);
+                });  
+
+            </script>
+</body>
+</html>

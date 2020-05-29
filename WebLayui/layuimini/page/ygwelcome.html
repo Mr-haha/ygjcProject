@@ -1,0 +1,412 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>首页二</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="../lib/layui-v2.5.4/css/layui.css" media="all">
+    <link rel="stylesheet" href="../lib/font-awesome-4.7.0/css/font-awesome.min.css" media="all">
+    <link rel="stylesheet" href="../css/public.css" media="all">
+    <style>
+        .layui-card {border:1px solid #f2f2f2;border-radius:5px;}
+        .icon {margin-right:10px;color:#1aa094;}
+        .icon-cray {color:#ffb800!important;}
+        .icon-blue {color:#1e9fff!important;}
+        .icon-tip {color:#ff5722!important;}
+        .layuimini-qiuck-module {text-align:center;margin-top: 10px}
+        .layuimini-qiuck-module a i {display:inline-block;width:100%;height:60px;line-height:60px;text-align:center;border-radius:2px;font-size:30px;background-color:#F8F8F8;color:#333;transition:all .3s;-webkit-transition:all .3s;}
+        .layuimini-qiuck-module a cite {position:relative;top:2px;display:block;color:#666;text-overflow:ellipsis;overflow:hidden;white-space:nowrap;font-size:14px;}
+        .welcome-module {width:100%;height:210px;}
+        .panel {background-color:#fff;border:1px solid transparent;border-radius:3px;-webkit-box-shadow:0 1px 1px rgba(0,0,0,.05);box-shadow:0 1px 1px rgba(0,0,0,.05)}
+        .panel-body {padding:10px}
+        .panel-title {margin-top:0;margin-bottom:0;font-size:12px;color:inherit}
+        .label {display:inline;padding:.2em .6em .3em;font-size:75%;font-weight:700;line-height:1;color:#fff;text-align:center;white-space:nowrap;vertical-align:baseline;border-radius:.25em;margin-top: .3em;}
+        .layui-red {color:red}
+        .main_btn > p {height:40px;}
+        .layui-bg-number {background-color:#F8F8F8;}
+        .layuimini-notice:hover {background:#f6f6f6;}
+        .layuimini-notice {padding:7px 16px;clear:both;font-size:12px !important;cursor:pointer;position:relative;transition:background 0.2s ease-in-out;}
+        .layuimini-notice-title,.layuimini-notice-label {
+            padding-right: 70px !important;text-overflow:ellipsis!important;overflow:hidden!important;white-space:nowrap!important;}
+        .layuimini-notice-title {line-height:28px;font-size:14px;}
+        .layuimini-notice-extra {position:absolute;top:50%;margin-top:-8px;right:16px;display:inline-block;height:16px;color:#999;}
+    </style>
+</head>
+<body>
+<div class="layuimini-container">
+    <div class="layuimini-main">
+        <div class="layui-row layui-col-space15">
+            <div class="layui-col-md8">
+                <div class="layui-row layui-col-space15">
+                    <div class="layui-col-md6">
+                        <div class="layui-card">
+                            <div class="layui-card-header"><i class="fa fa-warning icon"></i>专题监测</div>
+                            <div class="layui-card-body">
+                                <div class="welcome-module">
+                                    <div class="layui-row layui-col-space10">
+                                        <div class="layui-col-xs6">
+                                            <div class="panel layui-bg-number layui-bg-cyan">
+                                                <div class="panel-body">
+                                                    <div class="panel-title">
+                                                        <span class="label pull-right layui-bg-blue"></span>
+                                                        <h5>江阴市</h5>
+                                                    </div>
+                                                    <div class="panel-content">
+                                                        <a href="javascript:;" style="color:white" data-iframe-tab="../map/index.html?name=gdbhjc" data-title="耕地保护状况监测" data-icon="fa fa-gears">
+                                                            <h1 class="no-margins">耕地保护状况监测</h1>
+                                                            <small>专题监测</small></a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="layui-col-xs6">
+                                            <div class="panel layui-bg-number layui-bg-orange">
+                                                <div class="panel-body">
+                                                    <div class="panel-title">
+                                                        <span class="label pull-right layui-bg-red"></span>
+                                                        <h5>东台市</h5>
+                                                    </div>
+                                                    <div class="panel-content">
+                                                        <a href="javascript:;" style="color:white" data-iframe-tab="../map/index.html?name=gdlyqk" data-title="耕地利用状况变化" data-icon="fa fa-gears">
+                                                            <h1 class="no-margins">耕地利用状况监测</h1>
+                                                            <small>耕地专题</small>
+                                                            </a>
+                                                        </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="layui-col-xs6">
+                                            <div class="panel layui-bg-number layui-bg-green">
+                                                <div class="panel-body">
+                                                    <div class="panel-title">
+                                                        <span class="label pull-right layui-bg-orange"></span>
+                                                        <h5>2020</h5>
+                                                    </div>
+                                                    <div class="panel-content">
+                                                        <div class="panel-content">
+                                                            <h1 class="no-margins">江淮生态大走廊</h1>
+                                                            <small>专题监测</small>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="layui-col-xs6">
+                                            <div class="panel layui-bg-number layui-bg-blue">
+                                                <div class="panel-body">
+                                                    <div class="panel-title">
+                                                        <span class="label pull-right layui-bg-green"></span>
+                                                        <h5>2019</h5>
+                                                    </div>
+                                                    <div class="panel-content">
+                                                        <a href="javascript:;" style="color:white" data-iframe-tab="http://10.32.49.122/bhmap/index.html" data-title="土地执法专题" data-icon="fa fa-gears">
+                                                            <h1 class="no-margins">土地执法专题</h1>
+                                                            <small>专题监测</small>
+                                                        </a>
+                                                    </div>                          
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-col-md6">
+                        <div class="layui-card">
+                            <div class="layui-card-header"><i class="fa fa-credit-card icon icon-blue"></i>地理空间变化</div>
+                            <div class="layui-card-body">
+                                <div class="welcome-module">
+                                    <div class="layui-row layui-col-space10 layuimini-qiuck">
+                                        <div class="layui-col-xs3 layuimini-qiuck-module">
+                                            <a href="javascript:;" data-iframe-tab="../map/dlkjbhindex.html" data-title="地理空间变化" data-icon="fa fa-window-maximize">
+                                                <i class="fa fa-window-maximize"></i>
+                                                <cite>建筑工地</cite>
+                                            </a>
+                                        </div>
+                                        <div class="layui-col-xs3 layuimini-qiuck-module">
+                                            <a href="javascript:;" data-iframe-tab="../map/dlkjbhindex.html" data-title="地理空间变化" data-icon="fa fa-gears">
+                                                <i class="fa fa-gears"></i>
+                                                <cite>拆迁平整</cite>
+                                            </a>
+                                        </div>
+                                        <div class="layui-col-xs3 layuimini-qiuck-module">
+                                            <a href="javascript:;" data-iframe-tab="../map/dlkjbhindex.html" data-title="地理空间变化" data-icon="fa fa-file-text">
+                                                <i class="fa fa-file-text"></i>
+                                                <cite>耕地</cite>
+                                            </a>
+                                        </div>
+                                        <div class="layui-col-xs3 layuimini-qiuck-module">
+                                            <a href="javascript:;" data-iframe-tab="../map/dlkjbhindex.html" data-title="地理空间变化" data-icon="fa fa-dot-circle-o">
+                                                <i class="fa fa-dot-circle-o"></i>
+                                                <cite>草地</cite>
+                                            </a>
+                                        </div>
+                                        <div class="layui-col-xs3 layuimini-qiuck-module">
+                                            <a href="javascript:;" data-iframe-tab="../map/dlkjbhindex.html" data-title="地理空间变化" data-icon="fa fa-calendar">
+                                                <i class="fa fa-calendar"></i>
+                                                <cite>公路</cite>
+                                            </a>
+                                        </div>
+                                        <div class="layui-col-xs3 layuimini-qiuck-module">
+                                            <a href="javascript:;" data-iframe-tab="../map/dlkjbhindex.html" data-title="地理空间变化" data-icon="fa fa-hourglass-end">
+                                                <i class="fa fa-hourglass-end"></i>
+                                                <cite>林地</cite>
+                                            </a>
+                                        </div>
+                                        <div class="layui-col-xs3 layuimini-qiuck-module">
+                                            <a href="javascript:;" data-iframe-tab="../map/dlkjbhindex.html" data-title="地理空间变化" data-icon="fa fa-snowflake-o">
+                                                <i class="fa fa-snowflake-o"></i>
+                                                <cite>裸露土地</cite>
+                                            </a>
+                                        </div>
+                                        <div class="layui-col-xs3 layuimini-qiuck-module">
+                                            <a href="javascript:;" data-iframe-tab="../map/dlkjbhindex.html" data-title="地理空间变化" data-icon="fa fa-shield">
+                                                <i class="fa fa-shield"></i>
+                                                <cite>平房</cite>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="layui-col-md12">
+                        <div class="layui-card">
+                            <div class="layui-card-header"><i class="fa fa-line-chart icon"></i>统计信息</div>
+                            <div class="layui-card-body">
+                                <div id="echarts-records" style="width: 100%;min-height:530px"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="layui-col-md4">
+
+                <div class="layui-card">
+                    <div class="layui-card-header"><i class="fa fa-bullhorn icon icon-tip"></i>系统公告</div>
+                    <div class="layui-card-body layui-text">
+                        <div style=" clear: both; font-size: 12px !important; cursor: pointer; position: relative; transition: background 0.2s ease-in-out;">
+                            <a style=" padding: 7px 16px;" target="_blank" href="/%E6%89%AC%E5%B7%9E%E5%B8%82%E6%B1%9F%E9%83%BD%E5%8C%BA2020%E5%B9%B4%E7%AC%AC1%E6%89%B9%E6%AC%A1%E5%9C%B0%E7%90%86%E7%A9%BA%E9%97%B4%E5%8F%98%E5%8C%96%E9%81%A5%E6%84%9F%E7%9B%91%E6%B5%8B%E6%8A%A5%E5%91%8A.pdf">
+                            扬州市江都区2020年第1批次地理空间变化遥感监测报告
+                        </a>
+                            <div style=" position: absolute; top: 50%; margin-top: -8px; right: 16px; display: inline-block; height: 16px; color: #999;">2020-04-2 23:06</div>
+                        </div>
+                    </div>
+                    <div class="layui-card-body layui-text">
+                        <div style=" clear: both; font-size: 12px !important; cursor: pointer; position: relative; transition: background 0.2s ease-in-out;">
+                            <a style=" padding: 7px 16px;" target="_blank" href="/苏州市太仓市耕地动态变化遥感监测报告.pdf">
+                                苏州市太仓市耕地动态变化遥感监测报告
+                            </a>
+                            <div style=" position: absolute; top: 50%; margin-top: -8px; right: 16px; display: inline-block; height: 16px; color: #999;">2020-01-2 23:06</div>
+                        </div>
+                    </div>
+                    <div class="layui-card-body layui-text">
+                        <div style=" clear: both; font-size: 12px !important; cursor: pointer; position: relative; transition: background 0.2s ease-in-out;">
+                            <a style=" padding: 7px 16px;" target="_blank" href="/无锡市江阴市耕地保护状况遥感监测报告.pdf">
+                                无锡市江阴市耕地保护状况遥感监测报告
+                            </a>
+                            <div style=" position: absolute; top: 50%; margin-top: -8px; right: 16px; display: inline-block; height: 16px; color: #999;">2019-12-2 23:06</div>
+                        </div>
+                    </div>
+                    <div class="layui-card-body layui-text">
+                        <div style=" clear: both; font-size: 12px !important; cursor: pointer; position: relative; transition: background 0.2s ease-in-out;">
+                            <a style=" padding: 7px 16px;" target="_blank" href="/盐城市东台市耕地利用状况遥感监测报告.pdf">
+                                盐城市东台市耕地利用状况遥感监测报告
+                            </a>
+                            <div style=" position: absolute; top: 50%; margin-top: -8px; right: 16px; display: inline-block; height: 16px; color: #999;">2019-09-2 23:06</div>
+                        </div>
+                    </div>
+                    <div class="layui-card-body layui-text">
+                        <div style="clear: both; font-size: 12px !important; cursor: pointer; position: relative; transition: background 0.2s ease-in-out;">
+                            <a style=" padding: 7px 16px;" target="_blank" href="/%E6%89%AC%E5%B7%9E%E5%B8%82%E6%B1%9F%E9%83%BD%E5%8C%BA2020%E5%B9%B4%E7%AC%AC1%E6%89%B9%E6%AC%A1%E5%9C%B0%E7%90%86%E7%A9%BA%E9%97%B4%E5%8F%98%E5%8C%96%E9%81%A5%E6%84%9F%E7%9B%91%E6%B5%8B%E6%8A%A5%E5%91%8A.pdf">
+                                昆山市地理空间变化遥感监测报告
+                            </a>
+                            <div style=" position: absolute; top: 50%; margin-top: -8px; right: 16px; display: inline-block; height: 16px; color: #999;">2020-04-2 23:06</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="layui-card">
+                    <div class="layui-card-header"><i class="fa fa-fire icon"></i>卫星遥感影像</div>
+                    <div class="layui-card-body layui-text">
+                        <div class="layui-carousel" id="test10">
+                            <div carousel-item="">
+                                <div>
+                                    <a href="javascript:;" data-iframe-tab="../map/index.html?center=32.024685,118.782418,10&baselayer=2012%E9%81%A5%E6%84%9F%E5%BD%B1%E5%83%8F" data-title="2012遥感" data-icon="fa fa-window-maximize">
+                                        <img src="../images/image1.jpg" />
+                                    </a>
+                                </div>
+                                <div>
+                                    <a href="javascript:;" data-iframe-tab="/map/index.html?center=32.024685,118.782418,10&baselayer=2018%E9%81%A5%E6%84%9F%E5%BD%B1%E5%83%8F" data-title="2018遥感" data-icon="fa fa-window-maximize">
+                                        <img src="../images/image2.jpg" />
+                                    </a>
+                                </div>
+                                <div>
+                                    <a href="javascript:;" data-iframe-tab="/map/index.html?center=32.024685,118.782418,10&baselayer=2019%E9%81%A5%E6%84%9F%E5%BD%B1%E5%83%8F" data-title="2019遥感" data-icon="fa fa-window-maximize">
+                                        <img src="../images/image3.jpg" />
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+    <div class="layui-footer footer footer-doc">
+        <div class="layui-main">
+            <p style="text-align: center; font-size: 200%">
+                <a href="">
+                <img src="../images/工程院.png" style="
+                width: 350px;
+                height: 55px;
+            " />
+                <img src="../images/自然资源重点实验室.png" style="
+                width: 350px;
+                height: 55px;
+            " />
+                </a>
+                
+            </p>
+            <!--<p style="text-align:center">
+                Copyright（C）    2020    江苏省测绘工程院
+                <br />
+            </p>-->
+            <!--<p style="text-align: center;font-size:160%" >
+                地址：江苏省南京市鼓楼区北京西路75号  电话：02583757110  邮箱：jsgcy_mail@126.com
+            </p>-->
+            
+        </div>
+    </div> 
+</div>
+<script src="../lib/layui-v2.5.4/layui.js" charset="utf-8"></script>
+<script src="../lib/echarts/echarts.min.js" charset="utf-8"></script>
+<script src="../lib/echarts/echarts-theme.js" charset="utf-8"></script>
+<script>
+    layui.config({
+        base: "../js/"
+    }).extend({
+        "layuimini": "layuimini"
+    });
+    layui.use(['layer', 'layuimini','carousel'], function () {
+        var $ = layui.jquery,
+            layer = layui.layer;
+        var carousel = layui.carousel;
+        /**
+         * 查看公告信息
+         **/
+        $('body').on('click', '.layuimini-notice', function () {
+            var title = $(this).children('.layuimini-notice-title').text(),
+                noticeTime = $(this).children('.layuimini-notice-extra').text(),
+                content = $(this).children('.layuimini-notice-content').html();
+            var html = '<div style="padding:15px 20px; text-align:justify; line-height: 22px;border-bottom:1px solid #e2e2e2;background-color: #2f4056;color: #ffffff">\n' +
+                '<div style="text-align: center;margin-bottom: 20px;font-weight: bold;border-bottom:1px solid #718fb5;padding-bottom: 5px"><h4 class="text-danger">' + title + '</h4></div>\n' +
+                '<div style="font-size: 12px">' + content + '</div>\n' +
+                '</div>\n';
+            parent.layer.open({
+                type: 1,
+                title: '系统公告'+'<span style="float: right;right: 1px;font-size: 12px;color: #b1b3b9;margin-top: 1px">'+noticeTime+'</span>',
+                area: '300px;',
+                shade: 0.8,
+                id: 'layuimini-notice',
+                btn: ['查看', '取消'],
+                btnAlign: 'c',
+                moveType: 1,
+                content:html,
+                success: function (layero) {
+                    var btn = layero.find('.layui-layer-btn');
+                    btn.find('.layui-layer-btn0').attr({
+                        href: 'https://gitee.com/zhongshaofa/layuimini',
+                        target: '_blank'
+                    });
+                }
+            });
+        });
+
+        /**
+         * 报表功能
+         */
+        var echartsRecords = echarts.init(document.getElementById('echarts-records'), 'walden');
+        var optionRecords = {
+            tooltip: {
+                trigger: 'axis'
+            },
+            legend: {
+                data:['待建工地','拆迁平整','耕地占用','在建工地']
+            },
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                containLabel: true
+            },
+            toolbox: {
+                feature: {
+                    saveAsImage: {}
+                }
+            },
+            xAxis: {
+                type: 'category',
+                boundaryGap: false,
+                data: ['2019年10月', '2019年11月', '2019年12月', '2020年1月', '2020年2月', '2020年3月', '2020年4月']
+            },
+            yAxis: {
+                type: 'value'
+            },
+            series: [
+                {
+                    name: '待建工地',
+                    type:'line',
+                    stack: '总量',
+                    data:[120, 132, 101, 134, 90, 230, 210]
+                },
+                {
+                    name: '拆迁平整',
+                    type:'line',
+                    stack: '总量',
+                    data:[220, 182, 191, 234, 290, 330, 310]
+                },
+                {
+                    name: '耕地占用',
+                    type:'line',
+                    stack: '总量',
+                    data:[150, 232, 201, 154, 190, 330, 410]
+                },
+                {
+                    name: '在建工地',
+                    type:'line',
+                    stack: '总量',
+                    data:[320, 332, 301, 334, 490, 430, 520]
+                }
+            ]
+        };
+        echartsRecords.setOption(optionRecords);
+
+        // echarts 窗口缩放自适应
+        window.onresize = function(){
+            echartsRecords.resize();
+        }
+        
+          /**
+         * 轮播功能
+         */
+        //图片轮播
+        carousel.render({
+            elem: '#test10',
+            width:'100%',
+            height:'530px'
+          , interval: 2000
+        });
+
+    });
+</script>
+</body>
+</html>

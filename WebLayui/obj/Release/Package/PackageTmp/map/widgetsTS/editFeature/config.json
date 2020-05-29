@@ -1,0 +1,103 @@
+{
+    "layers": [
+        {
+            "name": "收费站",
+            "url": "http://map.cd-kc.cn:6080/arcgis/rest/services/cldw/edit/FeatureServer/2",
+            "geometrytype": "point",
+            "symbol": {
+                "iconOptions": {
+                    "iconUrl": "img/marker/men1.png",
+                    "iconSize": [ 32, 44 ],
+                    "iconAnchor": [ 16, 44 ],
+                    "popupAnchor": [ 0, -20 ]
+                }
+            },
+            "columns": [
+                { "field": "Name", "name": "名称" },
+                { "field": "TYPE", "name": "类型", "editable": false },
+                {
+                    "field": "Infos",
+                    "name": "方向",
+                    "type": "select",
+                    "option": [
+                        { "name": "正向", "value": "1" },
+                        { "name": "反向", "value": "2" }
+                    ]
+                },
+                { "field": "angle", "name": "角度", "type": "number" },
+                { "field": "Descript", "name": "备注" }
+            ],
+            "columnsShow": {
+                "table": [ "Name", "Descript" ]
+            }
+        },
+        {
+            "name": "特殊路段",
+            "url": "http://map.cd-kc.cn:6080/arcgis/rest/services/cldw/edit/FeatureServer/5",
+            "geometrytype": "polyline",
+            "symbol": {
+                "styleOptions": {
+                    "color": "#ff0000",
+                    "weight": 3
+                }
+            },
+            "columns": [
+                { "field": "Name", "name": "名称" },
+                {
+                    "field": "Type",
+                    "name": "类型",
+                    "type": "select",
+                    "option": [
+                        { "name": "类型1", "value": "类型1" },
+                        { "name": "类型2", "value": "类型2" },
+                        { "name": "类型3", "value": "类型3" },
+                        { "name": "类型4", "value": "类型4" },
+                        { "name": "类型5", "value": "类型5" }
+                    ]
+                },
+                { "field": "Info", "name": "方向" },
+                { "field": "Descript", "name": "备注" }
+            ],
+            "columnsShow": {
+                "table": [ "Name", "Descript" ]
+            }
+        },
+        {
+            "name": "面",
+            "url": "http://map.cd-kc.cn:6080/arcgis/rest/services/cldw/edit/FeatureServer/6",
+            "geometrytype": "polygon",
+            "symbol": {
+                "styleOptions": {
+                    "fill": true,
+                    "color": "#ff00ff",
+                    "weight": 2
+                }
+            },
+            "columns": [
+                { "field": "field1", "name": "名称" },
+                { "field": "Id", "name": "编号", "type": "number" },
+                {
+                    "field": "field2",
+                    "name": "类型",
+                    "type": "select",
+                    "option": [
+                        { "name": "类型1", "value": "类型1" },
+                        { "name": "类型2", "value": "类型2" },
+                        { "name": "类型3", "value": "类型3" },
+                        { "name": "类型4", "value": "类型4" },
+                        { "name": "类型5", "value": "类型5" }
+                    ]
+                }
+            ],
+            "columnsShow": {
+                "table": [ "field1", "field2" ]
+            }
+        }
+
+
+
+
+
+
+    ]
+}

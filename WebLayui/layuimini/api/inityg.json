@@ -1,0 +1,52 @@
+{
+  "clearInfo": {
+    "clearUrl": "api/clear.json"
+  },
+  "homeInfo": {
+    "title": "首页",
+    "icon": "fa fa-home",
+		"href": "page/ygwelcome.html"
+		
+  },
+  "logoInfo": {
+    "title": "",
+    "image": "images/遥感江苏·动态监测服务平台.png",
+    "href": ""
+  },
+  "menuInfo": {
+  },
+  "headmenuInfo":{
+        
+        "menu4":{
+            "title": "土地执法专题",
+            "href": "http://10.32.49.122/bhmap/index.html",
+            "icon": "fa fa-tachometer",
+            "target": "_self"
+        },"menu5":{
+            "title": "江淮生态大走廊",
+            "href": "",
+            "icon": "fa fa-tachometer",
+            "target": "_self"
+        },"menu6":{
+            "title": "苏州自贸区监测",
+            "href": "",
+            "icon": "fa fa-tachometer",
+            "target": "_self"
+        },"menu7":{
+            "title": "自然保护地",
+            "href": "",
+            "icon": "fa fa-tachometer",
+            "target": "_self"
+        },"menu8":{
+            "title": "效能督察",
+            "href": "",
+            "icon": "fa fa-tachometer",
+            "target": "_self"
+        },"menu1":{
+            "title": "影像服务资源",
+            "href": "../map/index.html",
+            "icon": "fa fa-tachometer",
+            "target": "_self"
+        }
+  }
+}

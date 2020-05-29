@@ -1,0 +1,36 @@
+﻿<!-- 2017-12-4 14:10:33 | 修改 木遥（QQ：346819890） -->
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no" />
+    <title></title>
+
+    <script type="text/javascript" src="../../lib/include-lib.js?time=20180320" libpath="../../lib/"
+            include="jquery,font-awesome,bootstrap,layer,haoutil"></script> 
+    <link href="../../css/widget-win.css" rel="stylesheet" />
+    <link href="view.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="jumbotron">
+        <div class="container"><h2>Hello, Leaflet!</h2> <p>这是一个widget示例:通过iframe加载view.html弹窗</p></div>
+    </div>
+
+    <script>
+        var thisWidget;
+
+        //当前页面业务
+        function initWidgetView(_thisWidget) {
+            thisWidget = _thisWidget;
+
+            //测试:调用了【index页面对应widg.js】 中的方法
+            thisWidget.testFun();
+        }
+
+        //测试
+        function testIframeFun() {
+            layer.msg('我是弹窗中的方法');
+        }
+    </script>
+</body>
+</html>

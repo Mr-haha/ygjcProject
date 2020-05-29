@@ -1,0 +1,158 @@
+﻿<!-- 2017-12-4 15:35:23 | 修改 木遥（QQ：346819890） -->
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no" />
+    <title></title>
+
+    <script type="text/javascript" src="../../lib/include-lib.js?time=20180320" libpath="../../lib/"
+            include="jquery,font-awesome,bootstrap,layer,haoutil,echarts"></script>
+    <link href="../../css/widget-win.css" rel="stylesheet" />
+     
+</head>
+<body>
+
+    <div id="echartsView" style="width:100%;height:100%;"></div>
+
+
+    <script>
+        var thisWidget;
+ 
+
+        //当前页面业务
+        function initWidgetView(_thisWidget) {
+            thisWidget = _thisWidget;
+            // 基于准备好的dom，初始化echarts实例
+            var myChart = echarts.init(document.getElementById('echartsView'));
+            // 指定图表的配置项和数据
+            var option = getOption();
+
+            // 使用刚指定的配置项和数据显示图表。
+            myChart.setOption(option);
+        }
+
+
+        function getOption() {
+            // Generate data
+            var category = [];
+            var dottedBase = +new Date();
+            var lineData = [];
+            var barData = [];
+
+            for (var i = 0; i < 20; i++) {
+                var date = new Date(dottedBase += 1000 * 3600 * 24);
+                category.push([
+                    date.getFullYear(),
+                    date.getMonth() + 1,
+                    date.getDate()
+                ].join('-'));
+                var b = Math.floor(Math.random() * 200);
+                var d = Math.floor(Math.random() * 200);
+                barData.push(b)
+                lineData.push(d + b);
+            }
+
+
+            // option
+            option = {
+                backgroundColor: '#0f375f',
+                tooltip: {
+                    trigger: 'axis',
+                    axisPointer: {
+                        type: 'shadow',
+                        label: {
+                            show: true,
+                            backgroundColor: '#333'
+                        }
+                    }
+                },
+                legend: {
+                    data: ['区域配置灌溉', '区域实际灌溉'],
+                    textStyle: {
+                        color: '#ccc'
+                    }
+                },
+                xAxis: {
+                    data: category,
+                    axisLine: {
+                        lineStyle: {
+                            color: '#ccc'
+                        }
+                    }
+                },
+                yAxis: {
+                    splitLine: { show: false },
+                    axisLine: {
+                        lineStyle: {
+                            color: '#ccc'
+                        }
+                    }
+                },
+                series: [{
+                    name: 'line',
+                    type: 'line',
+                    smooth: true,
+                    showAllSymbol: true,
+                    symbol: 'emptyCircle',
+                    symbolSize: 15,
+                    data: lineData
+                }, {
+                    name: '区域实际灌溉',
+                    type: 'bar',
+                    barWidth: 10,
+                    itemStyle: {
+                        normal: {
+                            barBorderRadius: 5,
+                            color: new echarts.graphic.LinearGradient(
+                                0, 0, 0, 1,
+                                [
+                                    { offset: 0, color: '#14c8d4' },
+                                    { offset: 1, color: '#43eec6' }
+                                ]
+                            )
+                        }
+                    },
+                    data: barData
+                }, {
+                    name: '区域配置灌溉',
+                    type: 'bar',
+                    barGap: '-100%',
+                    barWidth: 10,
+                    itemStyle: {
+                        normal: {
+                            color: new echarts.graphic.LinearGradient(
+                                0, 0, 0, 1,
+                                [
+                                    { offset: 0, color: 'rgba(20,200,212,0.5)' },
+                                    { offset: 0.2, color: 'rgba(20,200,212,0.2)' },
+                                    { offset: 1, color: 'rgba(20,200,212,0)' }
+                                ]
+                            )
+                        }
+                    },
+                    z: -12,
+                    data: lineData
+                }, {
+                    name: 'dotted',
+                    type: 'pictorialBar',
+                    symbol: 'rect',
+                    itemStyle: {
+                        normal: {
+                            color: '#0f375f'
+                        }
+                    },
+                    symbolRepeat: true,
+                    symbolSize: [12, 4],
+                    symbolMargin: 1,
+                    z: -10,
+                    data: lineData
+                }]
+            };
+            return option;
+        }
+
+
+    </script>
+</body>
+</html>

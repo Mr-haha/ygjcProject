@@ -1,0 +1,150 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0,minimum-scale=1.0,maximum-scale=1.0" />
+    <meta name="apple-touch-fullscreen" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="x5-fullscreen" content="true">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />
+    <title>二维地图</title>
+
+    <!--第三方lib-->
+    <script type="text/javascript" src="../map/lib/include-lib.js?time=20180320" libpath="../map/lib/"
+            include="jquery,font-awesome,bootstrap,layer,haoutil,echarts-forleaflet,mapV,leaflet-mars,esri-leaflet,turf,leafletPlugins"></script>
+     
+    <!--业务功能-->
+    <!--<link href="css/style.css?time=20180320" rel="stylesheet" />-->
+    <script src="../map/js/index.js?time=20180320"></script>
+
+
+    <link rel="stylesheet" href="../layuimini/lib/layui-v2.5.4/css/layui.css" media="all">
+    <link rel="stylesheet" href="../layuimini/css/layuimini.css" media="all">
+    <link rel="stylesheet" href="../layuimini/lib/font-awesome-4.7.0/css/font-awesome.min.css" media="all">
+    <link rel="stylesheet" href="../layuimini/css/public.css" media="all">
+    <style id="layuimini-bg-color">
+    </style>
+    <style>
+        body {height:100%;width:100%;overflow:hidden}
+        .layui-card { border: 1px solid #f2f2f2; border-radius: 0px; }
+        h4 { font-size: 18px; font-family: "Microsoft YaHei","Simsun",Arial; font-weight: normal; line-height: 1; padding: 0; margin: 0; }
+        .icons li { margin: 5px 8px; text-align: center; height: 100px; cursor: pointer; }
+            .icons li i { display: block; font-size: 15px; line-height: 60px; height: 60px; }
+            .icons li:hover { background: #2f4056; border-radius: 5px; color: #fff; }
+
+        .ClickStyle { background: #2f4056; border-radius: 5px; color: #fff; }
+
+        .icons li:hover i { font-size: 30px; }
+        .layui-col-xs5 .fa { font-size: 25px !important; }
+        .layui-col-xs5 .fa:hover { font-size: 40px !important; }
+    </style>
+
+</head>
+<body>
+    <div class="layui-row">
+        <div class="layui-col-md2">
+            <div class="layui-card" id="card" style="height:800px;overflow-y:scroll;">
+                <div class="layui-card-header" style="margin-top:10px;padding-top:10px"><h4><button onclick="allSelect()" style="float:right">全选</button>快捷入口</h4></div>
+                <div class="layui-card-body">
+                    <ul class="icons">
+                        <li class='layui-col-xs5 ' onclick="toggleStyle(this)"><i class="fa fa-pencil"></i><span>其他在建工地</span></li>
+                        <li class='layui-col-xs5 ' onclick="toggleStyle(this)"><i class="fa fa-anchor"></i><span>拆迁平整</span></li>
+                        <li class='layui-col-xs5 ' onclick="toggleStyle(this)"><i class="fa fa-anchor"></i><span>拆迁平整</span></li>
+                        <li class='layui-col-xs5 ' onclick="toggleStyle(this)"><i class="fa fa-archive"></i><span>在建工地</span></li>
+                        <li class='layui-col-xs5 ' onclick="toggleStyle(this)"><i class="fa fa-area-chart"></i><span>待建工地</span></li>
+                        <li class='layui-col-xs5 ' onclick="toggleStyle(this)"><i class="fa fa-arrows"></i><span>已批在建工地</span></li>
+                        <li class='layui-col-xs5 ' onclick="toggleStyle(this)"><i class="fa fa-arrows-h"></i><span>待拆除</span></li>
+                        <li class='layui-col-xs5 ' onclick="toggleStyle(this)"><i class="fa fa-arrows-v"></i><span>道路</span></li>
+                        <li class='layui-col-xs5 ' onclick="toggleStyle(this)"><i class="fa fa-asterisk"></i><span>围海造地</span></li>
+                        <li class='layui-col-xs5 ' onclick="toggleStyle(this)"><i class="fa fa-at"></i><span>临时用地</span></li>
+                        <li class='layui-col-xs5 ' onclick="toggleStyle(this)"><i class="fa fa-automobile"></i><span>高尔夫球场</span></li>
+                        <li class='layui-col-xs5 ' onclick="toggleStyle(this)"><i class="fa fa-arrows-h"></i><span>光伏用地</span></li>
+                        <li class='layui-col-xs5 ' onclick="toggleStyle(this)"><i class="fa fa-arrows-v"></i><span>钢铁企业</span></li>
+                        <li class='layui-col-xs5 ' onclick="toggleStyle(this)"><i class="fa fa-at"></i><span>非建设用地</span></li>
+                        <li class='layui-col-xs5 ' onclick="toggleStyle(this)"><i class="fa fa-automobile"></i><span>空地或植被</span></li>
+                        <li class='layui-col-xs5 ' onclick="toggleStyle(this)"><i class="fa fa-arrows-h"></i><span>坑塘</span></li>
+                        <li class='layui-col-xs5 ' onclick="toggleStyle(this)"><i class="fa fa-arrows-v"></i><span>其他用地</span></li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+        <!--L.widget.activate({ uri: 'widgets/TBLX/TableJS.js', name: '拆迁平整' || '' });-->
+        <div id="centerDiv" class="layui-col-md10" style="height:100%">
+            <div id="map" class="map">
+            </div>
+        </div>
+    </div>
+        <script src="../layuimini/lib/layui-v2.5.4/layui.all.js"></script>
+        <script type="text/javascript">
+
+
+            window.onresize = changeFrameHeight;
+
+
+            function toggleStyle(object, index) {
+                var $ = layui.jquery;
+                $(".layui-col-xs5").removeClass("ClickStyle");
+                $(object).toggleClass("ClickStyle");
+
+                showClickLayer(object.innerText, index);
+            }
+
+            var layerIndex = '';
+            //////显示点击后各类型统计的Layer/////
+            function showClickLayer(innerText, index) {
+                var $ = layui.jquery;
+                var Layer = layui.layer;
+                var cont = '../layuimini/page/table.html?index=' + index + '&&TBLX=' + innerText;
+
+                if (layerIndex === '') {
+                    layerIndex = Layer.open({
+                        type: 2,
+                        id: 'Clickindex',
+                        content: cont,
+                        skin: 'layui-layer-molv',
+                        area: ['500px', '300px'],
+                        maxmin: true,
+                        offset: [(window.screen.availHeight - 300) / 2 + 'px', document.body.clientWidth / 6 + 'px'],
+                        shade: 0,
+                        end: function () {
+                            layerIndex = '';
+                            $(".layui-col-xs5").removeClass("ClickStyle");
+                        }
+                    })
+                }
+                else {
+                    Layer.iframeSrc(layerIndex, cont);
+                }
+            }
+            //////显示点击“全选”后所有类别统计的Layer/////
+            function allSelect() {
+                var $ = layui.jquery;
+                $(".layui-col-xs5").addClass("ClickStyle");
+
+                var Layer = layui.layer;
+
+                Layer.close(layer.index);   //关闭最近打开的层
+
+                var cont = '../layuimini/page/table.html';
+                Layer.open({
+                    type: 2,
+                    id: 'AllSelect',
+                    content: cont,
+                    skin: 'layui-layer-molv',
+                    area: ['1000px', '500px'],
+                    maxmin: true,
+                    offset: [(window.screen.availHeight - 500) / 2 + 'px', document.body.clientWidth / 6 + 'px'],
+                    shade: 0,
+                    end: function () {
+                        $(".layui-col-xs5").removeClass("ClickStyle");
+                    }
+                });
+            }
+        </script>
+</body>
+
+</html>
+

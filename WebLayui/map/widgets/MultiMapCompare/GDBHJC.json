@@ -1,0 +1,34 @@
+{
+  "TimeMaps": [
+    {
+      "time": "2017年11月",
+      "server": "http://10.32.49.10:6080/arcgis/rest/services/JYS201712/MapServer",
+      "type": "arcgis_tile",
+      "crs": "4490"
+    },
+    {
+      "time": "2018年05月",
+      "server": "http://10.32.49.10:6080/arcgis/rest/services/JYS201805/MapServer",
+      "type": "arcgis_tile",
+      "crs": "4490"
+    },
+    {
+      "time": "2019年04月",
+      "server": "http://10.32.49.10:6080/arcgis/rest/services/JYS201904/MapServer",
+      "type": "arcgis_tile",
+      "crs": "4490"
+    },
+    {
+      "time": "2019年12月",
+      "server": "http://10.32.49.10:6080/arcgis/rest/services/JYS201912/MapServer",
+      "type": "arcgis_tile",
+      "crs": "4490"
+    },
+    {
+      "time": "2020年04月",
+      "server": "http://10.32.49.10:6080/arcgis/rest/services/JYS202004/MapServer",
+      "type": "arcgis_tile",
+      "crs": "4490"
+    }
+  ]
+}

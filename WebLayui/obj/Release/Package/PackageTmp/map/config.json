@@ -1,0 +1,381 @@
+﻿{
+    "map": {
+        "zoom": 7,
+        "center": {
+       "x": 120.9775,
+       "y": 31.3853 
+       },
+        "minZoom": 4,
+        "maxZoom": 18,
+		"crs": "EPSG4326",
+        "centerAutoLevel": 14,
+        "controls": [
+            { "type": "scale", "visible": true},
+            { "type": "location", "format": "<div>经度:{x}</div><div>纬度:{y}</div>","visible": true,"showlevel": true},
+            { "type": "tool", "item": [ "home", "location", "fullscreen" ], "position": "bottomright" },
+            { "type": "zoom", "position": "bottomright" ,"visible": true},
+            { "type": "layers", "position": "bottomleft", "visible": true }
+        ],
+       "basemaps": [
+            {
+			    "id": 20,
+                "name": "江苏天地图",
+                "type": "group",	
+				"visible": false,			
+		        "icon":"tianditumap.png",
+				 "layers":[{
+                          "pid": 20,      		
+				          "name": "底图1",
+                          "type": "arcgis_tile",
+           	              "url": "http://10.32.49.30:6080/arcgis/rest/services/base/worlddx/MapServer"
+                          },
+			              {
+                           "pid": 20, 
+			               "name": "底图2",
+                           "type": "arcgis_tile",		
+           	               "url": "http://10.32.49.30:6080/arcgis/rest/services/base/dxt/MapServer"
+                           }				 
+				         ]
+            },
+		    {
+                "id": 20,
+                "name": "江苏影像图",
+                "type": "group",	
+				"visible": true,			
+			    "icon":"tiandituimage.png",
+				 "layers":[{
+                          "pid": 20,      		
+				          "name": "底图",
+                          "type": "arcgis_tile",
+           	              "url": "http://10.32.49.30:6080/arcgis/rest/services/base/world/MapServer"
+                          },
+			              {
+                           "pid": 20, 
+			               "name": "注记",
+                           "type": "arcgis_tile",		
+           	               "url": "http://10.32.49.30:6080/arcgis/rest/services/base/worldzj/MapServer"
+                           }				 
+				         ]
+            },{
+                "id": 20,
+                "name": "2010江苏影像图",
+                "type": "group",	
+				"visible": false,			
+			    "icon":"tiandituimage.png",
+				 "layers":[{
+                          "pid": 20,      		
+				          "name": "底图",
+                          "type": "arcgis_tile",
+           	              "url": "http://10.32.49.27:6080/arcgis/rest/services/jsimage2010/MapServer"
+                          },
+			              {
+                           "pid": 20, 
+			               "name": "注记",
+                           "type": "arcgis_tile",		
+           	               "url": "http://10.32.49.27:6080/arcgis/rest/services/jsimagezj/MapServer"
+                           }				 
+				         ]
+            },{
+                "id": 20,
+                "name": "2011江苏影像图",
+                "type": "group",	
+				"visible": false,			
+			    "icon":"tiandituimage.png",
+				 "layers":[{
+                          "pid": 20,      		
+				          "name": "底图",
+                          "type": "arcgis_tile",
+           	               "url": "http://10.32.49.27:6080/arcgis/rest/services/jsimage2011/MapServer"
+                          },
+			              {
+                           "pid": 20, 
+			               "name": "注记",
+                           "type": "arcgis_tile",		
+           	               "url": "http://10.32.49.27:6080/arcgis/rest/services/jsimagezj/MapServer"
+                           }				 
+				         ]
+            },{
+                "id": 20,
+                "name": "2013江苏影像图",
+                "type": "group",	
+				"visible": false,			
+			    "icon":"tiandituimage.png",
+				 "layers":[{
+                          "pid": 20,      		
+				          "name": "底图",
+                          "type": "arcgis_tile",
+           	              "url": "http://10.32.49.27:6080/arcgis/rest/services/jsimage2013/MapServer"
+                          },
+			              {
+                           "pid": 20, 
+			               "name": "注记",
+                           "type": "arcgis_tile",		
+           	               "url": "http://10.32.49.27:6080/arcgis/rest/services/jsimagezj/MapServer"
+                           }				 
+				         ]
+            },{
+                "id": 20,
+                "name": "2014江苏影像图",
+                "type": "group",	
+				"visible": false,			
+			    "icon":"tiandituimage.png",
+				 "layers":[{
+                          "pid": 20,      		
+				          "name": "底图",
+                          "type": "arcgis_tile",
+           	               "url": "http://10.32.49.27:6080/arcgis/rest/services/jsimage2014/MapServer"
+                          },
+			              {
+                           "pid": 20, 
+			               "name": "注记",
+                           "type": "arcgis_tile",		
+           	               "url": "http://10.32.49.27:6080/arcgis/rest/services/jsimagezj/MapServer"
+                           }				 
+				         ]
+            },{
+                "id": 20,
+                "name": "2015江苏影像图",
+                "type": "group",	
+				"visible": false,			
+			    "icon":"tiandituimage.png",
+				 "layers":[{
+                          "pid": 20,      		
+				          "name": "底图",
+                          "type": "arcgis_tile",
+           	               "url": "http://10.32.49.27:6080/arcgis/rest/services/jsimage2015/MapServer"
+                          },
+			              {
+                           "pid": 20, 
+			               "name": "注记",
+                           "type": "arcgis_tile",		
+           	               "url": "http://10.32.49.27:6080/arcgis/rest/services/jsimagezj/MapServer"
+                           }				 
+				         ]
+            },{
+                "id": 20,
+                "name": "2016江苏影像图",
+                "type": "group",	
+				"visible": false,			
+			    "icon":"tiandituimage.png",
+				 "layers":[{
+                          "pid": 20,      		
+				          "name": "底图",
+                          "type": "arcgis_tile",
+           	               "url": "http://10.32.49.27:6080/arcgis/rest/services/jsimage2016/MapServer"
+                          },
+			              {
+                           "pid": 20, 
+			               "name": "注记",
+                           "type": "arcgis_tile",		
+           	               "url": "http://10.32.49.27:6080/arcgis/rest/services/jsimagezj/MapServer"
+                           }				 
+				         ]
+            },{
+                "id": 20,
+                "name": "2017江苏影像图",
+                "type": "group",	
+				"visible": false,			
+			    "icon":"tiandituimage.png",
+				 "layers":[{
+                          "pid": 20,      		
+				          "name": "底图",
+                          "type": "arcgis_tile",
+           	              "url": "http://10.32.49.27:6080/arcgis/rest/services/jsimage2017/MapServer"
+                          },
+			              {
+                           "pid": 20, 
+			               "name": "注记",
+                           "type": "arcgis_tile",		
+           	               "url": "http://10.32.49.27:6080/arcgis/rest/services/jsimagezj/MapServer"
+                           }				 
+				         ]
+            },{
+                "id": 20,
+                "name": "2018江苏影像图",
+                "type": "group",	
+				"visible": false,			
+			    "icon":"tiandituimage.png",
+				 "layers":[{
+                          "pid": 20,      		
+				          "name": "底图",
+                          "type": "tile",
+						  "crs":"4326",
+						  "zOffset":1,
+           	              "url": "http://10.32.49.27:6080/arcgis/rest/services/jsimage2018/MapServer/tile/{z}/{y}/{x}"
+                          },
+			              {
+                           "pid": 20, 
+			               "name": "注记",
+                           "type": "tile",
+						  "crs":"4326",
+						  "zOffset":1,	
+           	               "url": "http://10.32.49.27:6080/arcgis/rest/services/jsimagezj/MapServer/tile/{z}/{y}/{x}"
+                           }				 
+				         ]
+            },
+			 {
+                "id": 21,
+                "name": "2019遥感",
+                "type": "group",	
+				"visible": true,			
+			    "icon":"tiandituimage.png",
+				 "layers":[{
+                          "pid": 21,      		
+				          "name": "底图",
+                          "type": "arcgis_tile",
+           	              "url": "http://10.32.49.27:6080/arcgis/rest/services/jsimage201905/MapServer"
+                          },
+			              {
+                           "pid": 20, 
+			               "name": "注记",
+                           "type": "arcgis_tile",		
+           	               "url": "http://10.32.49.27:6080/arcgis/rest/services/jsimagezj/MapServer"
+                           }
+				         ]
+            }
+        ],
+        "operationallayers": [
+			{
+                "id": 60,
+                "name": "行政区划",         
+				"visible": false,
+                "type": "arcgis_dynamic",
+           	    "url": "http://10.32.49.30:6080/arcgis/rest/services/js/MapServer",
+				"crs": "4326"
+            }           
+        ]
+    },
+
+    "widget": {
+        "debugger": false,
+        "version": "time",
+        "defaultOptions": {
+            "windowOptions": {
+                "position": {
+                    "top": 50,
+                    "right": 10
+                },
+                "maxmin": false,
+                "resize": true
+            },
+            "autoDisable": true,
+            "disableOhter": true
+        },
+        "widgetsAtStart": [
+            {
+                "name": "右上角工具栏",
+                "uri": "widgets/toolBar/widget.js"
+            },
+            {
+                "name": "路线规划",
+                "uri": "widgets/queryGaodeRoute/widget.js"
+            }
+        ],
+        "widgets": [
+            {
+                "name": "地图工具",
+                "type": "group",
+                "children": [
+                    {
+                        "id": "manageBasemaps",
+                        "name": "地图切换",
+                        "uri": "widgets/manageBasemaps/widget.js",
+                        "autoDisable": false,
+                        "disableOhter": false
+                    },
+                    {
+                        "name": "图层控制",
+                        "uri": "widgets/manageLayers/widget.js",
+                        "autoDisable": false,
+                        "disableOhter": false
+                    },
+                    {
+                        "name": "坐标定位",
+                        "uri": "widgets/centerXY/widget.js"
+                    },
+                    {
+                        "name": "地区导航",
+                        "uri": "widgets/navXZQH/widget.js"
+                    },
+                    {
+                        "name": "测量",
+                        "uri": "widgets/measure/widget.js"
+                    },
+                    {
+                        "name": "标记",
+                        "uri": "widgets/addmarker/widget.js"
+                    },
+                    {
+                        "name": "视角书签",
+                        "uri": "widgets/bookmark/widget.js"
+                    },
+                    {
+                        "name": "双屏对比",
+                        "uri": "widgets/mapCompare/widget.js",
+                        "autoDisable": false,
+                        "disableOhter": false
+                    },
+                    {
+                        "name": "卷帘对比",
+                        "uri": "widgets/mapSwipe/widget.js",
+                        "autoDisable": false,
+                        "disableOhter": false
+                    },
+                    {
+                        "name": "标绘",
+                        "uri": "widgets/plot/widget.js",
+                        "windowOptions": {
+                            "position": {
+                                "top": 50,
+                                "right": 10,
+                                "bottom": 10
+                            }
+                        }
+                    },
+                    {
+                        "name": "分享当前地图位置",
+                        "uri": "widgets/shareUrl/widget.js",
+                        "windowOptions": {
+                            "position": "t"
+                        }
+                    },
+                    {
+                        "name": "打印",
+                        "uri": "widgets/print/widget.js",
+                        "autoDisable": false,
+                        "disableOhter": false
+                    },
+                    {
+                        "name": "街景",
+                        "uri": "widgets/streetscape/widget.js"
+                    }
+                ]
+            },
+			{
+                "name": "遥感监测功能",
+                "type": "group",
+                "children": [
+                    {
+                       "name": "图斑类型统计",
+                      "icon": "fa fa-info-circle",
+			          "uri": "widgets/TBLX/TableJS.js"
+                    },
+					                    {
+                       "name": "图斑信息查看",
+                      "icon": "fa fa-info-circle",
+			          "uri": "widgets/TBinfo/TBinfo.js",
+					  "autoDisable": false,
+                        "disableOhter": false
+                    },
+					{
+                       "name": "历史追溯",
+                       "icon": "fa fa-database",
+                       "uri": "widgets/MultiMapCompare/MultiMapCompare.js",
+					   "autoDisable": false,
+                        "disableOhter": false
+                    }
+                ]
+            }
+          ]
+    }
+}

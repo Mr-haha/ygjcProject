@@ -1,0 +1,352 @@
+﻿<!-- 2017-12-4 15:35:23 | 修改 木遥（QQ：346819890） -->
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no" />
+    <title></title>
+
+    <script type="text/javascript" src="../lib/include-lib.js?time=20180320" libpath="../lib/"
+            include="jquery,font-awesome,bootstrap,layer,haoutil,echarts,layui"></script>
+    <link href="../css/widget-win.css" rel="stylesheet" />
+    <link href="../lib/layui/css/layui.css" rel="stylesheet" />
+</head>
+<body>
+    <!--<fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+        <legend>【遥感】专题统计</legend>
+    </fieldset>-->
+    <div class="layui-card-header">
+        <legend>【遥感】专题统计</legend>
+    </div>
+    <div class="layui-card-body" >
+        <div class="layui-collapse" lay-filter="demo_hash">
+            <div class="layui-colla-item">
+                <h2 class="layui-colla-title">总体分析</h2>
+                <div class="layui-colla-content layui-show">
+                    <p>自2019年1月至2019年3月对比分析出变化图斑总计2000处，其中新增图斑1000处，减少图斑1000处，涉及到10个城市，50个区镇.</p>
+                </div>
+            </div>
+        </div>
+     
+        
+    </div>
+    <div class="layui-card-body">
+        <div class="layui-collapse" lay-filter="demo_hash">
+            <div class="layui-colla-item">
+                <h2 class="layui-colla-title">自定义筛选</h2>
+                <form class="layui-colla-content layui-form layui-form-pane " action="">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">检索</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="title" autocomplete="off" placeholder="请输入标题" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <div class="layui-inline">
+                            <label class="layui-form-label">日期选择</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="date_hash" id="starttime" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">日期选择</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="date_hash" id="endtime" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">专题类型</label>
+                        <div class="layui-input-block">
+                            <select name="interest" lay-filter="aihao">
+                                <option value=""></option>
+                                <option value="0">建设用地</option>
+                                <option value="1" selected="">道路</option>
+                                <option value="2">水系</option>
+                                <option value="3">基本农田</option>
+                                <option value="4">林地</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">行政区划</label>
+                        <div class="layui-input-inline">
+                            <select name="quiz1">
+                                <option value="">请选择省</option>
+                                <option value="江苏" selected="">江苏省</option>
+                                <option value="江西">江西省</option>
+                                <option value="福建">福建省</option>
+                            </select>
+                        </div>
+                        <div class="layui-input-inline">
+                            <select name="quiz2">
+                                <option value="">请选择市</option>
+                                <option value="南京">南京</option>
+                                <option value="苏州" disabled="">苏州</option>
+                                <option value="常州">常州</option>
+                                <option value="徐州">徐州</option>
+                                <option value="泰州">泰州</option>
+                            </select>
+                        </div>
+                        <div class="layui-input-inline">
+                            <select name="quiz3">
+                                <option value="">请选择县/区</option>
+                                <option value="鼓楼区">鼓楼区</option>
+                                <option value="浦口区">浦口区</option>
+                                <option value="江宁区">江宁区</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <button class="layui-btn" lay-submit="" lay-filter="demo2">跳转式提交</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="layui-card-body">
+        <table id="demo_hash" lay-filter="test"></table>
+        <script type="text/html" id="barDemo_hash">
+            <a class="layui-btn layui-btn-xs" lay-event="detail">查看</a>
+            <!-- <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a> -->
+            <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">定位</a>
+        </script>
+    </div>
+    <div id="echartsView" style="width:100%;height:80%;"></div>
+        <script src="../lib/leafletPlugins/esri/esri_leaflet-debug.js"></script>
+        <script src="../lib/layui/layui.js" type="text/javascript"></script>
+        <script>
+            var thisWidget;
+            layui.use(['form', 'layedit', 'laydate', 'element', 'layer', 'table'], function () {
+                var form = layui.form,
+                    layer = layui.layer,
+                    layedit = layui.layedit,
+                    laydate = layui.laydate,
+                    element = layui.element,
+                    table = layui.table;
+                // 注入mock
+                //layui.mockjs.inject({
+                //    'POST /demo/table/user': {
+                //        code: 0,
+                //        msg: "xxx",
+                //        count: 1000,
+                //        'data|20': [{
+                //            'id|+1': 1,
+                //            username: '@name',
+                //            sex: '@boolean',
+                //            city: '@city',
+                //            sign: '@csentence',
+                //            experience: '@integer',
+                //            score: '@integer',
+                //            classify: '@word',
+                //            wealth: '@integer',
+                //            auth: '@boolean'
+                //        }]
+                //    }
+                //});
+                //第一个实例
+                table.render({
+                    method: 'get',
+                    // size: 'sm',
+                    limit: 20,
+                    elem: '#demo_hash',
+                    height: 'full-235',
+                    url: '../widgetsYG/json.json', //数据接口
+                    page: true, //开启分页
+                    cols: [
+                      [ //表头
+                        {
+                            field: 'Id',
+                            title: '序号',
+                            width: 80,
+                            sort: true,
+                            fixed: 'left'
+                        }, {
+                            field: 'Type',
+                            title: '类型',
+                            width: 80
+                        }, {
+                            field: 'Shi',
+                            title: '城市',
+                            width: 80
+                        }, {
+                            field: 'Qu',
+                            title: '城市',
+                            width: 80
+                        },  {
+                            field: 'Qsx',
+                            title: '前时相',
+                            width: 80
+                        }, {
+                            field: 'Hsx',
+                            title: '后时相',
+                            width: 80
+                        },{
+                            field: 'Area',
+                            title: '面积',
+                            width: 80,
+                            sort: true
+                        }, {
+                            fixed: 'right',
+                            width: 180,
+                            align: 'center',
+                            toolbar: '#barDemo_hash'
+                        }
+                      ]
+                    ]
+                });
+
+
+                element.init();
+                form.render();
+                //执行一个laydate实例
+                laydate.render({
+                    elem: '#starttime',
+                    //指定元素
+                });
+                //执行一个laydate实例
+                laydate.render({
+                    elem: '#endtime' //指定元素
+                });
+            });
+
+            //当前页面业务
+            function initWidgetView(_thisWidget) {
+                thisWidget = _thisWidget;
+                // 基于准备好的dom，初始化echarts实例
+                var myChart = echarts.init(document.getElementById('echartsView'));
+                // 指定图表的配置项和数据
+                var option = getOption();
+
+                // 使用刚指定的配置项和数据显示图表。
+                myChart.setOption(option);
+
+                thisWidget.doquery
+            }
+
+               
+            function getOption() {
+                // Generate data
+                var category = [];
+                var dottedBase = +new Date();
+                var lineData = [];
+                var barData = [];
+
+                for (var i = 0; i < 20; i++) {
+                    var date = new Date(dottedBase += 1000 * 3600 * 24);
+                    category.push([
+                        date.getFullYear(),
+                        date.getMonth() + 1,
+                        date.getDate()
+                    ].join('-'));
+                    var b = Math.floor(Math.random() * 200);
+                    var d = Math.floor(Math.random() * 200);
+                    barData.push(b)
+                    lineData.push(d + b);
+                }
+
+
+                // option
+                option = {
+                    //backgroundColor: '#0f375f',
+                    tooltip: {
+                        trigger: 'axis',
+                        axisPointer: {
+                            type: 'shadow',
+                            label: {
+                                show: true,
+                                backgroundColor: '#333'
+                            }
+                        }
+                    },
+                    legend: {
+                        data: ['新增变化数量', '减少变化数量'],
+                        textStyle: {
+                            color: '#ccc'
+                        }
+                    },
+                    xAxis: {
+                        data: category,
+                        axisLine: {
+                            lineStyle: {
+                                color: '#ccc'
+                            }
+                        }
+                    },
+                    yAxis: {
+                        splitLine: { show: false },
+                        axisLine: {
+                            lineStyle: {
+                                color: '#ccc'
+                            }
+                        }
+                    },
+                    series: [{
+                        name: 'line',
+                        type: 'line',
+                        smooth: true,
+                        showAllSymbol: true,
+                        symbol: 'emptyCircle',
+                        symbolSize: 15,
+                        data: lineData
+                    }, {
+                        name: '区域实际灌溉',
+                        type: 'bar',
+                        barWidth: 10,
+                        itemStyle: {
+                            normal: {
+                                barBorderRadius: 5,
+                                color: new echarts.graphic.LinearGradient(
+                                    0, 0, 0, 1,
+                                    [
+                                        { offset: 0, color: '#14c8d4' },
+                                        { offset: 1, color: '#43eec6' }
+                                    ]
+                                )
+                            }
+                        },
+                        data: barData
+                    }, {
+                        name: '区域配置灌溉',
+                        type: 'bar',
+                        barGap: '-100%',
+                        barWidth: 10,
+                        itemStyle: {
+                            normal: {
+                                color: new echarts.graphic.LinearGradient(
+                                    0, 0, 0, 1,
+                                    [
+                                        { offset: 0, color: 'rgba(20,200,212,0.5)' },
+                                        { offset: 0.2, color: 'rgba(20,200,212,0.2)' },
+                                        { offset: 1, color: 'rgba(20,200,212,0)' }
+                                    ]
+                                )
+                            }
+                        },
+                        z: -12,
+                        data: lineData
+                    }, {
+                        name: 'dotted',
+                        type: 'pictorialBar',
+                        symbol: 'rect',
+                        itemStyle: {
+                            normal: {
+                                color: '#0f375f'
+                            }
+                        },
+                        symbolRepeat: true,
+                        symbolSize: [12, 4],
+                        symbolMargin: 1,
+                        z: -10,
+                        data: lineData
+                    }]
+                };
+                return option;
+            }
+
+
+        </script>
+</body>
+</html>
