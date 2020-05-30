@@ -8,12 +8,12 @@ L.widget.bindClass(L.widget.BaseWidget.extend({
             type: "window",
             url: "GDLYQk.html",
             windowOptions: {
-                width: 620,
+                width: 500,
                 //height: 770,
-                height: window.screen.availHeight * 5 / 6,
+                height: window.screen.availHeight * 3.8 / 6,
                 //height: window.screen.availHeight + 60,
-                position:'lt',
-                closeBtn:1
+                position: 'lt',
+                closeBtn: 1
             }
         }
     },

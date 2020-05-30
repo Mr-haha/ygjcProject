@@ -9,7 +9,7 @@ L.widget.bindClass(L.widget.BaseWidget.extend({
             url: "GDBHSLJC.html",
             windowOptions: {
                 width: 470,
-                height: window.screen.availHeight * 5 / 6,
+                height: window.screen.availHeight * 3.8 / 6,
                 //height: 641,
                 position: 'lt',
                 closeBtn: 1
@@ -21,7 +21,7 @@ L.widget.bindClass(L.widget.BaseWidget.extend({
     widgetThis: null,
     Windowthis: null,
     layerWork: null,
-    GDBHSLUrl:"http://10.32.49.10:6080/arcgis/rest/services/GDSLBHJC/MapServer/0",
+    GDBHSLUrl: "http://10.32.49.10:6080/arcgis/rest/services/GDSLBHJC/MapServer/0",
     //初始化[仅执行1次]
     create: function (viewopt) {
         var item = {
@@ -34,7 +34,7 @@ L.widget.bindClass(L.widget.BaseWidget.extend({
             "visible": true
         };
         this.layerWork = L.mars.layer.createLayer(item);
-   
+
     },
     //激活插件
     activate: function (hhh) {
@@ -72,7 +72,7 @@ L.widget.bindClass(L.widget.BaseWidget.extend({
                     window.parent.flashFeature = etarget;
                     widgetThis.showHistory();
                 }
-            });                
+            });
         })
 
     },
@@ -221,7 +221,7 @@ L.widget.bindClass(L.widget.BaseWidget.extend({
             url: 'http://10.32.49.10:6080/arcgis/rest/services/GDSLBHJC/MapServer',
             opacity: 0.8,
         }).addTo(map);
-        map.setView([31.4630556,121.12444],12);
-}
+        map.setView([31.4630556, 121.12444], 12);
+    }
 }));
 

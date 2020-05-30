@@ -1,8 +1,10 @@
 ﻿<!DOCTYPE html>
 <html>
+
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0,minimum-scale=1.0,maximum-scale=1.0" />
+    <meta name="viewport"
+        content="width=device-width,initial-scale=1,user-scalable=0,minimum-scale=1.0,maximum-scale=1.0" />
     <meta name="apple-touch-fullscreen" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
@@ -12,7 +14,7 @@
     <title>二维地图</title>
 
     <script type="text/javascript" src="../../lib/include-lib.js?time=20180320" libpath="../../lib/"
-            include="jquery,turf,font-awesome,bootstrap,bootstrap-table,leaflet-mars,esri-leaflet,esium-mars,layer,echarts-forleaflet,echarts,haoutil"></script>
+        include="jquery,turf,font-awesome,bootstrap,bootstrap-table,leaflet-mars,esri-leaflet,esium-mars,layer,echarts-forleaflet,echarts,haoutil"></script>
     <link href="../../css/widget-win.css" rel="stylesheet" />
     <style id="layuimini-bg-color">
     </style>
@@ -23,7 +25,7 @@
 
         h4 {
             font-size: 18px;
-            font-family: "Microsoft YaHei","Simsun",Arial;
+            font-family: "Microsoft YaHei", "Simsun", Arial;
             font-weight: normal;
             line-height: 1;
             padding: 0;
@@ -31,10 +33,11 @@
         }
 
         #ImgContainer {
-            height: 250px;
+            height: 240px;
         }
     </style>
 </head>
+
 <body>
     <div id="div1" style="overflow-x: scroll;">
         <div id="ImgContainer" style="position: relative">
@@ -71,8 +74,7 @@
             } else if (TBLX == "golf") {
                 ppath = "timegolf.json";
                 layer.closeAll();
-            } else if (TBLX == "GDLYQK")
-            {
+            } else if (TBLX == "GDLYQK") {
                 ppath = "GDLYQK.json";
             }
             else if (TBLX == "GDSLBH") {
@@ -86,7 +88,7 @@
                 var mapservers = data.TimeMaps;
                 var width = document.body.clientWidth * 5 / 6;
                 var h = 250;
-                
+
                 var kstdiv = "";
                 var ksttitlediv = "";
                 for (var k = 0; k < mapservers.length; k++) {

@@ -1,5 +1,6 @@
 ﻿<!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8">
     <title>layui</title>
@@ -9,18 +10,46 @@
     <!--<link href="../../../layuimini/css/layuimini.css" rel="stylesheet" />
     <link href="../../../layuimini/css/public.css" rel="stylesheet" />-->
     <script type="text/javascript" src="../../lib/include-lib.js?time=20180320" libpath="../../lib/"
-            include="jquery,turf,font-awesome,bootstrap,bootstrap-table,leaflet-mars,esri-leaflet,esium-mars,layer,echarts-forleaflet,echarts,haoutil"></script>
+        include="jquery,turf,font-awesome,bootstrap,bootstrap-table,leaflet-mars,esri-leaflet,esium-mars,layer,echarts-forleaflet,echarts,haoutil"></script>
     <link href="../../css/widget-win.css" rel="stylesheet" />
+    <style>
+        #DivFirst {
+            height: 100%;
+        }
+
+        #tableTitle {
+            font-size: 15px;
+            font-weight: bold;
+            display: block;
+            padding: 10px;
+        }
+
+        .table1Div {
+            overflow: auto;
+            height: 40%;
+        }
+
+        .chartDiv {
+            overflow: auto;
+            height: 53.5%;
+        }
+
+        #TJbyzhen {
+            width: 100%;
+            height: 95%;
+        }
+    </style>
 </head>
+
 <body>
 
     <div id="DivFirst">
-        <span id="tableTitle" style="font-size:15px;font-weight:bold;display:block;padding:10px"></span>
-        <div style="overflow: scroll; height: 300px;">
+        <span id="tableTitle"></span>
+        <div class="table1Div">
             <table id="currentTableId"></table>
         </div>
-        <div style="overflow: scroll; height: 260px;">
-            <div id="TJbyzhen" style="height: 250px;width:600px">
+        <div class="chartDiv">
+            <div id="TJbyzhen">
 
             </div>
         </div>
@@ -37,7 +66,7 @@
         var table;
         var myChart;
         var GDLXlist = ['夏港街道', '江阴高新技术产业开发区', '新桥镇', '澄江街道', '申港街道', '南闸街道', '华士镇', '周庄镇', '利港街道', '云亭街道'
-        , '顾山镇', '徐霞客镇', '月城镇', '青阳镇', '璜土镇', '长泾镇', '祝塘镇'];
+            , '顾山镇', '徐霞客镇', '月城镇', '青阳镇', '璜土镇', '长泾镇', '祝塘镇'];
 
         function initWidgetView(_thisWidget) {
             thisWidget = _thisWidget;
@@ -89,7 +118,7 @@
             table.bootstrapTable('append', { "index": 16, "GDLX": "长泾镇", "MJ": -2.1 });
             table.bootstrapTable('append', { "index": 17, "GDLX": "祝塘镇", "MJ": -1.7 });
         }
-      
+
         function renderTable() {
             $("#currentTableId").bootstrapTable({
                 //rowStyle: function (row, index) {
@@ -106,23 +135,23 @@
                 striped: true,
                 pageList: [10, 25, 50],
                 columns:
-                [
-                    {
-                        field: 'index',
-                        title: '序号',
-                        width: 50,
-                        sortable: true
-                    },
-                    {
-                        field: 'GDLX',
-                        title: '街道/镇',
-                        sortable: true
-                    }, {
-                        field: 'MJ',
-                        title: '平均沉降量（mm/y）',
-                        sortable: true
-                    }
-                ],
+                    [
+                        {
+                            field: 'index',
+                            title: '序号',
+                            width: 50,
+                            sortable: true
+                        },
+                        {
+                            field: 'GDLX',
+                            title: '街道/镇',
+                            sortable: true
+                        }, {
+                            field: 'MJ',
+                            title: '平均沉降量（mm/y）',
+                            sortable: true
+                        }
+                    ],
                 onClickRow: function (rowData) {
                     thisWidget.queryMapByWhere(thisWidget.QuhuaURL, "ZMC='" + rowData.QYMC + "'", true, "");
                     doQuerybyZhenName(rowData.QYMC);
@@ -170,4 +199,5 @@
         }
     </script>
 </body>
+
 </html>

@@ -8,11 +8,10 @@ L.widget.bindClass(L.widget.BaseWidget.extend({
             type: "window",
             url: "GDBHJC.html",
             windowOptions: {
-                //width: 470,
-                height: window.screen.availHeight * 5 / 6,
-                 width: 627,
-                position:'lt',
-                closeBtn:1
+                height: window.screen.availHeight * 3.8 / 6,
+                width: 500,
+                position: 'lt',
+                closeBtn: 1
             }
         }
     },
@@ -130,8 +129,7 @@ L.widget.bindClass(L.widget.BaseWidget.extend({
                 var showExtent = resultJson.getBounds();
                 map.fitBounds(showExtent, { maxZoom: 16 });
 
-                if (Windowthis.FeaturesGroup)
-                { Windowthis.FeaturesGroup.bringToFront(); }  //很关键。将featureGroup提到最前面
+                if (Windowthis.FeaturesGroup) { Windowthis.FeaturesGroup.bringToFront(); }  //很关键。将featureGroup提到最前面
 
                 Windowthis.ZhenLayer = resultJson;
             } else { alert("未查到镇数据！") };
@@ -193,7 +191,7 @@ L.widget.bindClass(L.widget.BaseWidget.extend({
             //radius: 20,
             //blur: 10,
             opacity: 0.8,
-            crs:'4326',
+            crs: '4326',
             url: "http://10.32.49.10:6080/arcgis/rest/services/GDCJJC/MapServer"
         }).addTo(map);
         map.flyTo([31.85, 120.20], 11);

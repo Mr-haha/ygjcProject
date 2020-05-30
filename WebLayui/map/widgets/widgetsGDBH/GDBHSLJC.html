@@ -1,5 +1,6 @@
 ﻿<!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8">
     <title>layui</title>
@@ -9,24 +10,52 @@
     <!--<link href="../../../layuimini/css/layuimini.css" rel="stylesheet" />
     <link href="../../../layuimini/css/public.css" rel="stylesheet" />-->
     <script type="text/javascript" src="../../lib/include-lib.js?time=20180320" libpath="../../lib/"
-            include="jquery,turf,font-awesome,bootstrap,bootstrap-table,leaflet-mars,esri-leaflet,esium-mars,layer,echarts-forleaflet,echarts,haoutil"></script>
+        include="jquery,turf,font-awesome,bootstrap,bootstrap-table,leaflet-mars,esri-leaflet,esium-mars,layer,echarts-forleaflet,echarts,haoutil"></script>
     <link href="../../css/widget-win.css" rel="stylesheet" />
-</head>
-<body>
+    <style>
+        #DivFirst {
+            height: 100%;
+        }
 
+        #tableTitle {
+            font-size: 15px;
+            font-weight: bold;
+            display: block;
+            padding: 10px;
+        }
+
+        .table1Div {
+            overflow: auto;
+            height: 45%;
+        }
+
+        .chartDiv {
+            overflow: auto;
+            height: 44%;
+        }
+
+        #TJbyzhen {
+            width: 100%;
+            height: 95%;
+        }
+    </style>
+</head>
+
+<body>
     <div id="DivFirst">
-        <span id="tableTitle" style="font-size:15px;font-weight:bold;display:block;padding:10px"></span>
-        <div style="overflow: scroll; height: 300px;">
+        <span id="tableTitle"></span>
+        <div class="table1Div">
             <table id="currentTableId"></table>
         </div>
-        <div style="overflow: scroll; height: 260px;">
-            <div id="TJbyzhen" style="height: 250px;width:480px">
+        <div class="chartDiv">
+            <div id="TJbyzhen">
 
             </div>
         </div>
     </div>
     <div id="DivSecond" style="display:none">
-        <a class="btn btn-sm btn-green" id="backward" href="javascript:;" onclick="backwww()" style="float:right"><i class="fa fa-reply"></i>返回</a>
+        <a class="btn btn-sm btn-green" id="backward" href="javascript:;" onclick="backwww()" style="float:right"><i
+                class="fa fa-reply"></i>返回</a>
         <span id="tableTitle2" style="font-size:15px;font-weight:bold;display:block;padding:10px"></span>
         <table id="currentTableId2"></table>
 
@@ -68,7 +97,7 @@
 
             table.bootstrapTable('append', { "index": 1, "GDLX": "耕地占用", "MJ": 644.997 });
             table.bootstrapTable('append', { "index": 2, "GDLX": "耕地破坏", "MJ": 1949.99 });
-            table.bootstrapTable('append', { "index": 3, "GDLX": "耕地减少", "MJ":60.00 });
+            table.bootstrapTable('append', { "index": 3, "GDLX": "耕地减少", "MJ": 60.00 });
             table.bootstrapTable('append', { "index": 4, "GDLX": "耕地增加", "MJ": 554.997 });
 
         }
@@ -82,23 +111,23 @@
                 striped: true,
                 pageList: [10, 25, 50],
                 columns:
-                [
-                    {
-                        field: 'index',
-                        title: '序号',
-                        width: 50,
-                        sortable: true
-                    },
-                    {
-                        field: 'GDLX',
-                        title: '类型',
-                        sortable: true
-                    }, {
-                        field: 'MJ',
-                        title: '面积（亩）',
-                        sortable: true
-                    }
-                ],
+                    [
+                        {
+                            field: 'index',
+                            title: '序号',
+                            width: 50,
+                            sortable: true
+                        },
+                        {
+                            field: 'GDLX',
+                            title: '类型',
+                            sortable: true
+                        }, {
+                            field: 'MJ',
+                            title: '面积（亩）',
+                            sortable: true
+                        }
+                    ],
                 onClickRow: function (rowData) {
                     doQuerybyGDLX(rowData.GDLX);
                 }
@@ -131,8 +160,7 @@
                         //var showExtent = resultJson.getBounds();
                         //thisWidget.map.fitBounds(showExtent, { maxZoom: 16 });
 
-                        if (thisWidget.FeaturesGroup)
-                        { thisWidget.FeaturesGroup.clearLayers(); }  //很关键。将featureGroup提到最前面
+                        if (thisWidget.FeaturesGroup) { thisWidget.FeaturesGroup.clearLayers(); }  //很关键。将featureGroup提到最前面
 
                         thisWidget.FeaturesGroup = resultJson;
                     } else { alert("未查到镇数据！") };
@@ -175,31 +203,31 @@
                 striped: true,
                 pageList: [10, 25, 50],
                 columns:
-                [
-                    {
-                        field: 'index',
-                        title: '序号',
-                        width: 50,
-                        sortable: true
-                    },
-                    {
-                        field: 'TBLX',
-                        title: '耕地类型',
-                    }, {
-                        field: 'MJ',
-                        title: '面积(亩)',
-                        sortable: true
-                    }, {
-                        field: 'QSX',
-                        title: '前时相'
-                    }, {
-                        field: 'HSX',
-                        title: '后时相'
-                    }, {
-                        field: 'OBJECTID',
-                        title: 'objid'
-                    }
-                ],
+                    [
+                        {
+                            field: 'index',
+                            title: '序号',
+                            width: 50,
+                            sortable: true
+                        },
+                        {
+                            field: 'TBLX',
+                            title: '耕地类型',
+                        }, {
+                            field: 'MJ',
+                            title: '面积(亩)',
+                            sortable: true
+                        }, {
+                            field: 'QSX',
+                            title: '前时相'
+                        }, {
+                            field: 'HSX',
+                            title: '后时相'
+                        }, {
+                            field: 'OBJECTID',
+                            title: 'objid'
+                        }
+                    ],
                 onClickRow: function (rowData) {
                     thisWidget.queryMapByWhere(thisWidget.GDBHSLUrl, "FID=" + rowData.OBJECTID, true, "");
                 }
@@ -246,4 +274,5 @@
         }
     </script>
 </body>
+
 </html>

@@ -37,10 +37,11 @@
 
     //加载类库资源文件
     function load() {
+        debugger
         var arrInclude = (targetScript.getAttribute('include') || "").split(",");
         var libpath = (targetScript.getAttribute('libpath') || "");
 
-        if (libpath.lastIndexOf('/')!=libpath.length-1)
+        if (libpath.lastIndexOf('/') != libpath.length - 1)
             libpath += "/";
 
         var libsConfig = {
@@ -48,23 +49,23 @@
                 libpath + "jquery/jquery-2.1.4.min.js",
             ],
             'jquery.scrollTo': [
-               libpath + "jquery/scrollTo/jquery.scrollTo.min.js",
+                libpath + "jquery/scrollTo/jquery.scrollTo.min.js",
             ],
             'jquery.minicolors': [
-              libpath + "jquery/minicolors/jquery.minicolors.css",
-              libpath + "jquery/minicolors/jquery.minicolors.min.js",
+                libpath + "jquery/minicolors/jquery.minicolors.css",
+                libpath + "jquery/minicolors/jquery.minicolors.min.js",
             ],
             'jquery.range': [
-               libpath + "jquery/range/range.css",
-               libpath + "jquery/range/range.js",
+                libpath + "jquery/range/range.css",
+                libpath + "jquery/range/range.js",
             ],
             'ztree': [
-               libpath + "jquery/ztree/css/zTreeStyle/zTreeStyle.css",
-               libpath + "jquery/ztree/js/jquery.ztree.all.min.js",
+                libpath + "jquery/ztree/css/zTreeStyle/zTreeStyle.css",
+                libpath + "jquery/ztree/js/jquery.ztree.all.min.js",
             ],
             'jquery.mCustomScrollbar': [
-                 libpath + "jquery/mCustomScrollbar/jquery.mCustomScrollbar.css",
-                 libpath + "jquery/mCustomScrollbar/jquery.mCustomScrollbar.js",
+                libpath + "jquery/mCustomScrollbar/jquery.mCustomScrollbar.css",
+                libpath + "jquery/mCustomScrollbar/jquery.mCustomScrollbar.js",
             ],
             'font-awesome': [
                 libpath + "font-awesome/css/font-awesome.min.css",
@@ -82,59 +83,59 @@
                 libpath + "bootstrap/plugins/table/locale/bootstrap-table-zh-CN.js"
             ],
             'admin-lte': [
-               libpath + "font-awesome/css/font-awesome.min.css",
-               libpath + "admin-lte/css/AdminLTE.min.css",
-               libpath + "admin-lte/css/skins/skin-blue.min.css",
-               libpath + "admin-lte/js/adminlte.min.js"
+                libpath + "font-awesome/css/font-awesome.min.css",
+                libpath + "admin-lte/css/AdminLTE.min.css",
+                libpath + "admin-lte/css/skins/skin-blue.min.css",
+                libpath + "admin-lte/js/adminlte.min.js"
             ],
             'ace': [
-               libpath + "ace/ace.js"
+                libpath + "ace/ace.js"
             ],
             'layer': [
-              libpath + "layer/theme/default/layer.css",
-              libpath + "layer/layer.js",
+                libpath + "layer/theme/default/layer.css",
+                libpath + "layer/layer.js",
             ],
             'haoutil': [
-              libpath + "hao/haoutil.js",
-              libpath + "hao/loading/loading.css",
-              libpath + "hao/loading/loading.js",
+                libpath + "hao/haoutil.js",
+                libpath + "hao/loading/loading.css",
+                libpath + "hao/loading/loading.js",
             ],
             'echarts': [
-               libpath + "echarts/echarts.min.js",
-               libpath + "echarts/dark.js"
+                libpath + "echarts/echarts.min.js",
+                libpath + "echarts/dark.js"
             ],
             'echarts-gl': [
                 libpath + "echarts/echarts-gl.min.js"
             ],
             'echarts-forleaflet': [
-              libpath + "echarts/forleaflet/echarts-3.4.min.js",
+                libpath + "echarts/forleaflet/echarts-3.4.min.js",
             ],
             'mapV': [
-              libpath + "mapV/mapv.min.js",
+                libpath + "mapV/mapv.min.js",
             ],
             'highlight': [
-               libpath + "highlight/styles/foundation.css",
-               libpath + "highlight/highlight.pack.js"
+                libpath + "highlight/styles/foundation.css",
+                libpath + "highlight/highlight.pack.js"
             ],
             'turf': [
-              libpath + "turf/turf.min.js"
+                libpath + "turf/turf.min.js"
             ],
             'leaflet-mars': [
-              libpath + "leaflet-mars/leaflet.css",
-              libpath + "leaflet-mars/leaflet.js",
+                libpath + "leaflet-mars/leaflet.css",
+                libpath + "leaflet-mars/leaflet.js",
             ],
             'esri-leaflet': [
-              libpath + "leafletPlugins/esri/esri-leaflet-debug.js"
+                libpath + "leafletPlugins/esri/esri-leaflet-debug.js"
             ],
             'cesium-mars': [
-              libpath + "Cesium/Widgets/widgets.css",
-              libpath + "Cesium/Cesium.js",
-              libpath + "cesium-mars/mars3d.css",
-              libpath + "cesium-mars/mars3d.js"
+                libpath + "Cesium/Widgets/widgets.css",
+                libpath + "Cesium/Cesium.js",
+                libpath + "cesium-mars/mars3d.css",
+                libpath + "cesium-mars/mars3d.js"
             ]
         };
 
-         
+
         for (var i in arrInclude) {
             var key = arrInclude[i];
             inputLibs(libsConfig[key]);
