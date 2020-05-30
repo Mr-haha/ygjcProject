@@ -1,325 +1,347 @@
 ﻿{
-    "map": {
-        "zoom": 7,
-        "center": {
-       "x": 120.9775,
-       "y": 31.3853 
-       },
-        "minZoom": 4,
-        "maxZoom": 20,
-		"crs": "EPSG4326",
-        "centerAutoLevel": 14,
-        "controls": [
-            { "type": "scale", "visible": true},
-            { "type": "location", "format": "<div>经度:{x}</div><div>纬度:{y}</div>","visible": true,"showlevel": true},
-            { "type": "tool", "item": [ "home", "location", "fullscreen" ], "position": "bottomright" },
-            { "type": "zoom", "position": "bottomright" ,"visible": true},
-            { "type": "layers", "position": "bottomleft", "visible": true }
-        ],
-      "basemaps": [
-
-        {
-          "pid": 10,
-          "name": "2012遥感影像",
-          "type": "group",
-          "visible": true,
-          "icon": "baiduimage.png",
-          "crs": "4326",
-          "layers": [
-            {
-              "name": "2012遥感",
-              "type": "tile",
-              "crs": "4326",
-              "zOffset": 1,
-              "url": "http://218.2.231.245/historyraster/rest/services/History/js_yxdt_2012/MapServer/tile/{z}/{y}/{x}"
-            },
-            {
-              "name": "2012注记",
-              "type": "tile",
-              "crs": "4326",
-              "zOffset": 1,
-              "url": "http://218.2.231.245/historyraster/rest/services/History/js_yxzj_2012/MapServer/tile/{z}/{y}/{x}"
-            }
-          ]
-        },
-        {
-          "pid": 10,
-          "name": "2014遥感影像",
-          "type": "group",
-          "visible": false,
-          "icon": "baiduimage.png",
-          "crs": "4326",
-          "layers": [
-            {
-              "name": "2014遥感",
-              "type": "tile",
-              "crs": "4326",
-              "zOffset": 1,
-              "url": "http://218.2.231.245/historyraster/rest/services/History/js_yxdt_2014/MapServer/tile/{z}/{y}/{x}"
-            },
-            {
-              "name": "2014注记",
-              "type": "tile",
-              "crs": "4326",
-              "zOffset": 1,
-              "url": "http://218.2.231.245/historyraster/rest/services/History/js_yxzj_2014/MapServer/tile/{z}/{y}/{x}"
-            }
-          ]
-        },
-        {
-          "pid": 10,
-          "name": "2017遥感影像",
-          "type": "group",
-          "visible": false,
-          "icon": "baiduimage.png",
-          "crs": "4326",
-          "layers": [
-            {
-              "name": "2017遥感",
-              "type": "tile",
-              "crs": "4326",
-              "zOffset": 1,
-              "url": "http://218.2.231.245/historyraster/rest/services/History/js_yxdt_2017/MapServer/tile/{z}/{y}/{x}"
-            },
-            {
-              "name": "2016注记",
-              "type": "tile",
-              "crs": "4326",
-              "zOffset": 1,
-              "url": "http://218.2.231.245/historyraster/rest/services/History/js_yxzj_2016/MapServer/tile/{z}/{y}/{x}"
-            }
-          ]
-        },
-        {
-          "pid": 10,
-          "name": "2018遥感影像",
-          "type": "group",
-          "visible": false,
-          "icon": "baiduimage.png",
-          "crs": "4326",
-          "layers": [
-            {
-              "name": "2018遥感",
-              "type": "tile",
-              "crs": "4326",
-              "zOffset": 1,
-              "url": "http://218.2.231.245/historyraster/rest/services/History/js_yxdt_2018/MapServer/tile/{z}/{y}/{x}"
-            },
-            {
-              "name": "2016注记",
-              "type": "tile",
-              "crs": "4326",
-              "zOffset": 1,
-              "url": "http://218.2.231.245/historyraster/rest/services/History/js_yxzj_2016/MapServer/tile/{z}/{y}/{x}"
-            }
-          ]
-        },
-        {
-          "pid": 10,
-          "name": "2019遥感影像",
-          "type": "group",
-          "visible": false,
-          "icon": "baiduimage.png",
-          "crs": "4326",
-          "layers": [
-            {
-              "name": "2019遥感",
-              "type": "tile",
-              "crs": "4326",
-              "zOffset": 1,
-              "url": "http://218.2.231.245/historyraster/rest/services/History/js_yxdt_2019/MapServer/tile/{z}/{y}/{x}"
-            },
-            {
-              "name": "2016注记",
-              "type": "tile",
-              "crs": "4326",
-              "zOffset": 1,
-              "url": "http://218.2.231.245/historyraster/rest/services/History/js_yxzj_2016/MapServer/tile/{z}/{y}/{x}"
-            }
-          ]
-        },
-        {
-          "pid": 10,
-          "name": "0.1米遥感tile",
-          "type": "tile",
-          "crs": "4326",
-          "url": "http://10.32.49.10:6080/arcgis/rest/services/TCS2018001/MapServer/tile/{z}/{y}/{x}",
-          "icon": "baiduimage.png"
-        },
-        {
-          "pid": 10,
-          "name": "0.1米遥感agsdynamic",
-          "type": "arcgis_dynamic",
-          "crs": "4326",
-          "zOffset": 1,
-          "url": "http://10.32.49.10:6080/arcgis/rest/services/TCS2018001/MapServer",
-          "icon": "baiduimage.png"
-        },
-        {
-          "pid": 10,
-          "name": "0.1米遥感",
-          "type": "group",
-          "visible": false,
-          "icon": "baiduimage.png",
-          "crs": "4326",
-          "layers": [
-            {
-              "name": "0.1米遥感",
-              "type": "arcgis_tile",
-              "url": "http://10.32.49.10:6080/arcgis/rest/services/TCS2018001/MapServer"
-            },
-            {
-              "name": "2016注记",
-              "type": "tile",
-              "crs": "4326",
-              "zOffset": 1,
-              "url": "http://218.2.231.245/historyraster/rest/services/History/js_yxzj_2016/MapServer/tile/{z}/{y}/{x}"
-            }
-          ]
-        }
-      ],
-        "operationallayers": [
-			{
-                "id": 60,
-                "name": "行政区划",         
-				"visible": false,
-                "type": "arcgis_dynamic",
-           	    "url": "http://10.32.49.10:6080/arcgis/rest/services/js/MapServer",
-				"crs": "4326"
-            }           
-        ]
+  "map": {
+    "zoom": 7,
+    "center": {
+      "x": 119.5,
+      "y": 33
     },
-
-    "widget": {
-        "debugger": false,
-        "version": "time",
-        "defaultOptions": {
-            "windowOptions": {
-                "position": {
-                    "top": 50,
-                    "right": 10
-                },
-                "maxmin": false,
-                "resize": true
-            },
-            "autoDisable": true,
-            "disableOhter": true
-        },
-        "widgetsAtStart": [
-            {
-                "name": "右上角工具栏",
-                "uri": "widgets/toolBar/widget.js"
-            },
-            {
-                "name": "路线规划",
-                "uri": "widgets/queryGaodeRoute/widget.js"
-            }
+    "minZoom": 4,
+    "maxZoom": 20,
+    "crs": "EPSG4326",
+    "centerAutoLevel": 14,
+    "controls": [
+      {
+        "type": "scale",
+        "visible": true
+      },
+      {
+        "type": "location",
+        "format": "<div>经度:{x}</div><div>纬度:{y}</div>",
+        "visible": true,
+        "showlevel": true
+      },
+      {
+        "type": "tool",
+        "item": [
+          "home",
+          "location",
+          "fullscreen"
         ],
-        "widgets": [
-            {
-                "name": "地图工具",
-                "type": "group",
-                "children": [
-                    {
-                        "id": "manageBasemaps",
-                        "name": "地图切换",
-                        "uri": "widgets/manageBasemaps/widget.js",
-                        "autoDisable": false,
-                        "disableOhter": false
-                    },
-                    {
-                        "name": "图层控制",
-                        "uri": "widgets/manageLayers/widget.js",
-                        "autoDisable": false,
-                        "disableOhter": false
-                    },
-                    {
-                        "name": "坐标定位",
-                        "uri": "widgets/centerXY/widget.js"
-                    },
-                    {
-                        "name": "地区导航",
-                        "uri": "widgets/navXZQH/widget.js"
-                    },
-                    {
-                        "name": "测量",
-                        "uri": "widgets/measure/widget.js"
-                    },
-                    {
-                        "name": "标记",
-                        "uri": "widgets/addmarker/widget.js"
-                    },
-                    {
-                        "name": "视角书签",
-                        "uri": "widgets/bookmark/widget.js"
-                    },
-                    {
-                        "name": "双屏对比",
-                        "uri": "widgets/mapCompare/widget.js",
-                        "autoDisable": false,
-                        "disableOhter": false
-                    },
-                    {
-                        "name": "卷帘对比",
-                        "uri": "widgets/mapSwipe/widget.js",
-                        "autoDisable": false,
-                        "disableOhter": false
-                    },
-                    {
-                        "name": "标绘",
-                        "uri": "widgets/plot/widget.js",
-                        "windowOptions": {
-                            "position": {
-                                "top": 50,
-                                "right": 10,
-                                "bottom": 10
-                            }
-                        }
-                    },
-                    {
-                        "name": "分享当前地图位置",
-                        "uri": "widgets/shareUrl/widget.js",
-                        "windowOptions": {
-                            "position": "t"
-                        }
-                    },
-                    {
-                        "name": "打印",
-                        "uri": "widgets/print/widget.js",
-                        "autoDisable": false,
-                        "disableOhter": false
-                    },
-                    {
-                        "name": "街景",
-                        "uri": "widgets/streetscape/widget.js"
-                    }
-                ]
-            },
-			{
-                "name": "遥感监测功能",
-                "type": "group",
-                "children": [
-                    {
-                       "name": "图斑类型统计",
-                      "icon": "fa fa-info-circle",
-			          "uri": "widgets/TBLX/TableJS.js"
-                    },
-					                    {
-                       "name": "图斑信息查看",
-                      "icon": "fa fa-info-circle",
-			          "uri": "widgets/TBinfo/TBinfo.js",
-					  "autoDisable": false,
-                        "disableOhter": false
-                    },
-					{
-                       "name": "历史追溯",
-                       "icon": "fa fa-database",
-                       "uri": "widgets/MultiMapCompare/MultiMapCompare.js",
-					   "autoDisable": false,
-                        "disableOhter": false
-                    }
-                ]
+        "position": "bottomright"
+      },
+      {
+        "type": "zoom",
+        "position": "bottomright",
+        "visible": true
+      },
+      {
+        "type": "layers",
+        "position": "bottomleft",
+        "visible": true
+      }
+    ],
+    "basemaps": [
+      {
+        "pid": 10,
+        "name": "2012遥感影像",
+        "type": "group",
+        "visible": true,
+        "icon": "baiduimage.png",
+        "crs": "4326",
+        "layers": [
+          {
+            "name": "2012遥感",
+            "type": "tile",
+            "crs": "4326",
+            "zOffset": 1,
+            "url": "http://218.2.231.245/historyraster/rest/services/History/js_yxdt_2012/MapServer/tile/{z}/{y}/{x}"
+          },
+          {
+            "name": "2012注记",
+            "type": "tile",
+            "crs": "4326",
+            "zOffset": 1,
+            "url": "http://218.2.231.245/historyraster/rest/services/History/js_yxzj_2012/MapServer/tile/{z}/{y}/{x}"
+          }
+        ]
+      },
+      {
+        "pid": 10,
+        "name": "2014遥感影像",
+        "type": "group",
+        "visible": false,
+        "icon": "baiduimage.png",
+        "crs": "4326",
+        "layers": [
+          {
+            "name": "2014遥感",
+            "type": "tile",
+            "crs": "4326",
+            "zOffset": 1,
+            "url": "http://218.2.231.245/historyraster/rest/services/History/js_yxdt_2014/MapServer/tile/{z}/{y}/{x}"
+          },
+          {
+            "name": "2014注记",
+            "type": "tile",
+            "crs": "4326",
+            "zOffset": 1,
+            "url": "http://218.2.231.245/historyraster/rest/services/History/js_yxzj_2014/MapServer/tile/{z}/{y}/{x}"
+          }
+        ]
+      },
+      {
+        "pid": 10,
+        "name": "2017遥感影像",
+        "type": "group",
+        "visible": false,
+        "icon": "baiduimage.png",
+        "crs": "4326",
+        "layers": [
+          {
+            "name": "2017遥感",
+            "type": "tile",
+            "crs": "4326",
+            "zOffset": 1,
+            "url": "http://218.2.231.245/historyraster/rest/services/History/js_yxdt_2017/MapServer/tile/{z}/{y}/{x}"
+          },
+          {
+            "name": "2016注记",
+            "type": "tile",
+            "crs": "4326",
+            "zOffset": 1,
+            "url": "http://218.2.231.245/historyraster/rest/services/History/js_yxzj_2016/MapServer/tile/{z}/{y}/{x}"
+          }
+        ]
+      },
+      {
+        "pid": 10,
+        "name": "2018遥感影像",
+        "type": "group",
+        "visible": false,
+        "icon": "baiduimage.png",
+        "crs": "4326",
+        "layers": [
+          {
+            "name": "2018遥感",
+            "type": "tile",
+            "crs": "4326",
+            "zOffset": 1,
+            "url": "http://218.2.231.245/historyraster/rest/services/History/js_yxdt_2018/MapServer/tile/{z}/{y}/{x}"
+          },
+          {
+            "name": "2016注记",
+            "type": "tile",
+            "crs": "4326",
+            "zOffset": 1,
+            "url": "http://218.2.231.245/historyraster/rest/services/History/js_yxzj_2016/MapServer/tile/{z}/{y}/{x}"
+          }
+        ]
+      },
+      {
+        "pid": 10,
+        "name": "2019遥感影像",
+        "type": "group",
+        "visible": false,
+        "icon": "baiduimage.png",
+        "crs": "4326",
+        "layers": [
+          {
+            "name": "2019遥感",
+            "type": "tile",
+            "crs": "4326",
+            "zOffset": 1,
+            "url": "http://218.2.231.245/historyraster/rest/services/History/js_yxdt_2019/MapServer/tile/{z}/{y}/{x}"
+          },
+          {
+            "name": "2016注记",
+            "type": "tile",
+            "crs": "4326",
+            "zOffset": 1,
+            "url": "http://218.2.231.245/historyraster/rest/services/History/js_yxzj_2016/MapServer/tile/{z}/{y}/{x}"
+          }
+        ]
+      },
+      {
+        "pid": 10,
+        "name": "0.1米遥感tile",
+        "type": "tile",
+        "crs": "4326",
+        "url": "http://10.32.49.10:6080/arcgis/rest/services/TCS2018001/MapServer/tile/{z}/{y}/{x}",
+        "icon": "baiduimage.png"
+      },
+      {
+        "pid": 10,
+        "name": "0.1米遥感agsdynamic",
+        "type": "arcgis_dynamic",
+        "crs": "4326",
+        "zOffset": 1,
+        "url": "http://10.32.49.10:6080/arcgis/rest/services/TCS2018001/MapServer",
+        "icon": "baiduimage.png"
+      },
+      {
+        "pid": 10,
+        "name": "0.1米遥感",
+        "type": "group",
+        "visible": false,
+        "icon": "baiduimage.png",
+        "crs": "4326",
+        "layers": [
+          {
+            "name": "0.1米遥感",
+            "type": "arcgis_tile",
+            "url": "http://10.32.49.10:6080/arcgis/rest/services/TCS2018001/MapServer"
+          },
+          {
+            "name": "2016注记",
+            "type": "tile",
+            "crs": "4326",
+            "zOffset": 1,
+            "url": "http://218.2.231.245/historyraster/rest/services/History/js_yxzj_2016/MapServer/tile/{z}/{y}/{x}"
+          }
+        ]
+      }
+    ],
+    "operationallayers": [
+      {
+        "id": 60,
+        "name": "行政区划",
+        "visible": false,
+        "type": "arcgis_dynamic",
+        "url": "http://10.32.49.10:6080/arcgis/rest/services/js/MapServer",
+        "crs": "4326"
+      }
+    ]
+  },
+  "widget": {
+    "debugger": false,
+    "version": "time",
+    "defaultOptions": {
+      "windowOptions": {
+        "position": {
+          "top": 50,
+          "right": 10
+        },
+        "maxmin": false,
+        "resize": true
+      },
+      "autoDisable": true,
+      "disableOhter": true
+    },
+    "widgetsAtStart": [
+      {
+        "name": "右上角工具栏",
+        "uri": "widgets/toolBar/widget.js"
+      },
+      {
+        "name": "路线规划",
+        "uri": "widgets/queryGaodeRoute/widget.js"
+      }
+    ],
+    "widgets": [
+      {
+        "name": "地图工具",
+        "type": "group",
+        "children": [
+          {
+            "id": "manageBasemaps",
+            "name": "地图切换",
+            "uri": "widgets/manageBasemaps/widget.js",
+            "autoDisable": false,
+            "disableOhter": false
+          },
+          {
+            "name": "图层控制",
+            "uri": "widgets/manageLayers/widget.js",
+            "autoDisable": false,
+            "disableOhter": false
+          },
+          {
+            "name": "坐标定位",
+            "uri": "widgets/centerXY/widget.js"
+          },
+          {
+            "name": "地区导航",
+            "uri": "widgets/navXZQH/widget.js"
+          },
+          {
+            "name": "测量",
+            "uri": "widgets/measure/widget.js"
+          },
+          {
+            "name": "标记",
+            "uri": "widgets/addmarker/widget.js"
+          },
+          {
+            "name": "视角书签",
+            "uri": "widgets/bookmark/widget.js"
+          },
+          {
+            "name": "双屏对比",
+            "uri": "widgets/mapCompare/widget.js",
+            "autoDisable": false,
+            "disableOhter": false
+          },
+          {
+            "name": "卷帘对比",
+            "uri": "widgets/mapSwipe/widget.js",
+            "autoDisable": false,
+            "disableOhter": false
+          },
+          {
+            "name": "标绘",
+            "uri": "widgets/plot/widget.js",
+            "windowOptions": {
+              "position": {
+                "top": 50,
+                "right": 10,
+                "bottom": 10
+              }
             }
-          ]
-    }
+          },
+          {
+            "name": "分享当前地图位置",
+            "uri": "widgets/shareUrl/widget.js",
+            "windowOptions": {
+              "position": "t"
+            }
+          },
+          {
+            "name": "打印",
+            "uri": "widgets/print/widget.js",
+            "autoDisable": false,
+            "disableOhter": false
+          },
+          {
+            "name": "街景",
+            "uri": "widgets/streetscape/widget.js"
+          }
+        ]
+      },
+      {
+        "name": "遥感监测功能",
+        "type": "group",
+        "children": [
+          {
+            "name": "图斑类型统计",
+            "icon": "fa fa-info-circle",
+            "uri": "widgets/TBLX/TableJS.js"
+          },
+          {
+            "name": "图斑信息查看",
+            "icon": "fa fa-info-circle",
+            "uri": "widgets/TBinfo/TBinfo.js",
+            "autoDisable": false,
+            "disableOhter": false
+          },
+          {
+            "name": "历史追溯",
+            "icon": "fa fa-database",
+            "uri": "widgets/MultiMapCompare/MultiMapCompare.js",
+            "autoDisable": false,
+            "disableOhter": false
+          }
+        ]
+      }
+    ]
+  }
 }

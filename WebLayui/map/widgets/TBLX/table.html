@@ -16,7 +16,6 @@
         /*此页面body默认继承widget的高度*/
         #DivFirst {
             height: 100%;
-            background-color: aqua;
         }
 
         .table1Div {
@@ -26,7 +25,7 @@
 
         .chartDiv {
             overflow: auto;
-            height: 44%;
+            height: 44.2%;
         }
 
         .tbTitle {
@@ -41,7 +40,7 @@
         }
 
         #TJbyzhen {
-            width: 120%;
+            width: 100%;
         }
 
         table,
@@ -165,7 +164,7 @@
                 thisWidget.doqueryAll(TBLXindex, LXname, div1Obj, tableObj);   //不按镇统计，当前图斑类型的所有图斑显示到地图
                 myChart.setOption(BarOption);
                 myChart.on('click', function (params) {
-                    thisWidget.queryMapByWhere(thisWidget.QuhuaURL, "ZMC='" + params.name + "'", true, "");
+                    thisWidget.queryMapByWhere(thisWidget.QuhuaURL, "ZMC='" + params.name + "'");
                     doQuerybyZhenName(params.name);
                 });
 
@@ -308,7 +307,7 @@
                     //$('.danger').removeClass('danger');
                     $($element).addClass('info');
 
-                    thisWidget.queryMapByWhere(thisWidget.QuhuaURL, "ZMC='" + rowData.QYMC + "'", true, "");
+                    thisWidget.queryMapByWhere(thisWidget.QuhuaURL, "ZMC='" + rowData.QYMC + "'");
                     doQuerybyZhenName(rowData.QYMC);
                 }
             });
@@ -360,7 +359,7 @@
                     $('.info').removeClass('info');
                     //$('.danger').removeClass('danger');
                     $($element).addClass('info');
-                    thisWidget.queryMapByFeature(thisWidget.JCTBTurl, rowData.OBJECTID, true, "");
+                    thisWidget.queryMapByFeature(rowData.OBJECTID);
                 }
             });
             $('#currentTableId2').bootstrapTable('hideColumn', 'OBJECTID');

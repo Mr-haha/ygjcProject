@@ -9,7 +9,7 @@ L.widget.bindClass(L.widget.BaseWidget.extend({
 			url: "table.html",
 			windowOptions: {
 				width: 470,
-				height: 650,
+				height: window.screen.availHeight * 3.7 / 6,
 				position: {
 					left: document.body.clientWidth / 6,
 					top: 0
@@ -21,8 +21,8 @@ L.widget.bindClass(L.widget.BaseWidget.extend({
 	infoindex: -1,
 	viewWindow: null,
 	FeaturesGroup: null,
+	singleFeatureGroup: null,
 	ZhenLayer: null,
-	ResultsCollection: null,
 	widgetThis: null,
 	Windowthis: null,
 	ThisIndex: null,
@@ -31,59 +31,55 @@ L.widget.bindClass(L.widget.BaseWidget.extend({
 	JCTBTurl: "http://10.32.49.10:6080/arcgis/rest/services/JCPOLYGON/MapServer/0",
 
 	//初始化[仅执行1次]
-	create: function(viewopt) {
-		debugger
+	create: function (viewopt) {
 
 	},
 	//激活插件
-	activate: function(hhh) {},
+	activate: function (hhh) { },
 	//每个窗口创建完成后调用
-	winCreateOK: function(viewopt, html) {
+	winCreateOK: function (viewopt, html) {
 		this.viewWindow = html; //Layer里面得内容，即table.html
 		widgetThis = this;
 		Windowthis = html.parent;
 
 		classObject = document.getElementsByClassName("layui-layer-close");
-		if(classObject != null) {
+		if (classObject != null) {
 			debugger
-			classObject[0].addEventListener('click', html.parent.RemoveStyle, false);
+			classObject[0].addEventListener('click', Windowthis.RemoveStyle, false);
 		} //关键，解决了点击Layer的关闭按钮，触发事件，去除按钮的clickStyle!!
-
 	},
 
 	///刷新Table页面也运行disable函数
-	disable: function() {
-		var df = this;
-
-		if(Windowthis.FeaturesGroup) {
+	disable: function () {
+		if (Windowthis.FeaturesGroup) {
 			map.removeLayer(Windowthis.FeaturesGroup);
 		}
-		if(Windowthis.ZhenLayer) {
+		if (Windowthis.ZhenLayer) {
 			map.removeLayer(Windowthis.ZhenLayer);
 		}
-		//if (isOpenNew == isOpenNew) {
-		//    Windowthis.RemoveStyle();  //调用window页面(即LayerUI的父页面--map下的index.html)中的函数，实现与父界面的交互
-		//}   
+		if (Windowthis.singleFeatureGroup) {
+			Windowthis.singleFeatureGroup.clearLayers();
+		}
 	},
-	doqueryAll: function(index, LXname, div1Obj, tableObj) {
+	doqueryAll: function (index, LXname, div1Obj, tableObj) {
+		debugger
 		var lquery = L.esri.query({
 			url: widgetThis.JCTBTurl
 		});
-		if(LXname === 'all') {
+		if (LXname === 'all') {
 			lquery.where("1=1" + this.viewWindow.jcpcwhere);
 		} else {
 			ThisIndex = index;
 			lquery.where("TBLX='" + index + "'" + this.viewWindow.jcpcwhere);
 		}
-		lquery.run(function(error, results, response) {
-			if(error) {
+		lquery.run(function (error, results, response) {
+			if (error) {
 				return;
 			} else {
 				var coloruse;
 				var oldTarget = null;
-				Windowthis.ResultsCollection = results;
 				var resultJson = L.geoJSON(results, {
-					style: function(feature) {
+					style: function (feature) {
 						coloruse = widgetThis.getcolor(feature.properties.TBLX);
 						return {
 							weight: 3.0,
@@ -94,13 +90,13 @@ L.widget.bindClass(L.widget.BaseWidget.extend({
 						};
 					},
 
-					onEachFeature: function(feature, layer) {
+					onEachFeature: function (feature, layer) {
 						debugger
 						var attr = feature.properties;
 						var TBLX;
 						var TBLXbh = attr.TBLX;
-						if(LXname === 'all') {
-							if(TBLXbh < 17) {
+						if (LXname === 'all') {
+							if (TBLXbh < 17) {
 								TBLX = widgetThis.viewWindow.TBLXList[TBLXbh - 1][TBLXbh];
 							} else {
 								TBLX = "未知";
@@ -112,27 +108,30 @@ L.widget.bindClass(L.widget.BaseWidget.extend({
 						var html = "<div><h5>【图斑类型】：" + TBLX + "</h5>" + "<h5>【所在市】：" + attr.SMC + "</h5>" + "<h5>【区域】：" + attr.XMC + attr.ZMC + "</h5>" + "<h5>【面积】：" + (attr.JCMJ / 666.666).toFixed(3) + "亩</h5>" + "<h5>【发现时间】：" + attr.JCPC + "</h5>" + "</div>";
 						layer.bindTooltip(html);
 						//layer.bindPopup(html);
-						if(!L.Browser.ie && !L.Browser.opera) {
+						if (!L.Browser.ie && !L.Browser.opera) {
 							layer.bringToFront();
 						}
 						layer.on({
-							mouseover: function(e) {
+							mouseover: function (e) {
 								//this.viewWindow.showTip(layer.feature.properties);
 							},
-							mouseout: function(e) {
+							mouseout: function (e) {
 								//resultJson.resetStyle(e.target);
 							},
-							click: function(e) {
+							click: function (e) {
 								debugger
-								if(oldTarget != null) {
+								if (oldTarget != null) {
 									resultJson.resetStyle(oldTarget);
+								}
+								if (Windowthis.singleFeatureGroup) {
+									Windowthis.singleFeatureGroup.clearLayers();
 								}
 								//map.fitBounds(e.target.getBounds());
 								var center = e.target.getCenter(); //getLatLng()
 								map.flyTo([center.lat, center.lng], 14.5);
 								var newTarget = e.target;
 								newTarget.setStyle({
-									weight: 1.5,
+									weight: 2,
 									color: 'black',
 									dashArray: '',
 									fillOpacity: 0.4
@@ -146,10 +145,13 @@ L.widget.bindClass(L.widget.BaseWidget.extend({
 						});
 					}
 				});
-				if(Windowthis.FeaturesGroup) {
+				if (Windowthis.FeaturesGroup) {
 					Windowthis.FeaturesGroup.clearLayers();
 				}
-				if(Windowthis.ZhenLayer) {
+				if (Windowthis.singleFeatureGroup) {
+					Windowthis.singleFeatureGroup.clearLayers();
+				}
+				if (Windowthis.ZhenLayer) {
 					Windowthis.ZhenLayer.clearLayers();
 				}
 				resultJson.addTo(map);
@@ -159,13 +161,12 @@ L.widget.bindClass(L.widget.BaseWidget.extend({
 			}
 		});
 	},
-	showTBinfo: function(feature, TBLX, div1Obj, tableObj) {
-		var ddff = this;
+	showTBinfo: function (feature, TBLX, div1Obj, tableObj) {
 		debugger
 		var htmltable = "<div class='result1' style='width: 100%; overflow: auto; position: relative;float:right;margin-top:5px;margin-right:0px;margin-buttom:0px;margin-left:0'>" + "<table class='table table-bordered' style='text-align:center' >" + "<tr><td class='right'>图斑类型</td><td>" + TBLX + "</td></tr>" + "<tr><td class='right'>所在市</td><td>" + feature.SMC + "</td></tr>" + "<tr><td class='right'>区域</td><td id='Td6'>" + feature.XMC + feature.ZMC + "</td></tr>" + "<tr><td class='first right'>面积</td><td id='orbitnumb'>" + (feature.JCMJ / 666.666).toFixed(3) + "亩</td></tr>" + "<tr><td class='first right'>发现时间</td><td id='Td4'>" + feature.JCPC + "</td></tr>";
 		tableObj.html(htmltable);
 		var finalHtml = div1Obj.html();
-		if(this.infoindex != -1) {
+		if (this.infoindex != -1) {
 			layer.close(this.infoindex);
 		}
 		this.infoindex = layer.open({
@@ -177,17 +178,16 @@ L.widget.bindClass(L.widget.BaseWidget.extend({
 			shade: 0,
 			offset: 'rt',
 			content: finalHtml,
-			cancel: function(layero, index) {
+			cancel: function (layero, index) {
 				infoindex = -1;
 			}
 		});
 		//      $(".right").css('background-color', '#1B548D ');   #eff3f6
 		$(".right").css('font-weight', 'bold');
 	},
-
-	showHistory: function() {
+	showHistory: function () {
 		debugger
-		if(L.widget.isActivate('widgets/MultiMapCompare/MultiMapCompare.js?TBLX=other')) {
+		if (L.widget.isActivate('widgets/MultiMapCompare/MultiMapCompare.js?TBLX=other')) {
 			var widget = L.widget.getWidget('widgets/MultiMapCompare/MultiMapCompare.js?TBLX=other');
 			widget._class.activate();
 		} else {
@@ -200,9 +200,80 @@ L.widget.bindClass(L.widget.BaseWidget.extend({
 		}
 	},
 
-	getcolor: function(TBLX_index) {
+	//查询地图
+	queryMapByWhere: function (featurelayerurl, where) {
+		var lquery = L.esri.query({
+			url: featurelayerurl
+		});
+		debugger
+		lquery.where(where);
+		lquery.run(function (error, featureCollection, response) {
+			if (featureCollection != null) {
+				var resultJson = L.geoJSON(featureCollection, {
+					style: function (feature) {
+						return {
+							weight: 2.5,
+							color: 'white',
+							dashArray: '3',
+							fillOpacity: 0.2,
+							fillColor: 'gray'
+						};
+					}
+				});
+				if (Windowthis.ZhenLayer) {
+					Windowthis.ZhenLayer.clearLayers();
+				}
+				resultJson.addTo(map);
+				var showExtent = resultJson.getBounds();
+				map.fitBounds(showExtent, {
+					maxZoom: 16
+				});
+
+				if (Windowthis.FeaturesGroup) {
+					Windowthis.FeaturesGroup.bringToFront();
+				} //很关键。将featureGroup提到最前面
+
+				Windowthis.ZhenLayer = resultJson;
+			} else {
+				alert("未查到镇数据！")
+			};
+		});
+	},
+	queryMapByFeature: function (obj_id) {
+		var lquery = L.esri.query({
+			url: widgetThis.JCTBTurl
+		});
+		lquery.where("OBJECTID='" + obj_id + "'");
+
+		lquery.run(function (error, results, response) {
+			if (error) {
+				return;
+			} else {
+				var resultJson = L.geoJSON(results, {
+					style: function (feature) {
+						return {
+							weight: 1.5,
+							color: 'black',
+							dashArray: '',
+							fillOpacity: 0.3
+						};
+					}
+				});
+			}
+			if (Windowthis.singleFeatureGroup) {
+				Windowthis.singleFeatureGroup.clearLayers();
+			}
+			resultJson.addTo(map);
+			widgetThis.ZoomToGeometry(resultJson);   //缩放
+			if (Windowthis.FeaturesGroup) {
+				Windowthis.FeaturesGroup.bringToFront();
+			} //很关键。将featureGroup提到最前面
+			Windowthis.singleFeatureGroup = resultJson;
+		})
+	},
+	getcolor: function (TBLX_index) {
 		var color;
-		switch(TBLX_index) {
+		switch (TBLX_index) {
 			case "1":
 				color = 'black';
 				break;
@@ -236,89 +307,22 @@ L.widget.bindClass(L.widget.BaseWidget.extend({
 		}
 		return color;
 	},
-
-	//查询地图
-	queryMapByWhere: function(featurelayerurl, where, isadd, filterdatageojson) {
-		var lquery = L.esri.query({
-			url: featurelayerurl
-		});
-		debugger
-		lquery.where(where);
-		lquery.run(function(error, featureCollection, response) {
-			if(featureCollection != null) {
-				var resultJson = L.geoJSON(featureCollection, {
-					style: function(feature) {
-						return {
-							weight: 2.5,
-							color: 'white',
-							dashArray: '3',
-							fillOpacity: 0.2,
-							fillColor: 'gray'
-						};
-					}
-				});
-				if(Windowthis.ZhenLayer) {
-					Windowthis.ZhenLayer.clearLayers();
-				}
-				resultJson.addTo(map);
-				var showExtent = resultJson.getBounds();
-				map.fitBounds(showExtent, {
-					maxZoom: 16
-				});
-
-				if(Windowthis.FeaturesGroup) {
-					Windowthis.FeaturesGroup.bringToFront();
-				} //很关键。将featureGroup提到最前面
-
-				Windowthis.ZhenLayer = resultJson;
-			} else {
-				alert("未查到镇数据！")
-			};
-		});
-	},
-	queryMapByFeature: function(featurelayerurl, obj_id, isadd, filterdatageojson) {
-		debugger
-		var e;
-		var resultJson = L.geoJSON(Windowthis.ResultsCollection, {
-			onEachFeature: function(feature, layer) {
-				if(feature.properties.OBJECTID == obj_id) {
-					e = layer;
-					if(window.parent.flashFeature != null) {
-						Windowthis.FeaturesGroup.resetStyle(window.parent.flashFeature);
-					}
-					var newTarget = e;
-					newTarget.setStyle({
-						weight: 1.5,
-						color: 'black',
-						dashArray: '',
-						fillOpacity: 0.4
-					});
-					window.parent.flashFeature = newTarget;
-		var showExtent = newTarget.getBounds();
-		map.fitBounds(showExtent, {
-			maxZoom: 15
-		});
-				}
-			}
-		});
-
-	},
-	switchArray: function(arr, index1, index2) {
+	switchArray: function (arr, index1, index2) {
 		var $this = this;
 		var arrswitch = new Object();
 		arrswitch = arr;
 		var count = 0;
 		var zarrtobject = [];
-		for(i = 0; i < arrswitch.length; i++) {
+		for (i = 0; i < arrswitch.length; i++) {
 			try {
 				var temp = arrswitch[i][index2];
-				if(temp instanceof Array) {
+				if (temp instanceof Array) {
 
 					var rtemp = arrswitch[i];
-					for(j = 0; j < rtemp.length; j++) {
+					for (j = 0; j < rtemp.length; j++) {
 						zarrtobject[count] = [];
 						var dptemp = rtemp[j][0];
-						if(dptemp > rtemp[j][1]) {
+						if (dptemp > rtemp[j][1]) {
 							zarrtobject[count][index1] = rtemp[j][1];
 							zarrtobject[count][index2] = dptemp;
 						} else {
@@ -329,7 +333,7 @@ L.widget.bindClass(L.widget.BaseWidget.extend({
 					}
 
 				} else {
-					if(temp > arrswitch[i][index1]) {
+					if (temp > arrswitch[i][index1]) {
 						arrswitch[i][index1] = arrswitch[i][index1];
 						arrswitch[i][index2] = temp;
 					} else {
@@ -340,14 +344,14 @@ L.widget.bindClass(L.widget.BaseWidget.extend({
 					count++;
 				}
 
-			} catch(error) {
+			} catch (error) {
 
 			}
 		}
 		return zarrtobject;
 	},
-	ZoomToGeometry: function(geometry) {
-		if(geometry instanceof L.marker || geometry instanceof L.circle || geometry instanceof L.circleMarker) {
+	ZoomToGeometry: function (geometry) {
+		if (geometry instanceof L.marker || geometry instanceof L.circle || geometry instanceof L.circleMarker) {
 			map.setView(geometry.getLatLng(), map.getZoom());
 		} else {
 			var showExtent = geometry.getBounds().extend(2);

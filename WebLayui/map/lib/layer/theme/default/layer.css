@@ -354,9 +354,9 @@ html #layuicss-layer {
 }
 
 .layui-layer-title {
-    padding: 0 80px 0 15px;
-    height: 35px;
-    line-height: 35px;
+    padding: 0 80px 0 20px;
+    height: 42px;
+    line-height: 42px;
     border-bottom: 1px solid #eee;
     font-size: 14px;
     color: white;

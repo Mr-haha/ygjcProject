@@ -1,26 +1,26 @@
-//Ä£¿é£º
+//Ä£ï¿½é£º
 L.widget.bindClass(L.widget.BaseWidget.extend({
-    map: null, //¿ò¼Ü»á×Ô¶¯¶Ômap¸³Öµ
+    map: null, //ï¿½ï¿½Ü»ï¿½ï¿½Ô¶ï¿½ï¿½ï¿½mapï¿½ï¿½Öµ
     options: {
         resources: [
             'view.css',
         ],
-        //Ö±½ÓÌí¼Óµ½index
+        //Ö±ï¿½ï¿½ï¿½ï¿½ï¿½Óµï¿½index
         view: {
             type: "window",
             url: 'MultiMapCompare.html',
             windowOptions: {
-                width: document.body.clientWidth*5/6,  
+                width: document.body.clientWidth * 5 / 6,
                 //height: window.screen.availHeight * 2.15 / 6,
                 height: 300,
                 overflow: 'scroll',
-                position:'rb'
+                position: 'rb'
             }
         }
     },
     EventIsOK: false,
-    windowthis:null,
-    //³õÊ¼»¯[½öÖ´ÐÐ1´Î]
+    windowthis: null,
+    //ï¿½ï¿½Ê¼ï¿½ï¿½[ï¿½ï¿½Ö´ï¿½ï¿½1ï¿½ï¿½]
     create: function (viewopt) {
 
     },
@@ -29,8 +29,8 @@ L.widget.bindClass(L.widget.BaseWidget.extend({
         var dds = this;
         windowthis = result;
     },
-   
-    //¼¤»î²å¼þ
+
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     activate: function () {
         debugger
         var that = this;
@@ -46,8 +46,7 @@ L.widget.bindClass(L.widget.BaseWidget.extend({
             windowthis.multimaps[l].on("drag", this._mapEx_extentChangeHandler, this);
             windowthis.multimaps[l].on("zoomend", this._mapEx_extentChangeHandler, this);
             var geoLayer = windowthis.multimaps[l]["geoLayer"];
-            if (window.parent.flashFeature)
-            {
+            if (window.parent.flashFeature) {
                 var cords = window.parent.flashFeature.feature.geometry.coordinates;
                 var polygon = L.polygon(this.switchArray(cords, 0, 1));
                 debugger
@@ -65,7 +64,7 @@ L.widget.bindClass(L.widget.BaseWidget.extend({
         this.EventIsOK = true;
         this._map_extentChangeHandler();
     },
-    //ÊÍ·Å²å¼þ
+    //ï¿½Í·Å²ï¿½ï¿½
     disable: function () {
         debugger
         for (var l = 0; l < windowthis.multimaps.length; l++) {
@@ -73,12 +72,12 @@ L.widget.bindClass(L.widget.BaseWidget.extend({
             windowthis.multimaps[l].off("zoomend", this._mapEx_extentChangeHandler, this);
         }
         debugger
-        this.map.off("mousemove", this._map_extentMoveHandler, this);  //Çå³ýÖ÷µØÍ¼ÊÂ¼þ(YHC-20200410£¬ºÜÖØÒª)
+        this.map.off("mousemove", this._map_extentMoveHandler, this);  //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¼ï¿½Â¼ï¿½(YHC-20200410ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òª)
         this.map.off("drag", this._map_extentChangeHandler, this);
         this.map.off("zoomend", this._map_extentChangeHandler, this);
         this.EventIsOK = false;
     },
-    ///////Ö÷µØÍ¼Ëõ·ÅÓëÍÏ×§//////
+    ///////ï¿½ï¿½ï¿½ï¿½Í¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×§//////
     _map_extentChangeHandler: function (e) {
         if (this.EventIsOK) {
             this.map.stop();
@@ -88,13 +87,13 @@ L.widget.bindClass(L.widget.BaseWidget.extend({
             }
         }
     },
-    //////Ö÷µØÍ¼Êó±êÒÆ¶¯£¨²»µã»÷µØÍ¼£©//////
+    //////ï¿½ï¿½ï¿½ï¿½Í¼ï¿½ï¿½ï¿½ï¿½Æ¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¼ï¿½ï¿½//////
     _map_extentMoveHandler: function (e) {
         if (this.EventIsOK && e.latlng) {
-            for (var l = 0; l < windowthis.multimaps.length; l++) {               
+            for (var l = 0; l < windowthis.multimaps.length; l++) {
                 var _defaultlyr = windowthis.multimaps[l]["defaultlyr"];   //["defaultlyr"]
                 var marker = L.marker([e.latlng.lat, e.latlng.lng]);
-               
+
                 _defaultlyr.clearLayers();
                 _defaultlyr.addLayer(marker);
 
@@ -102,7 +101,7 @@ L.widget.bindClass(L.widget.BaseWidget.extend({
             }
         }
     },
-    ///////Ð¡µØÍ¼Ëõ·ÅÓëÍÏ×§///////
+    ///////Ð¡ï¿½ï¿½Í¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×§///////
     _mapEx_extentChangeHandler: function (e) {
         var center = e.target.getCenter();
         var zoom = e.target.getZoom();
@@ -116,93 +115,93 @@ L.widget.bindClass(L.widget.BaseWidget.extend({
         this.map.stop();
         this.map.setView(center, zoom);
     },
-        addgeometry: function (geometry, kname, r, g, b, defaultlyr) {
-            var geo = "";
-            if (geometry["paths"])
-                geo = thisfun.Getpolyline_fromarcgis(geometry);
-            else if (geometry["rings"])
-                geo = thisfun.Getpolygon_fromarcgis(geometry);
-            else if (geometry)
-                geo = thisfun.Getpoint_fromarcgis(geometry);
-            var gp = thisfun.setgeo(geo, kname, "", r, g, b, true, defaultlyr);
-            if (geometry["rings"]) {
-                gp.setStyle({
-                    fillOpacity: 0,
-                    dashArray: 3,
-                    weight: 3
-                });
-            } else if (geometry["paths"]) {
-                gp.setStyle({
-                    dashArray: 3,
-                    weight: 3
-                });
-            }
-            return gp;
-        },
-        switchArray: function (arr, index1, index2) {
-            var $this = this;
-            var arrswitch = new Object();
-            arrswitch = arr;
-            var count = 0;
-            var zarrtobject = [];
-            for (i = 0; i < arrswitch.length; i++) {
-                try {
-                    var temp = arrswitch[i][index2];
-                    if (temp instanceof Array) {
-
-                        var rtemp = arrswitch[i];
-                        for (j = 0; j < rtemp.length; j++) {
-                            zarrtobject[count] = [];
-                            var dptemp = rtemp[j][0];
-                            if (dptemp > rtemp[j][1]) {
-                                zarrtobject[count][index1] = rtemp[j][1];
-                                zarrtobject[count][index2] = dptemp;
-                            }
-                            else {
-                                zarrtobject[count][index1] = dptemp;
-                                zarrtobject[count][index2] = rtemp[j][1];
-                            }
-                            count++;
-                        }
-
-
-
-                    }
-                    else {
-                        var rtemp = arrswitch[i];
-                        for (j = 0; j < rtemp.length; j++) {
-                            zarrtobject[count] = [];
-                            var dptemp = rtemp[j][0];
-                            if (dptemp > rtemp[j][1]) {
-                                zarrtobject[count][index1] = rtemp[j][1];
-                                zarrtobject[count][index2] = dptemp;
-                            }
-                            else {
-                                zarrtobject[count][index1] = dptemp;
-                                zarrtobject[count][index2] = rtemp[j][1];
-                            }
-                            count++;
-                        }
-                    }
-                    //else {
-                    //    if (temp > arrswitch[i][index1]) {
-                    //        arrswitch[i][index1] = arrswitch[i][index1];
-                    //        arrswitch[i][index2] = temp;
-                    //    }
-                    //    else {
-                    //        arrswitch[i][index2] = arrswitch[i][index1];
-                    //        arrswitch[i][index1] = temp;
-                    //    }
-                    //    zarrtobject[count] = arrswitch[i];
-                    //    count++;
-                    //}
-
-
-                }
-                catch (error) {
-
-                }
-            }
-            return zarrtobject;
+    addgeometry: function (geometry, kname, r, g, b, defaultlyr) {
+        var geo = "";
+        if (geometry["paths"])
+            geo = thisfun.Getpolyline_fromarcgis(geometry);
+        else if (geometry["rings"])
+            geo = thisfun.Getpolygon_fromarcgis(geometry);
+        else if (geometry)
+            geo = thisfun.Getpoint_fromarcgis(geometry);
+        var gp = thisfun.setgeo(geo, kname, "", r, g, b, true, defaultlyr);
+        if (geometry["rings"]) {
+            gp.setStyle({
+                fillOpacity: 0,
+                dashArray: 3,
+                weight: 3
+            });
+        } else if (geometry["paths"]) {
+            gp.setStyle({
+                dashArray: 3,
+                weight: 3
+            });
         }
+        return gp;
+    },
+    switchArray: function (arr, index1, index2) {
+        var $this = this;
+        var arrswitch = new Object();
+        arrswitch = arr;
+        var count = 0;
+        var zarrtobject = [];
+        for (i = 0; i < arrswitch.length; i++) {
+            try {
+                var temp = arrswitch[i][index2];
+                if (temp instanceof Array) {
+
+                    var rtemp = arrswitch[i];
+                    for (j = 0; j < rtemp.length; j++) {
+                        zarrtobject[count] = [];
+                        var dptemp = rtemp[j][0];
+                        if (dptemp > rtemp[j][1]) {
+                            zarrtobject[count][index1] = rtemp[j][1];
+                            zarrtobject[count][index2] = dptemp;
+                        }
+                        else {
+                            zarrtobject[count][index1] = dptemp;
+                            zarrtobject[count][index2] = rtemp[j][1];
+                        }
+                        count++;
+                    }
+
+
+
+                }
+                else {
+                    var rtemp = arrswitch[i];
+                    for (j = 0; j < rtemp.length; j++) {
+                        zarrtobject[count] = [];
+                        var dptemp = rtemp[j][0];
+                        if (dptemp > rtemp[j][1]) {
+                            zarrtobject[count][index1] = rtemp[j][1];
+                            zarrtobject[count][index2] = dptemp;
+                        }
+                        else {
+                            zarrtobject[count][index1] = dptemp;
+                            zarrtobject[count][index2] = rtemp[j][1];
+                        }
+                        count++;
+                    }
+                }
+                //else {
+                //    if (temp > arrswitch[i][index1]) {
+                //        arrswitch[i][index1] = arrswitch[i][index1];
+                //        arrswitch[i][index2] = temp;
+                //    }
+                //    else {
+                //        arrswitch[i][index2] = arrswitch[i][index1];
+                //        arrswitch[i][index1] = temp;
+                //    }
+                //    zarrtobject[count] = arrswitch[i];
+                //    count++;
+                //}
+
+
+            }
+            catch (error) {
+
+            }
+        }
+        return zarrtobject;
+    }
 }));
